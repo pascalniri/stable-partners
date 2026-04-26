@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inquiry Received - Stable Partners</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #ffffff; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #000000;
+            -webkit-font-smoothing: antialiased;
+        }
+        .wrapper {
+            width: 100%;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .header {
+            border-bottom: 2px solid #000000;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+        }
+        .content h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+        .content p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 20px 0;
+            color: #404040;
+        }
+        .accent-box {
+            background-color: #f8f8f8;
+            border: 1px solid #e5e5e5;
+            padding: 30px;
+            margin: 40px 0;
+        }
+        .accent-box h2 {
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
+            margin: 0 0 12px 0;
+            color: #000000;
+        }
+        .footer {
+            margin-top: 60px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #a3a3a3;
+            border-top: 1px solid #eeeeee;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="logo">Stable Partners</div>
+            </div>
+            
+            <div class="content">
+                <h1>Request<br>Acknowledged.</h1>
+                <p>Hello <%= locals.name %>,</p>
+                <p>Thank you for initiating a consultation with Stable Partners. Your inquiry regarding property management and asset growth has been received by our management desk.</p>
+                
+                <div class="accent-box">
+                    <h2>Next Protocol</h2>
+                    <p style="margin: 0; font-size: 13px;">A dedicated consultant is currently reviewing your request. You will receive a direct response or a meeting invitation within 24 business hours.</p>
+                </div>
+
+                <p>If you have any immediate documentation to provide, please reply directly to this transmission.</p>
+                
+                <p>Best regards,<br><strong>Stable Partners Management</strong></p>
+            </div>
+
+            <div class="footer">
+                &copy; 2026 STABLE PARTNERS. ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

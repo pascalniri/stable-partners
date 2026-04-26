@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Lead - Stable Partners</title>
+    <style>
+        body { 
+            margin: 0; 
+            padding: 0; 
+            background-color: #000000; 
+            font-family: 'Inter', sans-serif;
+            color: #ffffff;
+        }
+        .wrapper {
+            width: 100%;
+            padding: 60px 20px;
+            box-sizing: border-box;
+        }
+        .container {
+            max-width: 520px;
+            margin: 0 auto;
+        }
+        .header {
+            border-bottom: 2px solid #ffffff;
+            padding-bottom: 20px;
+            margin-bottom: 40px;
+        }
+        .logo {
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.4em;
+            color: #6ABAE9;
+        }
+        .content h1 {
+            font-size: 32px;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+            margin: 0 0 24px 0;
+            text-transform: uppercase;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 40px 0;
+        }
+        .data-table td {
+            padding: 16px 0;
+            border-bottom: 1px solid #333333;
+            font-size: 13px;
+        }
+        .label {
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            font-weight: 700;
+            color: #a3a3a3;
+            width: 140px;
+        }
+        .value {
+            font-weight: 500;
+            color: #ffffff;
+        }
+        .footer {
+            margin-top: 60px;
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #666666;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <div class="header">
+                <div class="logo">System Alert</div>
+            </div>
+            
+            <div class="content">
+                <h1>New Inquiry<br>Captured.</h1>
+                
+                <table class="data-table">
+                    <tr>
+                        <td class="label">Name</td>
+                        <td class="value"><%= locals.name %></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Email</td>
+                        <td class="value"><%= locals.email %></td>
+                    </tr>
+                    <% if (locals.phone) { %>
+                    <tr>
+                        <td class="label">Phone</td>
+                        <td class="value"><%= locals.phone %></td>
+                    </tr>
+                    <% } %>
+                    <tr>
+                        <td class="label">Service</td>
+                        <td class="value"><%= locals.serviceType %></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Property</td>
+                        <td class="value"><%= locals.propertyName || 'General Inquiry' %></td>
+                    </tr>
+                    <tr>
+                        <td class="label">Description</td>
+                        <td class="value"><%= locals.description || 'No additional details provided.' %></td>
+                    </tr>
+                </table>
+
+                <p style="font-size: 14px; color: #a3a3a3;">Please initiate contact within the 24-hour protocol window.</p>
+            </div>
+
+            <div class="footer">
+                STABLE PARTNERS GROUP
+            </div>
+        </div>
+    </div>
+</body>
+</html>

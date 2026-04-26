@@ -1,0 +1,84 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum BookingStatus {
+  PENDING
+  CONFIRMED
+  COMPLETED
+  CANCELLED
+}
+
+model Booking {
+  id            String        @id @default(uuid())
+  customerName  String
+  customerEmail String
+  customerPhone String?
+  serviceType   String
+  description   String?
+  status        BookingStatus @default(PENDING)
+  meetingDate   DateTime?
+  meetingLink   String?
+  messages      Message[]
+  propertyId    String?
+  property      Property?     @relation(fields: [propertyId], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  bookingId String
+  booking   Booking  @relation(fields: [bookingId], references: [id])
+  sender    String   // 'ADMIN' or 'CUSTOMER'
+  content   String
+  createdAt DateTime @default(now())
+}
+
+model LandingPageContent {
+  id        String   @id @default(uuid())
+  section   String   @unique // e.g., 'HERO', 'SERVICES'
+  title     String
+  subtitle  String?
+  content   Json?    // For flexible content structure
+  imageUrl  String?
+  updatedAt DateTime @updatedAt
+}
+
+model Property {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+  location    String
+  price       Float?
+  bedrooms    Int?     @default(0)
+  bathrooms   Int?     @default(0)
+  images      String[] // URLs to images
+  videoUrl    String?  // URL to video
+  status      String   @default("MANAGED") // e.g., 'MANAGED', 'AVAILABLE', 'SOLD'
+  bookings    Booking[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
