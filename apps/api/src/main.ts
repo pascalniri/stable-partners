@@ -1,47 +1,57 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { apiReference } from '@scalar/nestjs-api-reference';
+import { ExpressAdapter } from '@nestjs/platform-express';
+import express from 'express';
 
-async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+let cachedApp: INestApplication;
+const server = express();
 
-  // Enable CORS
-  app.enableCors();
+export async function bootstrap(expressInstance = server) {
+  if (!cachedApp) {
+    const app = await NestFactory.create(
+      AppModule,
+      new ExpressAdapter(expressInstance),
+    );
 
-  // Global Prefix
-  app.setGlobalPrefix('api');
+    app.enableCors();
+    app.setGlobalPrefix('api');
+    app.useGlobalPipes(
+      new ValidationPipe({
+        whitelist: true,
+        transform: true,
+        forbidNonWhitelisted: true,
+      }),
+    );
 
-  // Validation
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      transform: true,
-      forbidNonWhitelisted: true,
-    }),
-  );
+    const config = new DocumentBuilder()
+      .setTitle('Stable Partners API')
+      .setDescription('The Stable Partners Property Management Consultancy API')
+      .setVersion('1.0')
+      .addTag('stable-partners')
+      .build();
 
-  // Swagger Configuration
-  const config = new DocumentBuilder()
-    .setTitle('Stable Partners API')
-    .setDescription('The Stable Partners Property Management Consultancy API')
-    .setVersion('1.0')
-    .addTag('stable-partners')
-    .build();
+    const document = SwaggerModule.createDocument(app, config);
+    app.use('/docs', apiReference({ content: document }));
 
-  const document = SwaggerModule.createDocument(app, config);
-
-  // Scalar Reference
-  app.use(
-    '/docs',
-    apiReference({
-      content: document,
-    }),
-  );
-
-  await app.listen(process.env.PORT ?? 3001);
-  console.log(`Application is running on: http://localhost:3001/api`);
-  console.log(`Documentation is available on: http://localhost:3001/docs`);
+    await app.init();
+    cachedApp = app;
+  }
+  return cachedApp;
 }
-bootstrap();
+
+// For local development
+if (process.env.NODE_ENV !== 'production') {
+  bootstrap().then(async (app) => {
+    await app.listen(process.env.PORT ?? 3001);
+    console.log(`🚀 API running on: http://localhost:3001/api`);
+  });
+}
+
+// For Vercel Serverless
+export default async (req: any, res: any) => {
+  await bootstrap(server);
+  server(req, res);
+};
