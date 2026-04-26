@@ -41,7 +41,11 @@ export async function bootstrap(expressInstance = server) {
       .build();
 
     const document = SwaggerModule.createDocument(app, config);
-    app.use('/docs', apiReference({ content: document }));
+    
+    // Only enable documentation in non-production environments to avoid ESM/CJS conflicts on Vercel
+    if (process.env.NODE_ENV !== 'production') {
+      app.use('/docs', apiReference({ content: document }));
+    }
 
     await app.init();
     cachedApp = app;
