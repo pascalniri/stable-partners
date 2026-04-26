@@ -16,7 +16,14 @@ export async function bootstrap(expressInstance = server) {
       new ExpressAdapter(expressInstance),
     );
 
-    app.enableCors();
+    app.enableCors({
+      origin: [
+        'http://localhost:3000',
+        'https://stable-partners-api.vercel.app',
+        /\.vercel\.app$/, // Allow all vercel subdomains
+      ],
+      credentials: true,
+    });
     app.setGlobalPrefix('api');
     app.useGlobalPipes(
       new ValidationPipe({
