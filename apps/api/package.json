@@ -18,7 +18,8 @@
     "test:watch": "jest --watch",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "postinstall": "prisma generate"
   },
   "prisma": {
     "seed": "tsx prisma/seed.ts"
@@ -35,7 +36,8 @@
     "@prisma/adapter-pg": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@scalar/nestjs-api-reference": "^1.1.10",
-    "bcrypt": "^6.0.0",
+    "@types/bcryptjs": "^2.4.6",
+    "bcryptjs": "^3.0.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.15.1",
     "cloudinary": "^2.10.0",
@@ -57,7 +59,6 @@
     "@nestjs/testing": "^11.0.1",
     "@swc/cli": "^0.8.1",
     "@swc/core": "^1.15.30",
-    "@types/bcrypt": "^6.0.0",
     "@types/ejs": "^3.1.5",
     "@types/express": "^5.0.0",
     "@types/jest": "^30.0.0",
