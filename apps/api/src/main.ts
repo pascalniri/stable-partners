@@ -2,7 +2,6 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, INestApplication } from '@nestjs/common';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { apiReference } from '@scalar/nestjs-api-reference';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import express from 'express';
 
@@ -44,6 +43,7 @@ export async function bootstrap(expressInstance = server) {
     
     // Only enable documentation in non-production environments to avoid ESM/CJS conflicts on Vercel
     if (process.env.NODE_ENV !== 'production') {
+      const { apiReference } = await import('@scalar/nestjs-api-reference');
       app.use('/docs', apiReference({ content: document }));
     }
 
