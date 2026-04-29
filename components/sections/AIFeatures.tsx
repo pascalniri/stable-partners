@@ -52,7 +52,7 @@ export default function ManagementServices() {
           {/* Section Header Card */}
           <div className="md:col-span-2 lg:col-span-3 p-12 md:p-20 border-b border-[#0a0a0a]/10">
             <div className="max-w-2xl">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#6ABAE9] font-bold mb-6 block">Our Methodology</span>
+              <span className="text-[10px] uppercase tracking-[0.4em] text-[#2292ce] font-bold mb-6 block">Our Methodology</span>
               <h2 className="text-md font-semibold text-[#0a0a0a] mb-8 tracking-tight leading-none">
                 Radical Transparency. <br /> Clinical Precision.
               </h2>
@@ -75,7 +75,7 @@ export default function ManagementServices() {
                 index >= services.length - 3 ? 'lg:border-b-0' : ''
               }`}
             >
-              <div className="text-[10px] font-bold text-[#6ABAE9] mb-8 uppercase tracking-[0.2em]">0{service.id} / Service</div>
+              <div className="text-[10px] font-bold text-[#2292ce] mb-8 uppercase tracking-[0.2em]">0{service.id} / Service</div>
               
               <div className="w-10 h-10 text-[#0a0a0a] mb-8 group-hover:scale-110 transition-transform duration-500">
                 <service.icon size={32} strokeWidth={1.5} />
@@ -89,7 +89,7 @@ export default function ManagementServices() {
               <div className="pt-6 border-t border-[#0a0a0a]/5">
                 <button className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] flex items-center gap-4 group/btn">
                   Explore Parameters
-                  <span className="text-[#6ABAE9] group-hover:translate-x-2 transition-transform">→</span>
+                  <span className="text-[#2292ce] group-hover:translate-x-2 transition-transform">→</span>
                 </button>
               </div>
             </motion.div>

@@ -17,14 +17,14 @@ export default function Portfolio() {
   return (
     <section
       id="portfolio"
-      className="py-0 bg-white border-b border-[#0a0a0a]/10"
+      className="py-0 bg-white"
     >
       <div className="container px-0 md:px-6">
         <div className="grid grid-cols-1 border-x border-[#0a0a0a]/10">
           {/* Header */}
           <div className="p-12 md:p-20 border-b border-[#0a0a0a]/10">
             <div className="max-w-2xl">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#6ABAE9] font-bold mb-6 block">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-[#2292ce] font-bold mb-6 block">
                 Current Portfolio
               </span>
               <h2 className="text-md font-semibold text-[#0a0a0a] mb-8 tracking-tight leading-none">
@@ -82,7 +82,7 @@ export default function Portfolio() {
 
                       {/* Info Overlay */}
                       <div className="absolute inset-0 bg-white/0 group-hover:bg-white/95 transition-all duration-500 flex flex-col justify-end p-8 md:p-12 opacity-0 group-hover:opacity-100">
-                        <span className="text-[10px] font-bold text-[#6ABAE9] mb-4 uppercase tracking-[0.2em]">
+                        <span className="text-[10px] font-bold text-[#2292ce] mb-4 uppercase tracking-[0.2em]">
                           {prop.id} / {prop.type}
                         </span>
                         <h3 className="text-xl font-bold text-[#0a0a0a] mb-2 uppercase tracking-tight line-clamp-2">
@@ -95,7 +95,7 @@ export default function Portfolio() {
                         <div className="mt-8 pt-6 border-t border-[#0a0a0a]/10">
                           <div className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] flex items-center gap-4 group/btn">
                             View Details
-                            <span className="text-[#6ABAE9] group-hover:translate-x-2 transition-transform">
+                            <span className="text-[#2292ce] group-hover:translate-x-2 transition-transform">
                               →
                             </span>
                           </div>

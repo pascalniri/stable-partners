@@ -9,7 +9,7 @@ import { Search, Star } from "lucide-react";
 export default function Hero() {
   return (
     <section id="home" className="pt-20 pb-0 overflow-hidden bg-white relative">
-      <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-[#6ABAE9]/20 to-white pointer-events-none"></div>
+      <div className="absolute top-0 left-0 right-0 h-[600px] bg-gradient-to-b from-[#2292ce]/10 to-white pointer-events-none"></div>
 
       <div className="container relative z-10 px-0 md:px-6">
         <div className="grid grid-cols-1 lg:grid-cols-12 border-x border-[#0a0a0a]/10">
@@ -21,7 +21,7 @@ export default function Hero() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <span className="text-[10px] uppercase tracking-[0.3em] text-[#6ABAE9] font-bold mb-6 block">Expert Property Management</span>
+              <span className="text-[10px] uppercase tracking-[0.3em] text-[#2292ce] font-bold mb-6 block">Expert Property Management</span>
               <h1 className="text-[42px] md:text-[64px] font-bold leading-[1.1] tracking-[-0.03em] text-[#0a0a0a] max-w-2xl">
                 We Manage Your Properties. <br /> You Reclaim Your Time.
               </h1>

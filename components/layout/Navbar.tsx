@@ -6,6 +6,7 @@ import Link from "next/link";
 import { BookingDrawer } from "../drawers/BookingDrawer";
 import { AdminLoginDrawer } from "../drawers/AdminLoginDrawer";
 import { useAuth } from "../../hooks/useAuth";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -28,32 +29,26 @@ export default function Navbar() {
     >
       <div className="container flex items-center justify-between bg-white">
         <div className="flex items-center gap-2 group cursor-pointer">
-          <div className="w-8 h-8 bg-black flex items-center justify-center text-white font-bold text-xl">
-            S
-          </div>
-          <span className="text-sm font-bold tracking-[0.2em] text-[#0a0a0a] uppercase">
-            STABLE PARTNERS
-          </span>
+         <Image src="/stable-partners-group - logo.png" alt="Stable Partners Group Logo" width={200} height={200} />
         </div>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-12">
           <Link
             href="#"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#6ABAE9] transition-colors"
+            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
           >
             Home
           </Link>
-
           <Link
             href="#services"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#6ABAE9] transition-colors"
+            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
           >
             Expertise
           </Link>
           <Link
             href="#portfolio"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#6ABAE9] transition-colors"
+            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
           >
             Portfolio
           </Link>
@@ -62,7 +57,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4">
           {mounted && isAuthenticated ? (
             <Link href="/dashboard">
-              <button className="text-[10px] font-bold text-[#6ABAE9] uppercase tracking-[0.2em] px-6 py-3 border border-[#6ABAE9]/20 bg-[#6ABAE9]/5 hover:bg-[#6ABAE9]/10 transition-colors">
+              <button className="text-[10px] font-bold text-[#2292ce] uppercase tracking-[0.2em] px-6 py-3 border border-[#2292ce]/20 bg-[#2292ce]/5 hover:bg-[#2292ce]/10 transition-colors">
                 Continue to Dashboard
               </button>
             </Link>
@@ -74,7 +69,7 @@ export default function Navbar() {
             </AdminLoginDrawer>
           )}
           <BookingDrawer>
-            <button className="bg-[#6ABAE9] text-white px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#5aa9d8] transition-colors">
+            <button className="bg-[#f7c20e] text-[#0a0a0a] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#e5b30d] transition-colors shadow-lg shadow-yellow-500/10">
               Book a Session
             </button>
           </BookingDrawer>
@@ -110,7 +105,7 @@ export default function Navbar() {
           <div className="flex flex-col gap-4 mt-4">
             {mounted && isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="w-full text-[10px] font-bold text-[#6ABAE9] uppercase tracking-[0.2em] py-4 border border-[#6ABAE9]/10 bg-[#6ABAE9]/5">
+                <button className="w-full text-[10px] font-bold text-[#2292ce] uppercase tracking-[0.2em] py-4 border border-[#2292ce]/10 bg-[#2292ce]/5">
                   Management Terminal
                 </button>
               </Link>
@@ -122,7 +117,7 @@ export default function Navbar() {
               </AdminLoginDrawer>
             )}
             <BookingDrawer>
-              <button className="w-full bg-[#6ABAE9] text-white py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
+              <button className="w-full bg-[#f7c20e] text-[#0a0a0a] py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
                 Book a Session
               </button>
             </BookingDrawer>

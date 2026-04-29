@@ -10,11 +10,15 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          DEFAULT: "var(--primary)",
-          glow: "var(--primary-glow)",
+          DEFAULT: "#2292ce",
+          glow: "rgba(34, 146, 206, 0.2)",
         },
-        secondary: "var(--secondary)",
-        accent: "var(--accent)",
+        brand: {
+          blue: "#2292ce",
+          yellow: "#f7c20e",
+        },
+        secondary: "#f7c20e",
+        accent: "#f7c20e",
         background: "var(--background)",
         foreground: "var(--foreground)",
         card: {

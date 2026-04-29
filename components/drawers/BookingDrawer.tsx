@@ -43,7 +43,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
           <div className="flex-1 overflow-y-auto p-8 md:p-20">
             <div className="max-w-2xl mx-auto">
               <div className="mb-16">
-                <span className="text-[10px] uppercase tracking-[0.4em] text-[#6ABAE9] font-bold mb-6 block">Contact Terminal</span>
+                <span className="text-[10px] uppercase tracking-[0.4em] text-[#2292ce] font-bold mb-6 block">Contact Terminal</span>
                 <h2 className="text-md font-semibold text-[#0a0a0a]">
                   {propertyName ? `Inquiry: ${propertyName}` : "Book a Consultation."}
                 </h2>
@@ -56,7 +56,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
               </div>
 
               {success ? (
-                <div className="py-20 text-center border border-[#6ABAE9] bg-[#6ABAE9]/5">
+                <div className="py-20 text-center border border-[#2292ce] bg-[#2292ce]/5">
                   <h3 className="text-xl font-bold text-[#0a0a0a] mb-4 uppercase tracking-tight">Inquiry Received.</h3>
                   <p className="text-[#737373] text-sm">Our desk will contact you shortly.</p>
                 </div>
@@ -79,7 +79,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
                         {...register("customerName")}
                         type="text" 
                         placeholder="Alexander Hamilton"
-                        className={`w-full bg-transparent border ${errors.customerName ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors placeholder:text-[#a3a3a3]`}
+                        className={`w-full bg-transparent border ${errors.customerName ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-xs font-medium outline-none focus:border-[#2292ce] transition-colors placeholder:text-[#a3a3a3]`}
                       />
                     </div>
                     <div className="space-y-4">
@@ -91,7 +91,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
                         {...register("customerEmail")}
                         type="email" 
                         placeholder="hamilton@stablepartners.com"
-                        className={`w-full bg-transparent border ${errors.customerEmail ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors placeholder:text-[#a3a3a3]`}
+                        className={`w-full bg-transparent border ${errors.customerEmail ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-xs font-medium outline-none focus:border-[#2292ce] transition-colors placeholder:text-[#a3a3a3]`}
                       />
                     </div>
                     <div className="space-y-4">
@@ -102,7 +102,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
                         {...register("customerPhone")}
                         type="tel" 
                         placeholder="+1 (234) 567-890"
-                        className={`w-full bg-transparent border border-[#0a0a0a]/10 p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors placeholder:text-[#a3a3a3]`}
+                        className={`w-full bg-transparent border border-[#0a0a0a]/10 p-4 text-xs font-medium outline-none focus:border-[#2292ce] transition-colors placeholder:text-[#a3a3a3]`}
                       />
                     </div>
                   </div>
@@ -112,7 +112,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
                     <label className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-widest">Service Level</label>
                     <select 
                       {...register("serviceType")}
-                      className="w-full bg-transparent border border-[#0a0a0a]/10 p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors appearance-none cursor-pointer"
+                      className="w-full bg-transparent border border-[#0a0a0a]/10 p-4 text-xs font-medium outline-none focus:border-[#2292ce] transition-colors appearance-none cursor-pointer"
                     >
                       <option value="Full Management Protocol">Full Management Protocol</option>
                       <option value="Residential Leasing Inquiry">Residential Leasing Inquiry</option>
@@ -134,7 +134,7 @@ export function BookingDrawer({ children, propertyId, propertyName }: BookingDra
                       {...register("description")}
                       rows={4}
                       placeholder="Briefly describe your requirements or goals..."
-                      className={`w-full bg-transparent border ${errors.description ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-sm font-medium outline-none focus:border-[#6ABAE9] transition-colors resize-none placeholder:text-[#a3a3a3]`}
+                      className={`w-full bg-transparent border ${errors.description ? 'border-red-500' : 'border-[#0a0a0a]/10'} p-4 text-sm font-medium outline-none focus:border-[#2292ce] transition-colors resize-none placeholder:text-[#a3a3a3]`}
                     />
                     {errors.description && <span className="text-[9px] text-red-500 font-bold uppercase tracking-tighter">{errors.description.message}</span>}
                   </div>
