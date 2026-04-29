@@ -2,17 +2,16 @@
   "name": "stable-paterners",
   "private": true,
   "scripts": {
-    "build": "turbo run build",
-    "dev": "turbo run dev",
-    "lint": "turbo run lint",
+    "build": "npm run build --workspaces --if-present",
+    "dev": "npm run dev --workspaces --parallel",
+    "lint": "npm run lint --workspaces --if-present",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "check-types": "turbo run check-types"
+    "check-types": "npm run check-types --workspaces --if-present"
   },
   "devDependencies": {
     "@swc/cli": "^0.8.1",
     "@swc/core": "^1.15.30",
     "prettier": "^3.7.4",
-    "turbo": "^2.9.6",
     "typescript": "5.9.2"
   },
   "engines": {
