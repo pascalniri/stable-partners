@@ -63,6 +63,15 @@ if (process.env.NODE_ENV !== 'production') {
 
 // For Vercel Serverless
 export default async (req: any, res: any) => {
-  await bootstrap(server);
-  server(req, res);
+  try {
+    await bootstrap(server);
+    server(req, res);
+  } catch (error) {
+    console.error('❌ CRITICAL: Bootstrap failed', error);
+    res.status(500).json({
+      statusCode: 500,
+      message: 'Internal Server Error',
+      error: process.env.NODE_ENV !== 'production' ? error.message : 'Application bootstrap failed',
+    });
+  }
 };
