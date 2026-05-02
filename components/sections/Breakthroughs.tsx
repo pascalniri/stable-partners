@@ -33,7 +33,7 @@ export default function Breakthroughs() {
           <h2 className="text-4xl md:text-6xl font-bold mb-6 tracking-tight">
             Data-Driven Supply <br /> Chain Breakthroughs
           </h2>
-          <p className="text-slate-500 max-w-[600px] mx-auto text-lg">
+          <p className="text-slate-500 max-w-[600px] mx-auto text-md">
             Our platform delivers measurable results that impact your bottom
             line.
           </p>
@@ -58,7 +58,7 @@ export default function Breakthroughs() {
               <p className="text-6xl md:text-7xl font-bold text-slate-900 mb-6 tracking-tighter">
                 {item.value}
               </p>
-              <p className="text-slate-500 text-lg leading-relaxed max-w-[200px]">
+              <p className="text-slate-500 text-md leading-relaxed max-w-[200px]">
                 {item.desc}
               </p>
             </motion.div>

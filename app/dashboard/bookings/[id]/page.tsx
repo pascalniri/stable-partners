@@ -57,84 +57,138 @@ export default function BookingDetailPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F8F8F8] text-[#0a0a0a] font-sans">
-      <div className="container mx-auto px-8 py-12">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+      <div className="container mx-auto px-6 py-12">
         {/* Navigation */}
         <Link 
           href="/dashboard" 
-          className="inline-flex items-center gap-3 text-[10px] font-bold uppercase tracking-[0.3em] text-[#737373] hover:text-[#0a0a0a] transition-colors mb-12"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-all mb-10 group"
         >
-          <ArrowLeft size={14} /> Back to Bookings
+          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> 
+          Back to Bookings
         </Link>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
           {/* Left: Lead Details */}
           <div className="lg:col-span-2 space-y-8">
-            <div className="bg-white border border-[#0a0a0a]/5 p-12 shadow-sm">
-              <div className="flex justify-between items-start mb-12">
+            <div className="bg-white rounded-2xl border border-slate-100 p-8 md:p-12 shadow-sm">
+              <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-12">
                 <div>
-                  <span className="text-[10px] uppercase tracking-[0.4em] text-[#6ABAE9] font-bold mb-4 block">Inquiry Profile</span>
-                  <h1 className="text-3xl font-semibold tracking-tight">{booking.customerName}</h1>
+                  <span className="text-[10px] uppercase tracking-[0.4em] text-blue-600 font-bold mb-3 block">Inquiry Profile</span>
+                  <h1 className="text-3xl font-bold text-slate-900">{booking.customerName}</h1>
                 </div>
-                <div className={`px-4 py-2 text-[9px] font-bold uppercase tracking-widest border ${
-                  booking.status === "PENDING" ? "border-orange-200 text-orange-600 bg-orange-50" : "border-emerald-200 text-emerald-600 bg-emerald-50"
+                <div className={`px-4 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
+                  booking.status === "PENDING" 
+                    ? "border-orange-100 text-orange-600 bg-orange-50/50" 
+                    : "border-emerald-100 text-emerald-600 bg-emerald-50/50"
                 }`}>
-                  {booking.status}
+                  {booking.status === "PENDING" ? "● Pending Review" : "● Processed"}
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
                 <div className="space-y-2">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-[#a3a3a3] font-bold">Electronic Mail</span>
-                  <div className="text-sm font-medium flex items-center gap-2">
-                    <Mail size={14} className="text-[#6ABAE9]" /> {booking.customerEmail}
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-[#a3a3a3] font-bold">Service Parameter</span>
-                  <div className="text-sm font-medium flex items-center gap-2">
-                    <ShieldCheck size={14} className="text-[#6ABAE9]" /> {booking.serviceType}
+                  <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Email Address</span>
+                  <div className="text-sm font-semibold flex items-center gap-2.5 text-slate-700">
+                    <div className="w-8 h-8 rounded-[5px] bg-blue-50 flex items-center justify-center text-blue-600">
+                      <Mail size={14} />
+                    </div>
+                    {booking.customerEmail}
                   </div>
                 </div>
                 {booking.customerPhone && (
                   <div className="space-y-2">
-                    <span className="text-[9px] uppercase tracking-[0.2em] text-[#a3a3a3] font-bold">Direct Contact Protocol</span>
-                    <div className="text-sm font-medium flex items-center gap-2">
-                      <MessageSquare size={14} className="text-[#6ABAE9]" /> {booking.customerPhone}
+                    <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Contact Number</span>
+                    <div className="text-sm font-semibold flex items-center gap-2.5 text-slate-700">
+                      <div className="w-8 h-8 rounded-[5px] bg-blue-50 flex items-center justify-center text-blue-600">
+                        <MessageSquare size={14} />
+                      </div>
+                      {booking.customerPhone}
                     </div>
                   </div>
                 )}
+                <div className="space-y-2">
+                  <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Inquiry Type</span>
+                  <div className="text-sm font-semibold flex items-center gap-2.5 text-slate-700">
+                    <div className="w-8 h-8 rounded-[5px] bg-blue-50 flex items-center justify-center text-blue-600">
+                      <ShieldCheck size={14} />
+                    </div>
+                    {booking.serviceType}
+                  </div>
+                </div>
               </div>
 
-              <div className="space-y-4 pt-12 border-t border-[#0a0a0a]/5">
-                <span className="text-[9px] uppercase tracking-[0.2em] text-[#a3a3a3] font-bold">Lead Narrative</span>
-                <p className="text-md text-[#404040] leading-relaxed italic bg-slate-50 p-8 border-l-2 border-[#6ABAE9]">
-                  "{booking.description || "No additional context provided by lead."}"
-                </p>
+              {/* Assessment Protocol Data */}
+              <div className="bg-slate-50/50 rounded-2xl p-8 border border-slate-100 mb-12">
+                <span className="text-[10px] uppercase tracking-[0.3em] text-blue-600 font-bold mb-8 block">Asset Assessment Data</span>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Property Type</span>
+                      <p className="text-sm font-bold text-slate-700">{booking.propertyType || "N/A"}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Location</span>
+                      <p className="text-sm font-bold text-slate-700">{booking.propertyLocation || "N/A"}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Units/Rooms</span>
+                      <p className="text-sm font-bold text-slate-700">{booking.unitsRooms || "N/A"}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Occupancy</span>
+                      <p className="text-sm font-bold text-slate-700">{booking.occupancyStatus || "N/A"}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Monthly Income</span>
+                      <p className="text-sm font-bold text-blue-600">{booking.estimatedIncome || "N/A"}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Main Challenge</span>
+                      <p className="text-sm font-bold text-slate-700 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">{booking.mainChallenge || "N/A"}</p>
+                    </div>
+                    <div>
+                      <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold block mb-1">Main Goal</span>
+                      <p className="text-sm font-bold text-slate-700 bg-white px-3 py-1.5 rounded border border-slate-200 inline-block">{booking.mainGoal || "N/A"}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-4 pt-10 border-t border-slate-50">
+                <span className="text-[10px] uppercase tracking-widest text-slate-400 font-bold">Additional Narrative</span>
+                <div className="relative">
+                  <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-600 rounded-full" />
+                  <p className="text-base text-slate-600 leading-relaxed italic bg-slate-50/50 p-8 pl-10 rounded-r-xl border-l-0 border border-slate-100">
+                    "{booking.additionalInfo || booking.description || "No additional context provided by lead."}"
+                  </p>
+                </div>
               </div>
 
               {linkedProperty && (
-                <div className="mt-12 pt-12 border-t border-[#0a0a0a]/5">
-                  <span className="text-[9px] uppercase tracking-[0.2em] text-[#6ABAE9] font-bold mb-6 block">Linked Portfolio Asset</span>
-                  <div className="flex gap-8 bg-slate-50/50 p-6 border border-[#0a0a0a]/5 group hover:bg-white transition-all duration-500">
-                    <div className="w-24 h-24 relative flex-shrink-0 overflow-hidden border border-[#0a0a0a]/10">
+                <div className="mt-12 pt-12 border-t border-slate-50">
+                  <span className="text-[10px] uppercase tracking-[0.3em] text-blue-600 font-bold mb-6 block">Linked Portfolio Asset</span>
+                  <div className="flex flex-col sm:flex-row gap-6 bg-slate-50/50 p-6 rounded-2xl border border-slate-100 group hover:bg-white hover:shadow-md transition-all duration-300">
+                    <div className="w-full sm:w-32 h-32 relative flex-shrink-0 overflow-hidden rounded-xl">
                       <img 
                         src={linkedProperty.images[0] || ""} 
                         alt={linkedProperty.title}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
                       />
                     </div>
                     <div className="flex-1 flex flex-col justify-center">
-                      <h4 className="text-[12px] font-bold uppercase tracking-tight text-[#0a0a0a] mb-1">{linkedProperty.title}</h4>
-                      <p className="text-[10px] text-[#737373] uppercase tracking-widest flex items-center gap-2">
-                        <LinkIcon size={10} /> {linkedProperty.location}
+                      <h4 className="text-base font-bold text-slate-900 mb-1">{linkedProperty.title}</h4>
+                      <p className="text-xs text-slate-500 uppercase tracking-widest flex items-center gap-2">
+                        <LinkIcon size={12} className="text-slate-400" /> {linkedProperty.location}
                       </p>
-                      <div className="mt-3 flex gap-4">
-                        <span className="text-[9px] font-bold text-[#6ABAE9] uppercase tracking-tighter bg-[#6ABAE9]/5 px-2 py-0.5">
-                          {linkedProperty.bedrooms} Beds
+                      <div className="mt-4 flex gap-3">
+                        <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
+                          {linkedProperty.bedrooms} Bedrooms
                         </span>
-                        <span className="text-[9px] font-bold text-[#6ABAE9] uppercase tracking-tighter bg-[#6ABAE9]/5 px-2 py-0.5">
-                          {linkedProperty.bathrooms} Baths
+                        <span className="text-[10px] font-bold text-blue-600 uppercase tracking-widest bg-blue-50 px-3 py-1 rounded-full">
+                          {linkedProperty.bathrooms} Bathrooms
                         </span>
                       </div>
                     </div>
@@ -146,16 +200,16 @@ export default function BookingDetailPage() {
 
           {/* Right: Response Protocol */}
           <div className="space-y-8">
-            <div className="bg-white border border-[#0a0a0a]/5 p-12 shadow-sm sticky top-12">
-              <span className="text-[10px] uppercase tracking-[0.4em] text-[#6ABAE9] font-bold mb-8 block">Reply</span>
+            <div className="bg-white rounded-2xl border border-slate-100 p-8 md:p-10 shadow-sm sticky top-24">
+              <span className="text-[10px] uppercase tracking-[0.4em] text-blue-600 font-bold mb-8 block text-center">Reply Protocol</span>
               
               {isSuccess ? (
                 <div className="py-12 text-center">
-                  <div className="w-12 h-12 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <Send size={24} />
+                  <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/10">
+                    <Send size={28} />
                   </div>
-                  <h2 className="text-sm font-bold uppercase tracking-[0.2em] mb-2">Transmission Successful.</h2>
-                  <p className="text-[10px] text-[#737373] uppercase tracking-widest">Redirecting to Terminal...</p>
+                  <h2 className="text-base font-bold text-slate-900 mb-2">Transmission Successful</h2>
+                  <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">Redirecting to Terminal...</p>
                 </div>
               ) : (
                 <form 
@@ -163,24 +217,24 @@ export default function BookingDetailPage() {
                     e.preventDefault();
                     replyToBooking(booking.id, { scheduledDate, meetingLink, message });
                   }} 
-                  className="space-y-8"
+                  className="space-y-6"
                 >
-                  <div className="space-y-4">
-                    <label className="text-[9px] font-bold text-[#0a0a0a] uppercase tracking-widest flex items-center gap-2">
-                      <Calendar size={12} /> Schedule Date
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                      <Calendar size={14} className="text-blue-600" /> Schedule Assessment
                     </label>
                     <input 
                       required
                       type="datetime-local" 
                       value={scheduledDate}
                       onChange={(e) => setScheduledDate(e.target.value)}
-                      className="w-full bg-slate-50 border border-[#0a0a0a]/5 p-4 text-[11px] font-bold uppercase tracking-widest outline-none focus:border-[#6ABAE9] transition-colors"
+                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-xs font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
                     />
                   </div>
 
-                  <div className="space-y-4">
-                    <label className="text-[9px] font-bold text-[#0a0a0a] uppercase tracking-widest flex items-center gap-2">
-                      <LinkIcon size={12} /> Virtual Link
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                      <LinkIcon size={14} className="text-blue-600" /> Virtual Meeting Link
                     </label>
                     <input 
                       required
@@ -188,21 +242,21 @@ export default function BookingDetailPage() {
                       placeholder="https://meet.google.com/..."
                       value={meetingLink}
                       onChange={(e) => setMeetingLink(e.target.value)}
-                      className="w-full bg-slate-50 border border-[#0a0a0a]/5 p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors"
+                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder:text-slate-400"
                     />
                   </div>
 
-                  <div className="space-y-4">
-                    <label className="text-[9px] font-bold text-[#0a0a0a] uppercase tracking-widest flex items-center gap-2">
-                      <MessageSquare size={12} /> Communication
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                      <MessageSquare size={14} className="text-blue-600" /> Message to Client
                     </label>
                     <textarea 
                       required
                       rows={4}
-                      placeholder="Personalized message to lead..."
+                      placeholder="Enter personalized message..."
                       value={message}
                       onChange={(e) => setMessage(e.target.value)}
-                      className="w-full bg-slate-50 border border-[#0a0a0a]/5 p-4 text-xs font-medium outline-none focus:border-[#6ABAE9] transition-colors resize-none"
+                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all resize-none placeholder:text-slate-400"
                     />
                   </div>
 
@@ -210,9 +264,9 @@ export default function BookingDetailPage() {
                     <button 
                       disabled={isSubmitting}
                       type="submit" 
-                      className="w-full bg-[#0a0a0a] text-white py-4 text-[11px] font-bold tracking-[0.4em] uppercase hover:bg-slate-800 transition-colors disabled:bg-slate-400 flex items-center justify-center gap-3"
+                      className="group w-full bg-blue-600 text-white py-4 text-xs font-bold tracking-[0.2em] uppercase rounded hover:bg-blue-700 active:scale-[0.98] transition-all disabled:bg-slate-300 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
                     >
-                      {isSubmitting ? "Processing..." : <>Initiate Response <Send size={14} /></>}
+                      {isSubmitting ? "Processing..." : <>Send Response <Send size={15} /></>}
                     </button>
                   </div>
                 </form>

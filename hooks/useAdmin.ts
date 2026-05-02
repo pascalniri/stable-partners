@@ -9,6 +9,17 @@ export interface Booking {
   customerName: string;
   customerEmail: string;
   customerPhone?: string;
+  
+  // Property Assessment Fields
+  propertyType?: string;
+  propertyLocation?: string;
+  unitsRooms?: string;
+  occupancyStatus?: string;
+  estimatedIncome?: string;
+  mainChallenge?: string;
+  mainGoal?: string;
+  additionalInfo?: string;
+
   serviceType: string;
   description?: string;
   status: "PENDING" | "REPLIED" | "COMPLETED" | "CANCELLED";

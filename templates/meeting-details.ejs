@@ -1,111 +1,136 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meeting Confirmation - Stable Partners</title>
     <style>
         body { 
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
-            color: #0a0a0a; 
-            line-height: 1.5; 
             margin: 0; 
-            padding: 0;
-            background-color: #f8f8f8;
+            padding: 0; 
+            background-color: #F8FAFC; 
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            color: #1E293B;
+            -webkit-font-smoothing: antialiased;
         }
         .wrapper {
-            background-color: #f8f8f8;
+            width: 100%;
             padding: 40px 20px;
+            box-sizing: border-box;
         }
-        .container { 
-            max-width: 500px; 
-            margin: 0 auto; 
-            background: #ffffff;
-            border: 1px solid #e5e5e5;
-            padding: 60px;
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #2563EB;
+            padding: 32px 40px;
+            text-align: center;
         }
         .logo {
-            background: #0a0a0a;
+            font-size: 16px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.3em;
             color: #ffffff;
-            width: 32px;
-            height: 32px;
-            text-align: center;
-            line-height: 32px;
-            font-weight: bold;
-            font-size: 18px;
-            margin-bottom: 40px;
         }
-        h1 { 
-            font-size: 24px; 
-            font-weight: 800; 
-            text-transform: uppercase; 
-            letter-spacing: -0.02em;
-            margin: 0 0 40px 0;
-            line-height: 1;
+        .content {
+            padding: 40px;
+        }
+        .content h1 {
+            font-size: 24px;
+            font-weight: 800;
+            line-height: 1.2;
+            margin: 0 0 24px 0;
+            color: #0F172A;
+            text-align: center;
+        }
+        .content p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin: 0 0 24px 0;
+            color: #475569;
+        }
+        .info-card {
+            background-color: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
         }
         .label {
-            font-size: 10px;
-            font-weight: bold;
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #737373;
-            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+            color: #94A3B8;
+            margin-bottom: 4px;
             display: block;
         }
         .value {
             font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 32px;
+            font-weight: 600;
+            color: #1E293B;
+            margin-bottom: 16px;
         }
-        p { margin: 0 0 24px 0; font-size: 14px; }
-        .button { 
-            display: block; 
-            padding: 16px; 
-            background: #0a0a0a; 
-            color: #ffffff !important; 
-            text-decoration: none; 
+        .value:last-child {
+            margin-bottom: 0;
+        }
+        .button {
+            display: block;
+            background-color: #2563EB;
+            color: #ffffff !important;
+            padding: 16px 24px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 32px;
+        }
+        .footer {
+            padding: 24px;
             text-align: center;
             font-size: 11px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.3em;
-            margin-top: 40px;
+            color: #94A3B8;
+            background-color: #F8FAFC;
+            border-top: 1px solid #E2E8F0;
         }
-        .footer { 
-            margin-top: 60px; 
-            padding-top: 32px;
-            border-top: 1px solid #f0f0f0;
-            font-size: 10px; 
-            color: #a3a3a3; 
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-        }
-        .highlight { color: #6ABAE9; font-weight: bold; }
     </style>
 </head>
 <body>
     <div class="wrapper">
         <div class="container">
-            <div class="logo">S</div>
-            <h1>Session Confirmation</h1>
+            <div class="header">
+                <div class="logo">Stable Partners</div>
+            </div>
             
-            <p>Hello <%= locals.name %>,</p>
-            <p>Your expertise session with <span class="highlight">Stable Partners Group</span> has been officially confirmed and integrated into our protocol.</p>
-            
-            <div style="margin-top: 40px;">
-                <span class="label">Scheduled Timestamp</span>
-                <div class="value"><%= locals.date %></div>
+            <div class="content">
+                <h1>Session Confirmed</h1>
+                <p>Hello <%= locals.name %>,</p>
+                <p>Your strategy session with Stable Partners Group has been officially scheduled. We look forward to discussing your portfolio performance.</p>
                 
-                <span class="label">Access Link</span>
-                <div class="value" style="word-break: break-all;"><%= locals.link %></div>
+                <div class="info-card">
+                    <span class="label">Date & Time</span>
+                    <div class="value"><%= locals.date %></div>
+                    
+                    <span class="label">Meeting Link</span>
+                    <div class="value" style="word-break: break-all; color: #2563EB;"><%= locals.link %></div>
+                </div>
+
+                <a href="<%= locals.link %>" class="button">Join Google Meet</a>
+
+                <p style="margin-top: 32px; font-size: 13px; text-align: center;">
+                    Please ensure you are in a quiet environment with a stable connection.
+                </p>
             </div>
 
-            <a href="<%= locals.link %>" class="button">Join Google Meet</a>
-
-            <p style="margin-top: 40px; font-size: 12px; color: #737373;">
-                We look forward to optimizing your property portfolio performance.
-            </p>
-
             <div class="footer">
-                &copy; 2026 STABLE PARTNERS GROUP
+                &copy; 2026 Stable Partners Group. All rights reserved.
             </div>
         </div>
     </div>

@@ -4,19 +4,20 @@
 
 @layer base {
   :root {
-    --primary: #2292ce;
+    --primary: #4f46e5;
     --primary-foreground: #ffffff;
     --background: #ffffff;
-    --foreground: #111827;
-    --border: #e5e7eb;
-    --radius: 1rem;
-    --brand-blue: #2292ce;
-    --brand-yellow: #f7c20e;
+    --foreground: #0f172a;
+    --border: #e2e8f0;
+    --radius: 1.5rem;
+    --brand-blue: #3b82f6;
+    --brand-dark-blue: #1e3a8a;
+    --brand-light-blue: #eff6ff;
   }
 
   body {
     @apply bg-background text-foreground antialiased;
-    font-family: var(--font-bricolage), sans-serif;
+    font-family: var(--font-outfit), sans-serif;
     max-width: 100vw;
     overflow-x: hidden;
     scroll-behavior: smooth;

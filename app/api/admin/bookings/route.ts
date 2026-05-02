@@ -12,8 +12,12 @@ export async function GET() {
       orderBy: { createdAt: 'desc' },
     });
     return NextResponse.json(bookings);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Error fetching admin bookings:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    return NextResponse.json({ 
+      error: 'Internal Server Error', 
+      message: error.message,
+      code: error.code
+    }, { status: 500 });
   }
 }

@@ -7,7 +7,7 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
+  provider = "postgresql"
 }
 
 enum UserRole {
@@ -37,6 +37,17 @@ model Booking {
   customerName  String
   customerEmail String
   customerPhone String?
+  
+  // Detailed Property Assessment Fields
+  propertyType     String?
+  propertyLocation String?
+  unitsRooms       String?
+  occupancyStatus  String?
+  estimatedIncome  String?
+  mainChallenge    String?
+  mainGoal         String?
+  additionalInfo   String?
+  
   serviceType   String
   description   String?
   status        BookingStatus @default(PENDING)

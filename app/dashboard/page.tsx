@@ -27,46 +27,46 @@ export default function DashboardPage() {
   if (!isAuthenticated) return null;
   const router = useRouter();
   return (
-    <div className="min-h-screen bg-[#F8F8F8] text-[#0a0a0a] font-sans selection:bg-[#6ABAE9] selection:text-white">
-      {/* Sidebar / Header Nav */}
-      <header className="bg-white border-b border-[#0a0a0a]/5 sticky top-0 z-50">
-        <div className="container mx-auto px-8 h-20 flex items-center justify-between">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+      {/* Header Nav */}
+      <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-10">
           <div
             onClick={() => router.push("/")}
-            className="flex items-center gap-4 cursor-pointer"
+            className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-8 h-8 bg-black flex items-center justify-center text-white font-bold text-lg">
+            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
               S
             </div>
             <div>
-              <h1 className="text-[11px] font-bold uppercase tracking-[0.4em]">
+              <h1 className="text-sm font-bold uppercase tracking-widest text-slate-900">
                 Admin Dashboard
               </h1>
-              <p className="text-[10px] text-[#737373] uppercase tracking-[0.2em] mt-1">
+              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
                 Stable Partners Group
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-12 ml-20">
+          <div className="hidden md:flex items-center gap-10">
             <Link
               href="/dashboard"
-              className="text-[10px] font-bold uppercase tracking-[0.3em] border-b-2 border-black pb-1"
+              className="text-xs font-bold uppercase tracking-widest text-blue-600 border-b-2 border-blue-600 pb-1"
             >
               Bookings
             </Link>
             <Link
               href="/dashboard/properties"
-              className="text-[10px] font-bold uppercase tracking-[0.3em] text-[#a3a3a3] hover:text-[#0a0a0a] transition-colors pb-1"
+              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors pb-1"
             >
               Managed Assets
             </Link>
           </div>
 
-          <div className="flex items-center gap-8 ml-auto">
+          <div className="flex items-center gap-6 ml-auto">
             <button
               onClick={() => refresh()}
-              className="p-2 text-[#a3a3a3] hover:text-[#0a0a0a] transition-colors"
+              className="p-2.5 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
               title="Refresh Data"
             >
               <RefreshCcw
@@ -76,39 +76,64 @@ export default function DashboardPage() {
             </button>
             <button
               onClick={logout}
-              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-red-500 hover:text-red-600 transition-colors"
+              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition-all"
             >
-              <LogOut size={14} />
-              Logout
+              <LogOut size={16} />
+              <span className="hidden sm:inline">Logout</span>
             </button>
           </div>
         </div>
       </header>
 
-      <main className="container mx-auto px-8 py-12">
+      <main className="container mx-auto px-6 py-12">
+        {/* Page Title */}
+        <div className="mb-10">
+          <h2 className="text-3xl font-bold text-slate-900">Inquiry Overview</h2>
+          <p className="text-slate-500 mt-1">Monitor and manage property performance assessments.</p>
+        </div>
+
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white p-8 border border-[#0a0a0a]/5 shadow-sm">
-            <span className="text-[10px] font-bold text-[#737373] uppercase tracking-[0.3em] mb-4 block">
-              Total Captured
-            </span>
-            <div className="text-4xl font-light tracking-tighter">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                Total Captured
+              </span>
+              <div className="w-8 h-8 bg-slate-50 rounded-full flex items-center justify-center text-slate-400">
+                <RefreshCcw size={14} />
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-slate-900">
               {bookings.length}
             </div>
+            <p className="text-xs text-slate-400 mt-2 font-medium">Updated just now</p>
           </div>
-          <div className="bg-white p-8 border border-[#0a0a0a]/5 shadow-sm">
-            <span className="text-[10px] font-bold text-[#737373] uppercase tracking-[0.3em] mb-4 block">
-              Pending Review
-            </span>
-            <div className="text-4xl font-light tracking-tighter text-[#6ABAE9]">
+          
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                Pending Review
+              </span>
+              <div className="w-8 h-8 bg-orange-50 rounded-full flex items-center justify-center text-orange-500">
+                <RefreshCcw size={14} />
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-blue-600">
               {bookings.filter((b) => b.status === "PENDING").length}
             </div>
+            <p className="text-xs text-orange-500 mt-2 font-medium">Requires attention</p>
           </div>
-          <div className="bg-white p-8 border border-[#0a0a0a]/5 shadow-sm">
-            <span className="text-[10px] font-bold text-[#737373] uppercase tracking-[0.3em] mb-4 block">
-              Action Rate
-            </span>
-            <div className="text-4xl font-light tracking-tighter">
+
+          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+            <div className="flex items-center justify-between mb-4">
+              <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
+                Action Rate
+              </span>
+              <div className="w-8 h-8 bg-emerald-50 rounded-full flex items-center justify-center text-emerald-500">
+                <RefreshCcw size={14} />
+              </div>
+            </div>
+            <div className="text-4xl font-bold text-slate-900">
               {bookings.length > 0
                 ? Math.round(
                     (bookings.filter((b) => b.status !== "PENDING").length /
@@ -118,47 +143,48 @@ export default function DashboardPage() {
                 : 0}
               %
             </div>
+            <p className="text-xs text-emerald-500 mt-2 font-medium">System performance</p>
           </div>
         </div>
 
         {/* Bookings Table */}
-        <div className="bg-white border border-[#0a0a0a]/5 shadow-sm overflow-hidden">
-          <div className="p-8 border-b border-[#0a0a0a]/5 flex justify-between items-center">
-            <h2 className="text-sm font-bold uppercase tracking-[0.3em]">
+        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+          <div className="px-8 py-6 border-b border-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            <h3 className="text-lg font-bold text-slate-900">
               Active Inquiries
-            </h2>
-            <div className="text-[10px] text-[#a3a3a3] font-mono tracking-widest uppercase">
-              System Sync: {new Date().toLocaleTimeString()}
+            </h3>
+            <div className="text-[10px] text-slate-400 font-mono tracking-widest uppercase bg-slate-50 px-3 py-1 rounded-full">
+              Sync: {new Date().toLocaleTimeString()}
             </div>
           </div>
 
           <div className="overflow-x-auto">
             <table className="w-full text-left border-collapse">
               <thead>
-                <tr className="bg-[#fafafa]">
-                  <th className="p-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737373] border-b border-[#0a0a0a]/5">
+                <tr className="bg-slate-50/50">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Timestamp
                   </th>
-                  <th className="p-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737373] border-b border-[#0a0a0a]/5">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Identity
                   </th>
-                  <th className="p-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737373] border-b border-[#0a0a0a]/5">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Service Parameter
                   </th>
-                  <th className="p-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737373] border-b border-[#0a0a0a]/5">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Status
                   </th>
-                  <th className="p-6 text-[10px] font-bold uppercase tracking-[0.2em] text-[#737373] border-b border-[#0a0a0a]/5">
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Actions
                   </th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#0a0a0a]/5">
+              <tbody className="divide-y divide-slate-50">
                 {isLoading && bookings.length === 0 ? (
                   <tr>
                     <td
                       colSpan={5}
-                      className="p-20 text-center text-[11px] uppercase tracking-widest text-[#a3a3a3]"
+                      className="p-20 text-center text-sm font-medium text-slate-400"
                     >
                       Initializing Data Stream...
                     </td>
@@ -167,56 +193,56 @@ export default function DashboardPage() {
                   <tr>
                     <td
                       colSpan={5}
-                      className="p-20 text-center text-[11px] uppercase tracking-widest text-[#a3a3a3]"
+                      className="p-20 text-center text-sm font-medium text-slate-400"
                     >
-                      No active inquiries detected in protocol.
+                      No active inquiries detected in system.
                     </td>
                   </tr>
                 ) : (
                   bookings.map((booking) => (
                     <tr
                       key={booking.id}
-                      className="hover:bg-[#fcfcfc] transition-colors group"
+                      className="hover:bg-slate-50/30 transition-colors group"
                     >
-                      <td className="p-6">
-                        <div className="text-[11px] font-medium text-[#737373]">
+                      <td className="px-8 py-6">
+                        <div className="text-xs font-semibold text-slate-900">
                           {new Date(booking.createdAt).toLocaleDateString()}
                         </div>
-                        <div className="text-[9px] font-mono text-[#a3a3a3] mt-1 uppercase">
+                        <div className="text-[10px] font-medium text-slate-400 mt-1 uppercase">
                           {new Date(booking.createdAt).toLocaleTimeString()}
                         </div>
                       </td>
-                      <td className="p-6">
+                      <td className="px-8 py-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-[#737373]">
-                            <User size={14} />
+                          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                            <User size={18} />
                           </div>
                           <div>
-                            <div className="text-[12px] font-bold uppercase tracking-tight">
+                            <div className="text-xs font-bold text-slate-900 uppercase tracking-tight">
                               {booking.customerName}
                             </div>
-                            <div className="text-[11px] text-[#737373] flex items-center gap-1">
-                              <Mail size={10} /> {booking.customerEmail}
+                            <div className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
+                              <Mail size={12} className="text-slate-400" /> {booking.customerEmail}
                             </div>
                           </div>
                         </div>
                       </td>
-                      <td className="p-6">
-                        <span className="text-[10px] px-2 py-1 bg-slate-100 text-[#737373] font-bold uppercase tracking-widest rounded-sm">
+                      <td className="px-8 py-6">
+                        <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-slate-100 text-slate-600 uppercase tracking-widest">
                           {booking.serviceType}
                         </span>
                         {booking.description && (
-                          <p className="text-[11px] text-[#737373] mt-2 line-clamp-1 max-w-xs italic">
+                          <p className="text-[11px] text-slate-500 mt-2 line-clamp-1 max-w-xs italic">
                             "{booking.description}"
                           </p>
                         )}
                       </td>
-                      <td className="p-6">
+                      <td className="px-8 py-6">
                         <div className="flex items-center gap-2">
                           <div
                             className={`w-1.5 h-1.5 rounded-full ${
                               booking.status === "PENDING"
-                                ? "bg-orange-400"
+                                ? "bg-orange-400 animate-pulse"
                                 : "bg-emerald-400"
                             }`}
                           />
@@ -231,21 +257,21 @@ export default function DashboardPage() {
                           </span>
                         </div>
                       </td>
-                      <td className="p-6">
+                      <td className="px-8 py-6">
                         <div className="flex items-center gap-4">
                           {booking.status === "PENDING" ? (
                             <Link
                               href={`/dashboard/bookings/${booking.id}`}
-                              className="text-[10px] font-bold uppercase tracking-widest text-[#6ABAE9] hover:text-[#5aa9d8] transition-colors flex items-center gap-2"
+                              className="px-4 py-2 bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2"
                             >
-                              Process Inquiry <ExternalLink size={12} />
+                              Process <ExternalLink size={12} />
                             </Link>
                           ) : (
                             <Link
                               href={`/dashboard/bookings/${booking.id}`}
-                              className="flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-[#a3a3a3] hover:text-[#0a0a0a] transition-colors"
+                              className="px-4 py-2 bg-slate-50 text-slate-400 text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-slate-900 hover:text-white transition-all flex items-center gap-2"
                             >
-                              Review Details <Calendar size={12} />
+                              Review <Calendar size={12} />
                             </Link>
                           )}
                         </div>

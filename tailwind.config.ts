@@ -33,8 +33,8 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-bricolage)", "Inter", "sans-serif"],
-        heading: ["var(--font-bricolage)", "Outfit", "sans-serif"],
+        sans: ["var(--font-outfit)", "Inter", "sans-serif"],
+        heading: ["var(--font-outfit)", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",

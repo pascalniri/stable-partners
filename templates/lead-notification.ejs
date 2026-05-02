@@ -3,71 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Lead - Stable Partners</title>
+    <title>New Lead Captured - Stable Partners</title>
     <style>
         body { 
             margin: 0; 
             padding: 0; 
-            background-color: #000000; 
+            background-color: #F8FAFC; 
             font-family: 'Inter', sans-serif;
-            color: #ffffff;
+            color: #1E293B;
         }
         .wrapper {
             width: 100%;
-            padding: 60px 20px;
+            padding: 40px 20px;
             box-sizing: border-box;
         }
         .container {
-            max-width: 520px;
+            max-width: 600px;
             margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         .header {
-            border-bottom: 2px solid #ffffff;
-            padding-bottom: 20px;
-            margin-bottom: 40px;
+            background-color: #0F172A;
+            padding: 24px 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
         .logo {
             font-size: 14px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.4em;
-            color: #6ABAE9;
+            letter-spacing: 0.3em;
+            color: #ffffff;
+        }
+        .badge {
+            background-color: #2563EB;
+            color: #ffffff;
+            padding: 4px 12px;
+            border-radius: 99px;
+            font-size: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .content {
+            padding: 40px;
         }
         .content h1 {
-            font-size: 32px;
+            font-size: 24px;
             font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.02em;
-            margin: 0 0 24px 0;
+            margin: 0 0 8px 0;
+            color: #0F172A;
+        }
+        .content p {
+            font-size: 14px;
+            color: #64748B;
+            margin: 0 0 32px 0;
+        }
+        .data-section {
+            margin-bottom: 32px;
+        }
+        .section-title {
+            font-size: 11px;
+            font-weight: 700;
             text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: #94A3B8;
+            border-bottom: 1px solid #E2E8F0;
+            padding-bottom: 8px;
+            margin-bottom: 16px;
         }
         .data-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 40px 0;
         }
         .data-table td {
-            padding: 16px 0;
-            border-bottom: 1px solid #333333;
-            font-size: 13px;
+            padding: 12px 0;
+            border-bottom: 1px solid #F1F5F9;
+            vertical-align: top;
         }
         .label {
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            font-weight: 700;
-            color: #a3a3a3;
-            width: 140px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #64748B;
+            width: 180px;
         }
         .value {
+            font-size: 13px;
             font-weight: 500;
-            color: #ffffff;
+            color: #1E293B;
         }
         .footer {
-            margin-top: 60px;
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.2em;
-            color: #666666;
+            background-color: #F8FAFC;
+            padding: 24px;
+            text-align: center;
+            font-size: 11px;
+            color: #94A3B8;
+            border-top: 1px solid #E2E8F0;
         }
     </style>
 </head>
@@ -75,46 +109,83 @@
     <div class="wrapper">
         <div class="container">
             <div class="header">
-                <div class="logo">System Alert</div>
+                <div class="logo">Stable Partners</div>
+                <div class="badge">New Lead</div>
             </div>
             
             <div class="content">
-                <h1>New Inquiry<br>Captured.</h1>
+                <h1>Property Assessment Lead</h1>
+                <p>A new performance assessment request has been captured through the platform.</p>
                 
-                <table class="data-table">
-                    <tr>
-                        <td class="label">Name</td>
-                        <td class="value"><%= locals.name %></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Email</td>
-                        <td class="value"><%= locals.email %></td>
-                    </tr>
-                    <% if (locals.phone) { %>
-                    <tr>
-                        <td class="label">Phone</td>
-                        <td class="value"><%= locals.phone %></td>
-                    </tr>
-                    <% } %>
-                    <tr>
-                        <td class="label">Service</td>
-                        <td class="value"><%= locals.serviceType %></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Property</td>
-                        <td class="value"><%= locals.propertyName || 'General Inquiry' %></td>
-                    </tr>
-                    <tr>
-                        <td class="label">Description</td>
-                        <td class="value"><%= locals.description || 'No additional details provided.' %></td>
-                    </tr>
-                </table>
+                <div class="data-section">
+                    <div class="section-title">Contact Information</div>
+                    <table class="data-table">
+                        <tr>
+                            <td class="label">Customer Name</td>
+                            <td class="value"><%= locals.name %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Email Address</td>
+                            <td class="value"><%= locals.email %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Phone Number</td>
+                            <td class="value"><%= locals.phone || 'Not provided' %></td>
+                        </tr>
+                    </table>
+                </div>
 
-                <p style="font-size: 14px; color: #a3a3a3;">Please initiate contact within the 24-hour protocol window.</p>
+                <div class="data-section">
+                    <div class="section-title">Property Asset Details</div>
+                    <table class="data-table">
+                        <tr>
+                            <td class="label">Property Type</td>
+                            <td class="value"><%= locals.propertyType || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Location</td>
+                            <td class="value"><%= locals.propertyLocation || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Units / Rooms</td>
+                            <td class="value"><%= locals.unitsRooms || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Occupancy Status</td>
+                            <td class="value"><%= locals.occupancyStatus || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Est. Monthly Income</td>
+                            <td class="value"><%= locals.estimatedIncome || 'Not specified' %></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="data-section">
+                    <div class="section-title">Goals & Challenges</div>
+                    <table class="data-table">
+                        <tr>
+                            <td class="label">Main Challenge</td>
+                            <td class="value"><%= locals.mainChallenge || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Primary Goal</td>
+                            <td class="value"><%= locals.mainGoal || 'Not specified' %></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Additional Info</td>
+                            <td class="value"><%= locals.additionalInfo || 'None provided' %></td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p style="font-size: 13px; color: #2563EB; font-weight: 600; margin-top: 32px;">
+                    Protocol: Please initiate follow-up within 24 hours.
+                </p>
             </div>
 
             <div class="footer">
-                STABLE PARTNERS GROUP
+                INTERNAL SYSTEM NOTIFICATION &bull; STABLE PARTNERS GROUP
             </div>
         </div>
     </div>

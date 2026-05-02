@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
+import { Google_Sans } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import Script from "next/script";
 
-const bricolage = Bricolage_Grotesque({
+const outfit = Google_Sans({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-bricolage",
+  variable: "--font-outfit",
 });
 
 export const metadata: Metadata = {
@@ -55,8 +55,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={bricolage.variable}>
-      <body className={bricolage.className}>
+    <html lang="en" className={outfit.variable}>
+      <body className={outfit.className}>
         <Script 
           src="https://upload-widget.cloudinary.com/global/all.js" 
           strategy="beforeInteractive" 

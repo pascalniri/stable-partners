@@ -1,107 +1,34 @@
 "use client";
 
 import React from "react";
-import { Twitter, Linkedin, Github, Mail, Box } from "lucide-react";
-
-import { AdminLoginDrawer } from "../drawers/AdminLoginDrawer";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-white border-t border-[#0a0a0a]/10 py-0">
-      <div className="container px-0 md:px-6">
-        {/* ... (grid content remains the same) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-x border-[#0a0a0a]/10">
-          <div className="p-10 border-b md:border-r border-[#0a0a0a]/10 flex flex-col gap-8">
-            <div className="flex items-center gap-2 group cursor-pointer">
-              <Image
-                src="/stable-partners-group - logo.png"
-                alt="Stable Partners Group Logo"
-                width={200}
-                height={200}
-              />
-            </div>
-            <p className="text-[#737373] text-[12px] leading-relaxed max-w-xs">
-              Boutique property management for the high-value asset owner.
-              Reclaiming time through radical transparency.
-            </p>
-          </div>
-
-          <div className="p-10 border-b lg:border-r border-[#0a0a0a]/10">
-            <h4 className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.3em] mb-8">
-              Expertise
-            </h4>
-            <ul className="flex flex-col gap-4 text-[11px] font-medium text-[#737373]">
-              {["Strategy", "Operations", "Compliance", "Growth"].map(
-                (item) => (
-                  <li key={item}>
-                    <a
-                      href="#"
-                      className="hover:text-[#2292ce] transition-colors"
-                    >
-                      {item}
-                    </a>
-                  </li>
-                ),
-              )}
-            </ul>
-          </div>
-
-          <div className="p-10 border-b md:border-r border-[#0a0a0a]/10">
-            <h4 className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.3em] mb-8">
-              Journal
-            </h4>
-            <ul className="flex flex-col gap-4 text-[11px] font-medium text-[#737373]">
-              {[
-                "Market Insights",
-                "Legal Updates",
-                "Asset Reports",
-                "Methodology",
-              ].map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="hover:text-[#6ABAE9] transition-colors"
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="p-10 border-b border-[#0a0a0a]/10">
-            <h4 className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.3em] mb-8">
-              Pulse
-            </h4>
-            <div className="flex gap-6">
-              {[Twitter, Linkedin, Github, Mail].map((Icon, i) => (
-                <a
-                  key={i}
-                  href="#"
-                  className="text-[#a3a3a3] hover:text-[#0a0a0a] transition-all duration-300"
-                >
-                  <Icon size={18} />
-                </a>
-              ))}
-            </div>
-          </div>
+    <footer className="bg-white py-12 border-t border-slate-100">
+      <div className="container flex flex-col items-center justify-center gap-6">
+        <div className="flex items-center gap-2">
+          <Image
+            src="/stable-partners-group - logo.png"
+            alt="Stable Partners Group Logo"
+            width={180}
+            height={60}
+            className="h-auto w-auto max-w-[200px]"
+          />
         </div>
-
-        <div className="border-x border-b border-[#0a0a0a]/10 p-6 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-[#a3a3a3] uppercase tracking-[0.2em]">
-          <p>&copy; 2026 Stable Partners.</p>
-          <div className="flex gap-12">
-            <a href="#" className="hover:text-[#0a0a0a]">
-              Terms
-            </a>
-            <a href="#" className="hover:text-[#0a0a0a]">
-              Privacy
-            </a>
-            <AdminLoginDrawer>
-              <button className="hover:text-[#2292ce] transition-colors cursor-pointer">
-                Admin Portal
-              </button>
-            </AdminLoginDrawer>
+        
+        <div className="flex flex-col items-center gap-2">
+          <p className="text-[11px] font-bold text-slate-400 uppercase tracking-[0.2em]">
+            &copy; {new Date().getFullYear()} Stable Partners Group. All rights reserved.
+          </p>
+          <div className="flex gap-6">
+            <Link href="#" className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em] hover:text-blue-600 transition-colors">
+              Terms of Service
+            </Link>
+            <Link href="#" className="text-[10px] font-bold text-slate-400 uppercase tracking-[0.1em] hover:text-blue-600 transition-colors">
+              Privacy Policy
+            </Link>
           </div>
         </div>
       </div>

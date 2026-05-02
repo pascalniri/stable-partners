@@ -36,43 +36,44 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-12">
           <Link
             href="#"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
+            className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-blue-600 transition-colors"
           >
             Home
           </Link>
           <Link
-            href="#services"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
+            href="#how-it-works"
+            className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-blue-600 transition-colors"
           >
-            Expertise
+            How it works
           </Link>
           <Link
-            href="#portfolio"
-            className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] hover:text-[#2292ce] transition-colors"
+            href="#registration-form"
+            className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-blue-600 transition-colors"
           >
-            Portfolio
+            Assessment
           </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
           {mounted && isAuthenticated ? (
             <Link href="/dashboard">
-              <button className="text-[10px] font-bold text-[#2292ce] uppercase tracking-[0.2em] px-6 py-3 border border-[#2292ce]/20 bg-[#2292ce]/5 hover:bg-[#2292ce]/10 transition-colors">
-                Continue to Dashboard
+              <button className="text-[11px] font-bold text-blue-600 uppercase tracking-[0.2em] px-6 py-3 border border-blue-600/20 bg-blue-50 hover:bg-blue-100 transition-all rounded">
+                Dashboard
               </button>
             </Link>
           ) : (
             <AdminLoginDrawer>
-              <button className="text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] px-6 py-3 border border-[#0a0a0a]/10 hover:bg-slate-50 transition-colors">
-                Admin Login
+              <button className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em] px-6 py-3 border border-slate-200 hover:bg-slate-50 transition-all rounded">
+                Admin
               </button>
             </AdminLoginDrawer>
           )}
-          <BookingDrawer>
-            <button className="bg-[#f7c20e] text-[#0a0a0a] px-8 py-3 text-[10px] font-bold uppercase tracking-[0.2em] hover:bg-[#e5b30d] transition-colors shadow-lg shadow-yellow-500/10">
-              Book a Session
-            </button>
-          </BookingDrawer>
+          <button 
+            onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' })}
+            className="bg-blue-600 text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 rounded"
+          >
+            Free Assessment
+          </button>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -105,22 +106,26 @@ export default function Navbar() {
           <div className="flex flex-col gap-4 mt-4">
             {mounted && isAuthenticated ? (
               <Link href="/dashboard">
-                <button className="w-full text-[10px] font-bold text-[#2292ce] uppercase tracking-[0.2em] py-4 border border-[#2292ce]/10 bg-[#2292ce]/5">
-                  Management Terminal
+                <button className="w-full text-[11px] font-bold text-blue-600 uppercase tracking-[0.2em] py-4 border border-blue-600/10 bg-blue-50 rounded">
+                  Dashboard
                 </button>
               </Link>
             ) : (
               <AdminLoginDrawer>
-                <button className="w-full text-[10px] font-bold text-[#0a0a0a] uppercase tracking-[0.2em] py-4 border border-[#0a0a0a]/10">
+                <button className="w-full text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em] py-4 border border-slate-200 rounded">
                   Admin Login
                 </button>
               </AdminLoginDrawer>
             )}
-            <BookingDrawer>
-              <button className="w-full bg-[#f7c20e] text-[#0a0a0a] py-4 text-[10px] font-bold uppercase tracking-[0.2em]">
-                Book a Session
-              </button>
-            </BookingDrawer>
+            <button 
+              onClick={() => {
+                document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth' });
+                setIsMobileMenuOpen(false);
+              }}
+              className="w-full bg-blue-600 text-white py-4 text-[11px] font-bold uppercase tracking-[0.2em] rounded"
+            >
+              Free Assessment
+            </button>
           </div>
         </div>
       )}

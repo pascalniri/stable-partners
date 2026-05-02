@@ -1,8 +1,10 @@
 import React from 'react';
 import Navbar from '../components/layout/Navbar';
-import Hero from '../components/sections/Hero';
-import AIFeatures from '../components/sections/AIFeatures';
-import Portfolio from '../components/sections/Portfolio';
+import PropertyHero from '../components/sections/new-design/PropertyHero';
+import TurnToAsset from '../components/sections/new-design/TurnToAsset';
+import WhyWorkWithUs from '../components/sections/new-design/WhyWorkWithUs';
+import TrustSection from '../components/sections/new-design/TrustSection';
+import RegistrationForm from '../components/sections/new-design/RegistrationForm';
 import Footer from '../components/layout/Footer';
 
 export default function LandingPage() {
@@ -10,12 +12,13 @@ export default function LandingPage() {
     <div className="bg-white min-h-screen">
       <Navbar />
       <main>
-        <Hero />
-        <AIFeatures />
-        <Portfolio />
+        <PropertyHero />
+        <TurnToAsset />
+        <WhyWorkWithUs />
+        <TrustSection />
+        <RegistrationForm />
       </main>
       <Footer />
     </div>
   );
 }
-
