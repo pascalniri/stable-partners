@@ -69,7 +69,7 @@ export default function PropertyHero() {
               <div className="absolute inset-0 bg-blue-600/5 rounded-full scale-110 blur-3xl" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl">
                 <Image
-                  src="/property_stress_illustration.png"
+                  src="/20680.jpg"
                   alt="Struggling with Property Management?"
                   fill
                   className="object-cover"

@@ -17,16 +17,14 @@ export default function TurnToAsset() {
             transition={{ duration: 0.8 }}
             className="order-2 lg:order-1"
           >
-            <div className="relative aspect-square max-w-lg mx-auto">
+            <div className="relative aspect-square max-w-lg mx-auto rounded-xl overflow-hidden">
               <div className="absolute inset-0 bg-white rounded-full blur-2xl" />
-              <div className="relative w-full h-full">
                 <Image
-                  src="/property_pencil_illustration.png"
+                  src="/Rental-Properties-for-Passive-Income.webp"
                   alt="How it works"
                   fill
-                  className="object-contain"
+                  className="object-cover h-full w-full"
                 />
-              </div>
             </div>
           </motion.div>
 
