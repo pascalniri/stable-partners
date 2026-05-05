@@ -16,27 +16,22 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const admins = [
-    { email: "stablepartnersgrp@gmail.com", name: "System Admin" },
-    { email: "pascalniri@gmail.com", name: "Pascal Niri" }
-  ];
-
+  const email = "stablepartnersgrp@gmail.com";
   const password = "adminPassword123!"; 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  for (const adminData of admins) {
-    const admin = await prisma.user.upsert({
-      where: { email: adminData.email },
-      update: {},
-      create: {
-        email: adminData.email,
-        password: hashedPassword,
-        name: adminData.name,
-        role: "ADMIN",
-      },
-    });
-    console.log(`Admin user ${admin.email} is ready.`);
-  }
+  const admin = await prisma.user.upsert({
+    where: { email },
+    update: {},
+    create: {
+      email,
+      password: hashedPassword,
+      name: "System Admin",
+      role: "ADMIN",
+    },
+  });
+
+  console.log(`Admin user ${admin.email} is ready.`);
 }
 
 main()

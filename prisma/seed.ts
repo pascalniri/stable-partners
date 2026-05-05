@@ -8,28 +8,21 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const admins = [
-    { email: 'stablepartnersgrp@gmail.com', name: 'System Admin' },
-    { email: 'pascalniri@gmail.com', name: 'Pascal Niri' }
-  ];
-
+  const adminEmail = 'stablepartnersgrp@gmail.com';
   const hashedPassword = await bcrypt.hash('admin123', 10);
 
-  for (const adminData of admins) {
-    const admin = await prisma.user.upsert({
-      where: { email: adminData.email },
-      update: {},
-      create: {
-        email: adminData.email,
-        password: hashedPassword,
-        name: adminData.name,
-        role: 'ADMIN',
-      },
-    });
-    console.log('Admin processed:', admin.email);
-  }
+  const admin = await prisma.user.upsert({
+    where: { email: adminEmail },
+    update: {},
+    create: {
+      email: adminEmail,
+      password: hashedPassword,
+      name: 'System Admin',
+      role: 'ADMIN',
+    },
+  });
 
-  console.log('Seed completed.');
+  console.log('Seed completed. Admin created:', admin.email);
 }
 
 main()
