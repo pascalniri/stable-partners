@@ -34,7 +34,7 @@ export async function POST(request: Request) {
       },
     });
 
-    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://stablepartners.com'}/admin/reset-password?token=${token}`;
+    const resetLink = `${process.env.NEXT_PUBLIC_APP_URL || 'https://www.stablepartnersgroup.com'}/admin/reset-password?token=${token}`;
 
     await sendEmail({
       to: email,
