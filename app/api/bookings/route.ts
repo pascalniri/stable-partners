@@ -50,35 +50,39 @@ export async function POST(request: Request) {
       },
     }) as any;
 
-    // Send emails in background
-    Promise.all([
-      sendEmail({
-        to: booking.customerEmail,
-        subject: 'Inquiry Received - Stable Partners',
-        template: 'thank-you',
-        context: { name: booking.customerName },
-      }),
-      sendEmail({
-        to: process.env.EMAIL_USER || '',
-        subject: `NEW ASSESSMENT REQUEST: ${booking.customerName}`,
-        template: 'lead-notification',
-        context: {
-          name: booking.customerName,
-          email: booking.customerEmail,
-          phone: booking.customerPhone,
-          propertyType: booking.propertyType,
-          propertyLocation: booking.propertyLocation,
-          unitsRooms: booking.unitsRooms,
-          occupancyStatus: booking.occupancyStatus,
-          estimatedIncome: booking.estimatedIncome,
-          mainChallenge: booking.mainChallenge,
-          mainGoal: booking.mainGoal,
-          additionalInfo: booking.additionalInfo,
-          serviceType: booking.serviceType,
-          propertyName: booking.property?.title,
-        },
-      }),
-    ]).catch(err => console.error('Background email error:', err));
+    // Send emails
+    try {
+      await Promise.all([
+        sendEmail({
+          to: booking.customerEmail,
+          subject: 'Inquiry Received - Stable Partners',
+          template: 'thank-you',
+          context: { name: booking.customerName },
+        }),
+        sendEmail({
+          to: process.env.EMAIL_USER || '',
+          subject: `NEW ASSESSMENT REQUEST: ${booking.customerName}`,
+          template: 'lead-notification',
+          context: {
+            name: booking.customerName,
+            email: booking.customerEmail,
+            phone: booking.customerPhone,
+            propertyType: booking.propertyType,
+            propertyLocation: booking.propertyLocation,
+            unitsRooms: booking.unitsRooms,
+            occupancyStatus: booking.occupancyStatus,
+            estimatedIncome: booking.estimatedIncome,
+            mainChallenge: booking.mainChallenge,
+            mainGoal: booking.mainGoal,
+            additionalInfo: booking.additionalInfo,
+            serviceType: booking.serviceType,
+            propertyName: booking.property?.title,
+          },
+        }),
+      ]);
+    } catch (err) {
+      console.error('Email sending failed:', err);
+    }
 
     return NextResponse.json(booking, { status: 201 });
   } catch (error: any) {

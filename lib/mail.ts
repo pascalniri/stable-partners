@@ -31,6 +31,6 @@ export async function sendEmail({ to, subject, template, context }: {
     return true;
   } catch (error) {
     console.error('Email error:', error);
-    return false;
+    throw error; // Throw the error so the API route can catch it
   }
 }
