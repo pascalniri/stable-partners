@@ -50,8 +50,8 @@ export default function TrustSection() {
               <div className="w-16 h-16 bg-[#1800AC] rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8" />
               </div>
-              <h4 className="text-2xl font-bold mb-2">500+ Clients</h4>
-              <p className="text-slate-400">Across the United Kingdom</p>
+              <h4 className="text-2xl font-bold mb-2">RDB Registered</h4>
+              <p className="text-slate-400">Built on Trust & Excellence</p>
             </div>
           </div>
         </motion.div>

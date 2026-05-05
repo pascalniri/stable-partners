@@ -32,8 +32,8 @@ export default function Navbar() {
           <Image
             src="/stable-patners-logo.jpg"
             alt="Stable Partners Group Logo"
-            width={100}
-            height={100}
+            width={80}
+            height={80}
           />
         </div>
 
