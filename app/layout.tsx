@@ -52,9 +52,9 @@ export const metadata: Metadata = {
     images: ["/stable-patners-logo.jpg"],
   },
   icons: {
-    icon: "/stable-partners-group - favicon.png",
-    shortcut: "/stable-partners-group - favicon.png",
-    apple: "/stable-partners-group - favicon.png",
+    icon: "/stable-patners-logo.jpg",
+    shortcut: "/stable-patners-logo.jpg",
+    apple: "/stable-patners-logo.jpg",
   },
 };
 
