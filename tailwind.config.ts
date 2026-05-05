@@ -35,6 +35,7 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-outfit)", "Inter", "sans-serif"],
         heading: ["var(--font-outfit)", "sans-serif"],
+        outfit: ["var(--font-outfit)", "sans-serif"],
       },
       animation: {
         "fade-in": "fadeIn 0.8s ease-out forwards",
