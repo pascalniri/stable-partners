@@ -40,7 +40,7 @@ export default function PropertiesDashboardPage() {
   if (!isAuthenticated) return null;
   const router = useRouter();
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-[#1800AC] selection:text-white">
       {/* Header Nav */}
       <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-10">
@@ -48,7 +48,7 @@ export default function PropertiesDashboardPage() {
             onClick={() => router.push("/")}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 bg-[#1800AC] rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
               S
             </div>
             <div>
@@ -70,7 +70,7 @@ export default function PropertiesDashboardPage() {
             </Link>
             <Link
               href="/dashboard/properties"
-              className="text-xs font-bold uppercase tracking-widest text-blue-600 border-b-2 border-blue-600 pb-1"
+              className="text-xs font-bold uppercase tracking-widest text-[#1800AC] border-b-2 border-[#1800AC] pb-1"
             >
               Managed Assets
             </Link>
@@ -79,7 +79,7 @@ export default function PropertiesDashboardPage() {
           <div className="flex items-center gap-6 ml-auto">
             <button
               onClick={() => refresh()}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
               title="Refresh Portfolio"
             >
               <RefreshCcw
@@ -102,7 +102,7 @@ export default function PropertiesDashboardPage() {
         {/* Header Actions */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-6 mb-16">
           <div>
-            <span className="text-[11px] font-bold text-blue-600 uppercase tracking-[0.4em] mb-3 block">
+            <span className="text-[11px] font-bold text-[#1800AC] uppercase tracking-[0.4em] mb-3 block">
               Portfolio Overview
             </span>
             <h2 className="text-3xl font-bold text-slate-900">
@@ -111,7 +111,7 @@ export default function PropertiesDashboardPage() {
           </div>
           <Link
             href="/dashboard/properties/new"
-            className="group text-xs tracking-widest relative px-8 py-4 bg-blue-600 text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
+            className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
           >
             <Plus size={18} /> ADD NEW PROPERTY
           </Link>
@@ -169,7 +169,7 @@ export default function PropertiesDashboardPage() {
                               );
                             })}
                           {asset.images.length > 3 && (
-                            <div className="absolute -bottom-1 -right-1 bg-blue-600 text-white text-[8px] font-bold px-1.5 py-0.5 rounded-sm z-20 shadow-sm">
+                            <div className="absolute -bottom-1 -right-1 bg-[#1800AC] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-sm z-20 shadow-sm">
                               +{asset.images.length - 3}
                             </div>
                           )}
@@ -181,11 +181,12 @@ export default function PropertiesDashboardPage() {
                       )}
                     </div>
                     <div>
-                      <h3 className="text-sm font-bold text-slate-900 mb-1 group-hover:text-blue-600 transition-colors">
+                      <h3 className="text-sm font-bold text-slate-900 mb-1 group-hover:text-[#1800AC] transition-colors">
                         {asset.title}
                       </h3>
                       <div className="flex items-center gap-1.5 text-[10px] text-slate-400 uppercase tracking-widest font-bold">
-                        <MapPin size={12} className="text-blue-500" /> {asset.location}
+                        <MapPin size={12} className="text-blue-500" />{" "}
+                        {asset.location}
                       </div>
                     </div>
                   </div>
@@ -208,7 +209,11 @@ export default function PropertiesDashboardPage() {
                             : "border-slate-100 text-slate-400 bg-slate-50"
                       }`}
                     >
-                      {asset.status === "AVAILABLE" ? "● Available" : asset.status === "SOLD" ? "● Sold" : asset.status}
+                      {asset.status === "AVAILABLE"
+                        ? "● Available"
+                        : asset.status === "SOLD"
+                          ? "● Sold"
+                          : asset.status}
                     </span>
                   </div>
 
@@ -236,7 +241,7 @@ export default function PropertiesDashboardPage() {
                       <>
                         <button
                           onClick={() => handleEdit(asset)}
-                          className="p-2.5 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                          className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
                           title="Edit Property"
                         >
                           <Edit3 size={16} />

@@ -41,18 +41,22 @@ export default function NewPropertyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-[#1800AC] selection:text-white">
       <div className="container mx-auto px-6 py-12">
         {/* Navigation */}
         <Link
           href="/dashboard/properties"
-          className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-blue-600 transition-all mb-12 group"
+          className="inline-flex items-center gap-2.5 text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-[#1800AC] transition-all mb-12 group"
         >
-          <ArrowLeft size={16} className="group-hover:-translate-x-1 transition-transform" /> Property Portfolio
+          <ArrowLeft
+            size={16}
+            className="group-hover:-translate-x-1 transition-transform"
+          />{" "}
+          Property Portfolio
         </Link>
 
         <div className="max-w-4xl mx-auto">
-          <span className="text-[11px] uppercase tracking-[0.4em] text-blue-600 font-bold mb-3 block">
+          <span className="text-[11px] uppercase tracking-[0.4em] text-[#1800AC] font-bold mb-3 block">
             Protocol: Asset Registration
           </span>
           <h1 className="text-3xl font-bold text-slate-900 mb-12">
@@ -65,12 +69,12 @@ export default function NewPropertyPage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <Home size={14} className="text-blue-600" /> Property Title
+                    <Home size={14} className="text-[#1800AC]" /> Property Title
                   </label>
                   <input
                     {...register("title")}
                     placeholder="e.g. Skyline Residence"
-                    className={`w-full bg-slate-50 border ${errors.title ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder:text-slate-400`}
+                    className={`w-full bg-slate-50 border ${errors.title ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400`}
                   />
                   {errors.title && (
                     <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -80,12 +84,12 @@ export default function NewPropertyPage() {
                 </div>
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <MapPin size={14} className="text-blue-600" /> Location
+                    <MapPin size={14} className="text-[#1800AC]" /> Location
                   </label>
                   <input
                     {...register("location")}
                     placeholder="e.g. Zurich, Seefeld"
-                    className={`w-full bg-slate-50 border ${errors.location ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder:text-slate-400`}
+                    className={`w-full bg-slate-50 border ${errors.location ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400`}
                   />
                   {errors.location && (
                     <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -98,13 +102,13 @@ export default function NewPropertyPage() {
               {/* Description */}
               <div className="space-y-2.5">
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                  <AlignLeft size={14} className="text-blue-600" /> Description
+                  <AlignLeft size={14} className="text-[#1800AC]" /> Description
                 </label>
                 <textarea
                   {...register("description")}
                   rows={6}
                   placeholder="Describe the property's unique features..."
-                  className={`w-full bg-slate-50 border ${errors.description ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all resize-none placeholder:text-slate-400`}
+                  className={`w-full bg-slate-50 border ${errors.description ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all resize-none placeholder:text-slate-400`}
                 />
                 {errors.description && (
                   <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -116,13 +120,14 @@ export default function NewPropertyPage() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <DollarSign size={14} className="text-blue-600" /> Price ($)
+                    <DollarSign size={14} className="text-[#1800AC]" /> Price
+                    ($)
                   </label>
                   <input
                     type="number"
                     {...register("price")}
                     placeholder="Optional"
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all placeholder:text-slate-400"
+                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400"
                   />
                 </div>
                 <div className="space-y-2.5">
@@ -132,7 +137,7 @@ export default function NewPropertyPage() {
                   <input
                     type="number"
                     {...register("bedrooms")}
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all"
                   />
                 </div>
                 <div className="space-y-2.5">
@@ -142,7 +147,7 @@ export default function NewPropertyPage() {
                   <input
                     type="number"
                     {...register("bathrooms")}
-                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all"
+                    className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all"
                   />
                 </div>
               </div>
@@ -150,7 +155,8 @@ export default function NewPropertyPage() {
               {/* Media Section */}
               <div className="space-y-6">
                 <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                  <ImageIcon size={14} className="text-blue-600" /> Property Media
+                  <ImageIcon size={14} className="text-[#1800AC]" /> Property
+                  Media
                 </label>
 
                 <div className="relative group">
@@ -161,8 +167,8 @@ export default function NewPropertyPage() {
                     onChange={handleFileChange}
                     className="absolute inset-0 opacity-0 cursor-pointer z-10"
                   />
-                  <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl p-12 flex flex-col items-center gap-4 group-hover:border-blue-600 group-hover:bg-blue-50/50 transition-all text-center">
-                    <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:text-blue-600 group-hover:bg-white group-hover:shadow-md transition-all">
+                  <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl p-12 flex flex-col items-center gap-4 group-hover:border-[#1800AC] group-hover:bg-blue-50/50 transition-all text-center">
+                    <div className="w-12 h-12 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:text-[#1800AC] group-hover:bg-white group-hover:shadow-md transition-all">
                       <UploadCloud size={24} />
                     </div>
                     <div>
@@ -212,7 +218,7 @@ export default function NewPropertyPage() {
                       >
                         <X size={16} />
                       </button>
-                      <div className="absolute top-3 left-3 bg-blue-600 px-2.5 py-1 rounded-full shadow-lg">
+                      <div className="absolute top-3 left-3 bg-[#1800AC] px-2.5 py-1 rounded-full shadow-lg">
                         <span className="text-[10px] font-bold text-white uppercase tracking-widest flex items-center gap-1.5">
                           <Send size={10} /> Video Protocol
                         </span>
@@ -230,7 +236,7 @@ export default function NewPropertyPage() {
                 <button
                   disabled={isSubmitting}
                   type="submit"
-                  className="w-full bg-blue-600 text-white py-4 rounded-[5px] text-xs font-bold tracking-[0.4em] uppercase hover:bg-blue-700 transition-all active:scale-[0.99] disabled:bg-slate-300 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3"
+                  className="w-full bg-[#1800AC] text-white py-4 rounded-[5px] text-xs font-bold tracking-[0.4em] uppercase hover:bg-blue-700 transition-all active:scale-[0.99] disabled:bg-slate-300 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3"
                 >
                   {isSubmitting ? (
                     "Processing Protocol..."

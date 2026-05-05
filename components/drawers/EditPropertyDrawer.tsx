@@ -45,7 +45,7 @@ export const EditPropertyDrawer = ({
         <Drawer.Content className="fixed right-0 top-0 bottom-0 w-full md:w-[600px] bg-white z-[101] flex flex-col shadow-2xl outline-none">
           <div className="flex items-center justify-between px-8 py-6 bg-white border-b border-slate-100">
             <div>
-              <span className="text-[10px] font-bold text-blue-600 uppercase tracking-[0.4em] mb-1.5 block">
+              <span className="text-[10px] font-bold text-[#1800AC] uppercase tracking-[0.4em] mb-1.5 block">
                 Management Protocol
               </span>
               <Drawer.Title className="text-xl font-bold text-slate-900">
@@ -54,7 +54,7 @@ export const EditPropertyDrawer = ({
             </div>
             <button
               onClick={onClose}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
             >
               <X size={20} />
             </button>
@@ -65,11 +65,11 @@ export const EditPropertyDrawer = ({
               <form onSubmit={handleSubmit} className="space-y-10">
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <Home size={14} className="text-blue-600" /> Property Title
+                    <Home size={14} className="text-[#1800AC]" /> Property Title
                   </label>
                   <input
                     {...register("title")}
-                    className={`w-full bg-white border ${errors.title ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm`}
+                    className={`w-full bg-white border ${errors.title ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm`}
                   />
                   {errors.title && (
                     <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -80,11 +80,11 @@ export const EditPropertyDrawer = ({
 
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <MapPin size={14} className="text-blue-600" /> Location
+                    <MapPin size={14} className="text-[#1800AC]" /> Location
                   </label>
                   <input
                     {...register("location")}
-                    className={`w-full bg-white border ${errors.location ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm`}
+                    className={`w-full bg-white border ${errors.location ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm`}
                   />
                   {errors.location && (
                     <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -95,12 +95,13 @@ export const EditPropertyDrawer = ({
 
                 <div className="space-y-2.5">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <AlignLeft size={14} className="text-blue-600" /> Description
+                    <AlignLeft size={14} className="text-[#1800AC]" />{" "}
+                    Description
                   </label>
                   <textarea
                     {...register("description")}
                     rows={4}
-                    className={`w-full bg-white border ${errors.description ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all resize-none shadow-sm`}
+                    className={`w-full bg-white border ${errors.description ? "border-red-500" : "border-slate-200"} px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all resize-none shadow-sm`}
                   />
                   {errors.description && (
                     <p className="text-[10px] text-red-500 font-bold uppercase tracking-wider">
@@ -112,12 +113,13 @@ export const EditPropertyDrawer = ({
                 <div className="grid grid-cols-2 gap-8">
                   <div className="space-y-2.5">
                     <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                      <DollarSign size={14} className="text-blue-600" /> Price ($)
+                      <DollarSign size={14} className="text-[#1800AC]" /> Price
+                      ($)
                     </label>
                     <input
                       type="number"
                       {...register("price")}
-                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm"
+                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm"
                     />
                   </div>
                   <div className="space-y-2.5">
@@ -127,7 +129,7 @@ export const EditPropertyDrawer = ({
                     <input
                       type="number"
                       {...register("bedrooms")}
-                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm"
+                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm"
                     />
                   </div>
                 </div>
@@ -140,7 +142,7 @@ export const EditPropertyDrawer = ({
                     <input
                       type="number"
                       {...register("bathrooms")}
-                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm"
+                      className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm"
                     />
                   </div>
                   <div className="space-y-2.5">
@@ -150,7 +152,7 @@ export const EditPropertyDrawer = ({
                     <div className="relative">
                       <select
                         {...register("status")}
-                        className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all shadow-sm appearance-none"
+                        className="w-full bg-white border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all shadow-sm appearance-none"
                       >
                         <option value="MANAGED">MANAGED</option>
                         <option value="AVAILABLE">AVAILABLE</option>
@@ -166,7 +168,8 @@ export const EditPropertyDrawer = ({
 
                 <div className="space-y-6 pt-10 border-t border-slate-100">
                   <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest flex items-center gap-2">
-                    <ImageIcon size={14} className="text-blue-600" /> Property Media
+                    <ImageIcon size={14} className="text-[#1800AC]" /> Property
+                    Media
                   </label>
 
                   <div className="relative group">
@@ -177,8 +180,8 @@ export const EditPropertyDrawer = ({
                       onChange={handleFileChange}
                       className="absolute inset-0 opacity-0 cursor-pointer z-10"
                     />
-                    <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl p-10 flex flex-col items-center gap-4 group-hover:border-blue-600 group-hover:bg-blue-50/30 transition-all text-center">
-                      <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:text-blue-600 group-hover:bg-white group-hover:shadow-md transition-all">
+                    <div className="w-full border-2 border-dashed border-slate-200 rounded-2xl p-10 flex flex-col items-center gap-4 group-hover:border-[#1800AC] group-hover:bg-blue-50/30 transition-all text-center">
+                      <div className="w-10 h-10 bg-slate-50 rounded-full flex items-center justify-center text-slate-400 group-hover:text-[#1800AC] group-hover:bg-white group-hover:shadow-md transition-all">
                         <UploadCloud size={20} />
                       </div>
                       <div>
@@ -232,7 +235,7 @@ export const EditPropertyDrawer = ({
                         >
                           <X size={14} />
                         </button>
-                        <div className="absolute top-2.5 left-2.5 bg-blue-600 px-2 py-0.5 rounded-full shadow-lg">
+                        <div className="absolute top-2.5 left-2.5 bg-[#1800AC] px-2 py-0.5 rounded-full shadow-lg">
                           <span className="text-[9px] font-bold text-white uppercase tracking-widest">
                             Video Protocol
                           </span>
@@ -246,15 +249,9 @@ export const EditPropertyDrawer = ({
                   <button
                     disabled={isSubmitting}
                     type="submit"
-                    className="w-full bg-blue-600 text-white py-4 rounded-[5px] text-xs font-bold tracking-widest uppercase hover:bg-blue-700 transition-all active:scale-[0.99] disabled:bg-slate-300 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3"
+                    className="w-full bg-[#1800AC] text-white py-4 rounded-[5px] text-xs font-bold tracking-widest uppercase hover:bg-blue-700 transition-all active:scale-[0.99] disabled:bg-slate-300 shadow-lg shadow-blue-500/20 flex items-center justify-center gap-3"
                   >
-                    {isSubmitting ? (
-                      "Saving Updates..."
-                    ) : (
-                      <>
-                        Update Property
-                      </>
-                    )}
+                    {isSubmitting ? "Saving Updates..." : <>Update Property</>}
                   </button>
                 </div>
               </form>

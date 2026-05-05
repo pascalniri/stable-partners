@@ -12,10 +12,17 @@ import toast from "react-hot-toast";
 const schema = yup.object().shape({
   customerName: yup.string().required("Full name is required"),
   customerPhone: yup.string().required("Phone number is required"),
-  customerEmail: yup.string().email("Invalid email address").required("Email is required"),
+  customerEmail: yup
+    .string()
+    .email("Invalid email address")
+    .required("Email is required"),
   propertyType: yup.string().required("Please select a property type"),
   propertyLocation: yup.string().required("Location is required"),
-  unitsRooms: yup.number().typeError("Must be a number").required("Required").min(1, "Must be at least 1"),
+  unitsRooms: yup
+    .number()
+    .typeError("Must be a number")
+    .required("Required")
+    .min(1, "Must be at least 1"),
   occupancyStatus: yup.string().required("Please select occupancy status"),
   estimatedIncome: yup.string().required("Required"),
   mainChallenge: yup.string().required("Please select your main challenge"),
@@ -51,16 +58,22 @@ export default function RegistrationForm() {
       });
 
       if (response.ok) {
-        toast.success("Assessment request transmitted successfully.", { id: toastId });
+        toast.success("Assessment request transmitted successfully.", {
+          id: toastId,
+        });
         setSubmitted(true);
         reset();
       } else {
         const error = await response.json();
-        toast.error(error.error || "Transmission failed. Please try again.", { id: toastId });
+        toast.error(error.error || "Transmission failed. Please try again.", {
+          id: toastId,
+        });
       }
     } catch (err) {
       console.error("Submission error:", err);
-      toast.error("Network error. Please check your connection.", { id: toastId });
+      toast.error("Network error. Please check your connection.", {
+        id: toastId,
+      });
     } finally {
       setLoading(false);
     }
@@ -75,7 +88,7 @@ export default function RegistrationForm() {
             animate={{ opacity: 1, scale: 1 }}
             className="p-12 rounded-[3rem] bg-blue-50 border border-blue-100 flex flex-col items-center"
           >
-            <div className="w-20 h-20 bg-blue-600 rounded-full flex items-center justify-center text-white mb-8">
+            <div className="w-20 h-20 bg-[#1800AC] rounded-full flex items-center justify-center text-white mb-8">
               <CheckCircle className="w-10 h-10" />
             </div>
             <h2 className="text-3xl font-bold text-slate-900 mb-4">
@@ -87,7 +100,7 @@ export default function RegistrationForm() {
             </p>
             <button
               onClick={() => setSubmitted(false)}
-              className="text-blue-600 font-bold hover:underline"
+              className="text-[#1800AC] font-bold hover:underline"
             >
               Submit another response
             </button>
@@ -126,7 +139,9 @@ export default function RegistrationForm() {
                   {...register("customerName")}
                   placeholder="e.g. John Smith"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.customerName ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.customerName
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.customerName && (
@@ -146,7 +161,9 @@ export default function RegistrationForm() {
                   type="tel"
                   placeholder="e.g. +44 000 000 000"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.customerPhone ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.customerPhone
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.customerPhone && (
@@ -166,7 +183,9 @@ export default function RegistrationForm() {
                   type="email"
                   placeholder="e.g. john@example.com"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.customerEmail ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.customerEmail
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.customerEmail && (
@@ -184,7 +203,9 @@ export default function RegistrationForm() {
                 <select
                   {...register("propertyType")}
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none appearance-none ${
-                    errors.propertyType ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.propertyType
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 >
                   <option value="">Select type...</option>
@@ -209,7 +230,9 @@ export default function RegistrationForm() {
                   {...register("propertyLocation")}
                   placeholder="e.g. Zurich, Seefeld"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.propertyLocation ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.propertyLocation
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.propertyLocation && (
@@ -222,14 +245,17 @@ export default function RegistrationForm() {
               {/* Units */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">
-                  Number of Units / Rooms <span className="text-red-500">*</span>
+                  Number of Units / Rooms{" "}
+                  <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("unitsRooms")}
                   type="number"
                   placeholder="e.g. 5"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.unitsRooms ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.unitsRooms
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.unitsRooms && (
@@ -242,19 +268,24 @@ export default function RegistrationForm() {
               {/* Occupancy */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">
-                  Current Occupancy Status <span className="text-red-500">*</span>
+                  Current Occupancy Status{" "}
+                  <span className="text-red-500">*</span>
                 </label>
                 <select
                   {...register("occupancyStatus")}
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none appearance-none ${
-                    errors.occupancyStatus ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.occupancyStatus
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 >
                   <option value="">Select status...</option>
                   <option value="Fully occupied">Fully occupied</option>
                   <option value="Partially occupied">Partially occupied</option>
                   <option value="Vacant">Vacant</option>
-                  <option value="Struggling to lease">Struggling to lease</option>
+                  <option value="Struggling to lease">
+                    Struggling to lease
+                  </option>
                 </select>
                 {errors.occupancyStatus && (
                   <p className="text-[10px] text-red-500 font-bold flex items-center gap-1 mt-1 ml-1 uppercase tracking-wide">
@@ -266,13 +297,16 @@ export default function RegistrationForm() {
               {/* Income */}
               <div className="space-y-2">
                 <label className="text-xs font-bold text-slate-700 ml-1 uppercase tracking-wider">
-                  Estimated Monthly Rental Income <span className="text-red-500">*</span>
+                  Estimated Monthly Rental Income{" "}
+                  <span className="text-red-500">*</span>
                 </label>
                 <input
                   {...register("estimatedIncome")}
                   placeholder="e.g. $5,000"
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none ${
-                    errors.estimatedIncome ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.estimatedIncome
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 />
                 {errors.estimatedIncome && (
@@ -292,7 +326,9 @@ export default function RegistrationForm() {
                 <select
                   {...register("mainChallenge")}
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none appearance-none ${
-                    errors.mainChallenge ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.mainChallenge
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 >
                   <option value="">Select challenge...</option>
@@ -318,15 +354,21 @@ export default function RegistrationForm() {
                 <select
                   {...register("mainGoal")}
                   className={`w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border transition-all font-medium outline-none appearance-none ${
-                    errors.mainGoal ? "border-red-300 ring-4 ring-red-50" : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600"
+                    errors.mainGoal
+                      ? "border-red-300 ring-4 ring-red-50"
+                      : "border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC]"
                   }`}
                 >
                   <option value="">Select goal...</option>
                   <option value="Increase income">Increase income</option>
                   <option value="Reduce vacancies">Reduce vacancies</option>
                   <option value="Improve tenants">Improve tenants</option>
-                  <option value="Full management support">Full management support</option>
-                  <option value="Understand potential">Understand potential</option>
+                  <option value="Full management support">
+                    Full management support
+                  </option>
+                  <option value="Understand potential">
+                    Understand potential
+                  </option>
                 </select>
                 {errors.mainGoal && (
                   <p className="text-[10px] text-red-500 font-bold flex items-center gap-1 mt-1 ml-1 uppercase tracking-wide">
@@ -345,7 +387,7 @@ export default function RegistrationForm() {
                 {...register("additionalInfo")}
                 rows={3}
                 placeholder="Anything else we should know?"
-                className="w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-blue-600 transition-all resize-none font-medium outline-none"
+                className="w-full px-6 py-3.5 bg-slate-50 rounded-[5px] border border-slate-200 focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all resize-none font-medium outline-none"
               ></textarea>
             </div>
 
@@ -353,10 +395,12 @@ export default function RegistrationForm() {
             <button
               disabled={loading}
               type="submit"
-              className="group text-xs w-full tracking-[0.3em] relative px-8 py-5 bg-blue-600 text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:bg-slate-400 uppercase"
+              className="group text-xs w-full tracking-[0.3em] relative px-8 py-5 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20 disabled:bg-slate-400 uppercase"
             >
-              {loading ? "PROCESSING TRANSIMISSION..." : "SUBMIT ASSESSMENT REQUEST"}
-              {!loading && <Send size={15}/>}
+              {loading
+                ? "PROCESSING TRANSIMISSION..."
+                : "SUBMIT ASSESSMENT REQUEST"}
+              {!loading && <Send size={15} />}
             </button>
 
             <p className="text-center text-[10px] text-slate-500 font-medium uppercase tracking-[0.2em]">

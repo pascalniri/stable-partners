@@ -33,21 +33,21 @@ export default function TrustSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-[#1800AC] rounded-full flex items-center justify-center mb-6">
                 <Award className="w-8 h-8" />
               </div>
               <h4 className="text-2xl font-bold mb-2">5+ Years</h4>
               <p className="text-slate-400">Industry Experience</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-[#1800AC] rounded-full flex items-center justify-center mb-6">
                 <ShieldCheck className="w-8 h-8" />
               </div>
               <h4 className="text-2xl font-bold mb-2">100% Reliable</h4>
               <p className="text-slate-400">Guaranteed Compliance</p>
             </div>
             <div className="flex flex-col items-center">
-              <div className="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mb-6">
+              <div className="w-16 h-16 bg-[#1800AC] rounded-full flex items-center justify-center mb-6">
                 <Users className="w-8 h-8" />
               </div>
               <h4 className="text-2xl font-bold mb-2">500+ Clients</h4>

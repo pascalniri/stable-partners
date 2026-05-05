@@ -27,7 +27,7 @@ export default function DashboardPage() {
   if (!isAuthenticated) return null;
   const router = useRouter();
   return (
-    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-[#1800AC] selection:text-white">
       {/* Header Nav */}
       <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-10">
@@ -35,7 +35,7 @@ export default function DashboardPage() {
             onClick={() => router.push("/")}
             className="flex items-center gap-3 cursor-pointer group"
           >
-            <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
+            <div className="w-10 h-10 bg-[#1800AC] rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
               S
             </div>
             <div>
@@ -51,7 +51,7 @@ export default function DashboardPage() {
           <div className="hidden md:flex items-center gap-10">
             <Link
               href="/dashboard"
-              className="text-xs font-bold uppercase tracking-widest text-blue-600 border-b-2 border-blue-600 pb-1"
+              className="text-xs font-bold uppercase tracking-widest text-[#1800AC] border-b-2 border-[#1800AC] pb-1"
             >
               Bookings
             </Link>
@@ -66,7 +66,7 @@ export default function DashboardPage() {
           <div className="flex items-center gap-6 ml-auto">
             <button
               onClick={() => refresh()}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
               title="Refresh Data"
             >
               <RefreshCcw
@@ -88,8 +88,12 @@ export default function DashboardPage() {
       <main className="container mx-auto px-6 py-12">
         {/* Page Title */}
         <div className="mb-10">
-          <h2 className="text-3xl font-bold text-slate-900">Inquiry Overview</h2>
-          <p className="text-slate-500 mt-1">Monitor and manage property performance assessments.</p>
+          <h2 className="text-3xl font-bold text-slate-900">
+            Inquiry Overview
+          </h2>
+          <p className="text-slate-500 mt-1">
+            Monitor and manage property performance assessments.
+          </p>
         </div>
 
         {/* Stats Grid */}
@@ -106,9 +110,11 @@ export default function DashboardPage() {
             <div className="text-4xl font-bold text-slate-900">
               {bookings.length}
             </div>
-            <p className="text-xs text-slate-400 mt-2 font-medium">Updated just now</p>
+            <p className="text-xs text-slate-400 mt-2 font-medium">
+              Updated just now
+            </p>
           </div>
-          
+
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
@@ -118,10 +124,12 @@ export default function DashboardPage() {
                 <RefreshCcw size={14} />
               </div>
             </div>
-            <div className="text-4xl font-bold text-blue-600">
+            <div className="text-4xl font-bold text-[#1800AC]">
               {bookings.filter((b) => b.status === "PENDING").length}
             </div>
-            <p className="text-xs text-orange-500 mt-2 font-medium">Requires attention</p>
+            <p className="text-xs text-orange-500 mt-2 font-medium">
+              Requires attention
+            </p>
           </div>
 
           <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
@@ -143,7 +151,9 @@ export default function DashboardPage() {
                 : 0}
               %
             </div>
-            <p className="text-xs text-emerald-500 mt-2 font-medium">System performance</p>
+            <p className="text-xs text-emerald-500 mt-2 font-medium">
+              System performance
+            </p>
           </div>
         </div>
 
@@ -214,7 +224,7 @@ export default function DashboardPage() {
                       </td>
                       <td className="px-8 py-6">
                         <div className="flex items-center gap-3">
-                          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-blue-600">
+                          <div className="w-10 h-10 rounded-full bg-blue-50 flex items-center justify-center text-[#1800AC]">
                             <User size={18} />
                           </div>
                           <div>
@@ -222,7 +232,8 @@ export default function DashboardPage() {
                               {booking.customerName}
                             </div>
                             <div className="text-[11px] text-slate-500 flex items-center gap-1.5 mt-0.5">
-                              <Mail size={12} className="text-slate-400" /> {booking.customerEmail}
+                              <Mail size={12} className="text-slate-400" />{" "}
+                              {booking.customerEmail}
                             </div>
                           </div>
                         </div>
@@ -262,7 +273,7 @@ export default function DashboardPage() {
                           {booking.status === "PENDING" ? (
                             <Link
                               href={`/dashboard/bookings/${booking.id}`}
-                              className="px-4 py-2 bg-blue-50 text-blue-600 text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-blue-600 hover:text-white transition-all flex items-center gap-2"
+                              className="px-4 py-2 bg-blue-50 text-[#1800AC] text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-[#1800AC] hover:text-white transition-all flex items-center gap-2"
                             >
                               Process <ExternalLink size={12} />
                             </Link>

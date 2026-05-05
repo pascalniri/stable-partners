@@ -19,8 +19,8 @@ export default function PropertyHero() {
             transition={{ duration: 0.8 }}
             className="max-w-2xl"
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-blue-600 text-xs font-bold uppercase tracking-wider mb-6">
-              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-100 text-[#1800AC] text-xs font-bold uppercase tracking-wider mb-6">
+              <span className="w-2 h-2 rounded-full bg-[#1800AC] animate-pulse" />
               Expert Property Management
             </div>
 
@@ -43,8 +43,8 @@ export default function PropertyHero() {
                     .getElementById("registration-form")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="group text-xs tracking-widest relative px-8 py-4 bg-blue-600 text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
-              > 
+                className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
+              >
                 BOOK A FREE ASSESSMENT CALL
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -66,7 +66,7 @@ export default function PropertyHero() {
             className="relative"
           >
             <div className="relative z-10 w-full aspect-square max-w-lg mx-auto">
-              <div className="absolute inset-0 bg-blue-600/5 rounded-full scale-110 blur-3xl" />
+              <div className="absolute inset-0 bg-[#1800AC]/5 rounded-full scale-110 blur-3xl" />
               <div className="relative w-full h-full rounded-full overflow-hidden border-8 border-white shadow-2xl">
                 <Image
                   src="/20680.jpg"
@@ -121,7 +121,7 @@ export default function PropertyHero() {
                 }}
                 className="absolute -bottom-4 -left-4 bg-white p-4 rounded-2xl shadow-xl border border-slate-100 flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600">
+                <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-[#1800AC]">
                   <svg
                     className="w-6 h-6"
                     fill="none"

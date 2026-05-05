@@ -19,12 +19,12 @@ export default function TurnToAsset() {
           >
             <div className="relative aspect-square max-w-lg mx-auto rounded-xl overflow-hidden">
               <div className="absolute inset-0 bg-white rounded-full blur-2xl" />
-                <Image
-                  src="/Rental-Properties-for-Passive-Income.webp"
-                  alt="How it works"
-                  fill
-                  className="object-cover h-full w-full"
-                />
+              <Image
+                src="/Rental-Properties-for-Passive-Income.webp"
+                alt="How it works"
+                fill
+                className="object-cover h-full w-full"
+              />
             </div>
           </motion.div>
 
@@ -37,7 +37,7 @@ export default function TurnToAsset() {
           >
             <h2 className="text-xl md:text-3xl font-bold text-slate-900 mb-6 leading-tight">
               Are you ready to turn your Rental property into a{" "}
-              <span className="text-blue-600">high performing</span> passive
+              <span className="text-[#1800AC]">high performing</span> passive
               income asset?
             </h2>
 
@@ -63,7 +63,7 @@ export default function TurnToAsset() {
                   .getElementById("registration-form")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
-              className="group text-xs tracking-widest relative px-8 py-4 bg-blue-600 text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
+              className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
             >
               BOOK A FREE ASSESSMENT CALL
             </button>

@@ -13,10 +13,18 @@ const outfit = Google_Sans({
 export const metadata: Metadata = {
   title: {
     default: "Stable Partners Group | Boutique Property Management",
-    template: "%s | Stable Partners Group"
+    template: "%s | Stable Partners Group",
   },
-  description: "Boutique property management for high-value asset owners. Reclaiming your time through radical transparency and clinical precision.",
-  keywords: ["property management", "luxury real estate", "asset management", "tenant relations", "rent collection", "Rwanda property management"],
+  description:
+    "Boutique property management for high-value asset owners. Reclaiming your time through radical transparency and clinical precision.",
+  keywords: [
+    "property management",
+    "luxury real estate",
+    "asset management",
+    "tenant relations",
+    "rent collection",
+    "Rwanda property management",
+  ],
   authors: [{ name: "Stable Partners Group" }],
   creator: "Stable Partners Group",
   publisher: "Stable Partners Group",
@@ -26,10 +34,11 @@ export const metadata: Metadata = {
     url: "https://stablepartners.com",
     siteName: "Stable Partners Group",
     title: "Stable Partners Group | Boutique Property Management",
-    description: "Expert property management for high-value assets. We handle the complexity, you reclaim your time.",
+    description:
+      "Expert property management for high-value assets. We handle the complexity, you reclaim your time.",
     images: [
       {
-        url: "/stable-partners-group - logo.png",
+        url: "/stable-patners-logo.jpg",
         width: 1200,
         height: 630,
         alt: "Stable Partners Group Logo",
@@ -40,7 +49,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Stable Partners Group | Boutique Property Management",
     description: "Expert property management for high-value assets.",
-    images: ["/stable-partners-group - logo.png"],
+    images: ["/stable-patners-logo.jpg"],
   },
   icons: {
     icon: "/stable-partners-group - favicon.png",
@@ -57,22 +66,25 @@ export default function RootLayout({
   return (
     <html lang="en" className={outfit.variable}>
       <body className={outfit.className}>
-        <Script 
-          src="https://upload-widget.cloudinary.com/global/all.js" 
-          strategy="beforeInteractive" 
+        <Script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          strategy="beforeInteractive"
         />
         {children}
-        <Toaster position="bottom-right" toastOptions={{
-          style: {
-            background: '#0a0a0a',
-            color: '#fff',
-            fontSize: '11px',
-            textTransform: 'uppercase',
-            letterSpacing: '0.1em',
-            borderRadius: '0px',
-            border: '1px solid #ffffff10'
-          }
-        }} />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: "#0a0a0a",
+              color: "#fff",
+              fontSize: "11px",
+              textTransform: "uppercase",
+              letterSpacing: "0.1em",
+              borderRadius: "0px",
+              border: "1px solid #ffffff10",
+            },
+          }}
+        />
       </body>
     </html>
   );

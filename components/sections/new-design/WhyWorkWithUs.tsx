@@ -15,7 +15,7 @@ const features = [
       "periodic yield optimization",
     ],
     icon: TrendingUp,
-    color: "bg-blue-600",
+    color: "bg-[#1800AC]",
     lightColor: "bg-blue-50",
   },
   {
@@ -29,7 +29,7 @@ const features = [
       "Tax filing",
     ],
     icon: ShieldCheck,
-    color: "bg-blue-600",
+    color: "bg-[#1800AC]",
     lightColor: "bg-blue-50",
   },
   {
@@ -42,7 +42,7 @@ const features = [
       "inconsistent cash flow cycles",
     ],
     icon: Wrench,
-    color: "bg-blue-600",
+    color: "bg-[#1800AC]",
     lightColor: "bg-blue-50",
   },
   {
@@ -55,7 +55,7 @@ const features = [
       "asset performance tracking",
     ],
     icon: FileText,
-    color: "bg-blue-600",
+    color: "bg-[#1800AC]",
     lightColor: "bg-blue-50",
   },
 ];
