@@ -22,32 +22,69 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    
-    // Simple validation
-    if (!body.customerName || !body.customerEmail) {
+    const { 
+      customerName, 
+      customerEmail, 
+      customerPhone,
+      timezone,
+      slotId,
+      propertyType,
+      propertyLocation,
+      unitsRooms,
+      occupancyStatus,
+      estimatedIncome,
+      mainChallenge,
+      mainGoal,
+      additionalInfo,
+      serviceType,
+      propertyId 
+    } = body;
+
+    // Validation
+    if (!customerName || !customerEmail) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    // If slot-based booking
+    if (slotId) {
+      const slot = await prisma.availabilitySlot.findUnique({
+        where: { id: slotId }
+      });
+
+      if (!slot || slot.isBooked) {
+        return NextResponse.json({ error: 'This time slot is no longer available.' }, { status: 400 });
+      }
+
+      // Mark slot as booked
+      await prisma.availabilitySlot.update({
+        where: { id: slotId },
+        data: { isBooked: true }
+      });
     }
 
     const booking = await prisma.booking.create({
       data: {
-        customerName: body.customerName,
-        customerEmail: body.customerEmail,
-        customerPhone: body.customerPhone || null,
-        propertyType: body.propertyType || null,
-        propertyLocation: body.propertyLocation || null,
-        unitsRooms: body.unitsRooms ? String(body.unitsRooms) : null,
-        occupancyStatus: body.occupancyStatus || null,
-        estimatedIncome: body.estimatedIncome || null,
-        mainChallenge: body.mainChallenge || null,
-        mainGoal: body.mainGoal || null,
-        additionalInfo: body.additionalInfo || null,
-        serviceType: body.serviceType || 'Property Assessment',
-        description: body.description || null,
-        propertyId: body.propertyId || null,
-      } as any,
+        customerName,
+        customerEmail,
+        customerPhone: customerPhone || null,
+        timezone: timezone || 'UTC',
+        slotId: slotId || null,
+        propertyType: propertyType || null,
+        propertyLocation: propertyLocation || null,
+        unitsRooms: unitsRooms ? String(unitsRooms) : null,
+        occupancyStatus: occupancyStatus || null,
+        estimatedIncome: estimatedIncome || null,
+        mainChallenge: mainChallenge || null,
+        mainGoal: mainGoal || null,
+        additionalInfo: additionalInfo || null,
+        serviceType: serviceType || 'Property Assessment',
+        propertyId: propertyId || null,
+        status: 'PENDING',
+      },
       include: {
         property: true,
-      },
+        slot: true
+      }
     }) as any;
 
     // Send emails
@@ -55,13 +92,13 @@ export async function POST(request: Request) {
       await Promise.all([
         sendEmail({
           to: booking.customerEmail,
-          subject: 'Inquiry Received - Stable Partners',
+          subject: 'Request Received - Stable Partners',
           template: 'thank-you',
           context: { name: booking.customerName },
         }),
         sendEmail({
           to: process.env.EMAIL_USER || '',
-          subject: `NEW ASSESSMENT REQUEST: ${booking.customerName}`,
+          subject: `NEW BOOKING REQUEST: ${booking.customerName}`,
           template: 'lead-notification',
           context: {
             name: booking.customerName,
@@ -77,6 +114,8 @@ export async function POST(request: Request) {
             additionalInfo: booking.additionalInfo,
             serviceType: booking.serviceType,
             propertyName: booking.property?.title,
+            scheduledTime: booking.slot ? new Date(booking.slot.startTime).toLocaleString() : 'Manual scheduling',
+            timezone: booking.timezone
           },
         }),
       ]);

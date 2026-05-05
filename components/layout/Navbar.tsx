@@ -46,10 +46,10 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            href="#how-it-works"
+            href="#work-with-us"
             className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
           >
-            How it works
+            What We Do
           </Link>
           <Link
             href="#registration-form"
@@ -97,21 +97,28 @@ export default function Navbar() {
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white p-8 flex flex-col gap-6 border-b border-gray-100 shadow-xl md:hidden">
-          <Link href="#" className="text-base font-semibold text-slate-900">
+          <Link 
+            href="#" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
+          >
             Home
           </Link>
-          <Link href="#" className="text-base font-semibold text-slate-900">
-            Buy
-          </Link>
-          <Link href="#" className="text-base font-semibold text-slate-900">
-            Rent
-          </Link>
-          <Link
-            href="#contact"
-            className="text-base font-semibold text-slate-900"
+          <Link 
+            href="#work-with-us" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
-            Connect
+            What We Do
           </Link>
+          <Link 
+            href="#registration-form" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
+          >
+            Assessment
+          </Link>
+          
           <div className="flex flex-col gap-4 mt-4">
             {mounted && isAuthenticated ? (
               <Link href="/dashboard">

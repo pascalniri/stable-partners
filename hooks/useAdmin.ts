@@ -26,6 +26,13 @@ export interface Booking {
   meetingDate?: string;
   meetingLink?: string;
   propertyId?: string;
+  slotId?: string;
+  timezone?: string;
+  slot?: {
+    id: string;
+    startTime: string;
+    endTime: string;
+  };
   property?: Property;
   createdAt: string;
 }
@@ -75,9 +82,25 @@ export const useAdmin = () => {
     }
   };
 
+  const declineBooking = async (id: string) => {
+    const toastId = toast.loading("Processing cancellation...");
+    setIsSubmitting(true);
+    setIsSuccess(false);
+    try {
+      await axiosInstance.post(`/admin/bookings/${id}/decline`);
+      toast.success("Booking declined and slot re-opened.", { id: toastId });
+      setIsSuccess(true);
+      await fetchBookings();
+    } catch (err: unknown) {
+      toast.error("Failed to decline booking.", { id: toastId });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
   useEffect(() => {
     fetchBookings();
   }, [fetchBookings]);
 
-  return { bookings, isLoading, isSubmitting, isSuccess, error, refresh: fetchBookings, replyToBooking };
+  return { bookings, isLoading, isSubmitting, isSuccess, error, refresh: fetchBookings, replyToBooking, declineBooking };
 };

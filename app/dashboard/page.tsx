@@ -61,6 +61,12 @@ export default function DashboardPage() {
             >
               Managed Assets
             </Link>
+            <Link
+              href="/dashboard/availability"
+              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors pb-1"
+            >
+              Availability
+            </Link>
           </div>
 
           <div className="flex items-center gap-6 ml-auto">
@@ -182,6 +188,9 @@ export default function DashboardPage() {
                     Service Parameter
                   </th>
                   <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
+                    Requested Session
+                  </th>
+                  <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
                     Status
                   </th>
                   <th className="px-8 py-4 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
@@ -246,6 +255,27 @@ export default function DashboardPage() {
                           <p className="text-[11px] text-slate-500 mt-2 line-clamp-1 max-w-xs italic">
                             "{booking.description}"
                           </p>
+                        )}
+                      </td>
+                      <td className="px-8 py-6">
+                        {booking.slot ? (
+                          <>
+                            <div className="text-xs font-bold text-[#1800AC] uppercase">
+                              {new Date(booking.slot.startTime).toLocaleDateString(undefined, { 
+                                weekday: 'short', 
+                                month: 'short', 
+                                day: 'numeric' 
+                              })}
+                            </div>
+                            <div className="text-[10px] font-black text-slate-900 mt-1 uppercase tracking-tighter">
+                              {new Date(booking.slot.startTime).toLocaleTimeString(undefined, { 
+                                hour: '2-digit', 
+                                minute: '2-digit' 
+                              })} ({booking.timezone})
+                            </div>
+                          </>
+                        ) : (
+                          <span className="text-[10px] text-slate-400 uppercase font-bold italic">Manual / Legacy</span>
                         )}
                       </td>
                       <td className="px-8 py-6">

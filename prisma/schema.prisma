@@ -34,11 +34,25 @@ enum BookingStatus {
   CANCELLED
 }
 
+model AvailabilitySlot {
+  id        String   @id @default(uuid())
+  startTime DateTime
+  endTime   DateTime
+  isBooked  Boolean  @default(false)
+  booking   Booking?
+  createdAt DateTime @default(now())
+}
+
 model Booking {
   id            String        @id @default(uuid())
   customerName  String
   customerEmail String
   customerPhone String?
+  
+  // Time & Zone
+  timezone      String        @default("UTC")
+  slotId        String?       @unique
+  slot          AvailabilitySlot? @relation(fields: [slotId], references: [id])
   
   // Detailed Property Assessment Fields
   propertyType     String?

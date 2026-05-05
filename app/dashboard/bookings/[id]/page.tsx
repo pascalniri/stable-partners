@@ -15,6 +15,8 @@ import {
   Mail,
   MessageSquare,
   ShieldCheck,
+  CheckCircle,
+  Trash2,
 } from "lucide-react";
 
 export default function BookingDetailPage() {
@@ -27,6 +29,7 @@ export default function BookingDetailPage() {
     isSubmitting,
     isSuccess,
     replyToBooking,
+    declineBooking,
   } = useAdmin();
   const { properties, isLoading: isPropsLoading } = useProperties();
 
@@ -52,6 +55,13 @@ export default function BookingDetailPage() {
   const [scheduledDate, setScheduledDate] = useState("");
   const [meetingLink, setMeetingLink] = useState("");
   const [message, setMessage] = useState("Looking forward to our session!");
+
+  // Pre-fill if slot exists
+  useEffect(() => {
+    if (booking?.slot) {
+      setScheduledDate(booking.slot.startTime);
+    }
+  }, [booking]);
 
   if (!isAuthenticated) {
     if (typeof window !== "undefined") router.push("/");
@@ -294,87 +304,141 @@ export default function BookingDetailPage() {
               {isSuccess ? (
                 <div className="py-12 text-center">
                   <div className="w-16 h-16 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg shadow-emerald-500/10">
-                    <Send size={28} />
+                    <CheckCircle size={28} />
                   </div>
                   <h2 className="text-base font-bold text-slate-900 mb-2">
-                    Transmission Successful
+                    Action Completed
                   </h2>
                   <p className="text-xs text-slate-400 font-medium uppercase tracking-widest">
                     Redirecting to Terminal...
                   </p>
                 </div>
+              ) : booking.status !== "PENDING" ? (
+                <div className="py-8 text-center space-y-6">
+                  <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${
+                    booking.status === "CANCELLED" ? "bg-red-50 text-red-500" : "bg-emerald-50 text-emerald-500"
+                  }`}>
+                    {booking.status === "CANCELLED" ? <ArrowLeft size={28} /> : <CheckCircle size={28} />}
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-bold text-slate-900 uppercase tracking-tight">
+                      {booking.status === "CANCELLED" ? "Booking Declined" : "Booking Confirmed"}
+                    </h3>
+                    <p className="text-xs text-slate-400 font-medium mt-1 uppercase tracking-widest">
+                      Protocol Finalized
+                    </p>
+                  </div>
+                  {booking.meetingLink && (
+                    <div className="p-4 bg-slate-50 rounded-xl border border-slate-100">
+                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Active Meeting Link</p>
+                      <a href={booking.meetingLink} target="_blank" className="text-xs font-bold text-[#1800AC] break-all hover:underline">{booking.meetingLink}</a>
+                    </div>
+                  )}
+                  <Link href="/dashboard" className="inline-block text-[10px] font-black text-[#1800AC] uppercase tracking-[0.2em] border-b-2 border-[#1800AC] pb-1">Return to Dashboard</Link>
+                </div>
               ) : (
-                <form
-                  onSubmit={(e) => {
-                    e.preventDefault();
-                    replyToBooking(booking.id, {
-                      scheduledDate,
-                      meetingLink,
-                      message,
-                    });
-                  }}
-                  className="space-y-6"
-                >
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
-                      <Calendar size={14} className="text-[#1800AC]" /> Schedule
-                      Assessment
-                    </label>
-                    <input
-                      required
-                      type="datetime-local"
-                      value={scheduledDate}
-                      onChange={(e) => setScheduledDate(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-xs font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all"
-                    />
-                  </div>
+                <div className="space-y-8">
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      replyToBooking(booking.id, {
+                        scheduledDate,
+                        meetingLink,
+                        message,
+                      });
+                    }}
+                    className="space-y-6"
+                  >
+                    <div className="space-y-4">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                        <Calendar size={14} className="text-[#1800AC]" /> Requested
+                        Session
+                      </label>
+                      
+                      {booking.slot ? (
+                        <div className="bg-blue-50 border border-blue-100 p-6 rounded-xl">
+                          <div className="text-sm font-bold text-slate-900 mb-1">
+                            {new Date(booking.slot.startTime).toLocaleDateString(undefined, { 
+                              weekday: 'long', 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric' 
+                            })}
+                          </div>
+                          <div className="text-xs font-black text-[#1800AC] uppercase tracking-widest">
+                            {new Date(booking.slot.startTime).toLocaleTimeString(undefined, { 
+                              hour: '2-digit', 
+                              minute: '2-digit' 
+                            })} ({booking.timezone})
+                          </div>
+                        </div>
+                      ) : (
+                        <input
+                          required
+                          type="datetime-local"
+                          value={scheduledDate}
+                          onChange={(e) => setScheduledDate(e.target.value)}
+                          className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-xs font-bold uppercase tracking-widest outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all"
+                        />
+                      )}
+                    </div>
 
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
-                      <LinkIcon size={14} className="text-[#1800AC]" /> Virtual
-                      Meeting Link
-                    </label>
-                    <input
-                      required
-                      type="url"
-                      placeholder="https://meet.google.com/..."
-                      value={meetingLink}
-                      onChange={(e) => setMeetingLink(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400"
-                    />
-                  </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                        <LinkIcon size={14} className="text-[#1800AC]" /> Virtual
+                        Meeting Link
+                      </label>
+                      <input
+                        required
+                        type="url"
+                        placeholder="https://meet.google.com/..."
+                        value={meetingLink}
+                        onChange={(e) => setMeetingLink(e.target.value)}
+                        className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400"
+                      />
+                    </div>
 
-                  <div className="space-y-2">
-                    <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
-                      <MessageSquare size={14} className="text-[#1800AC]" />{" "}
-                      Message to Client
-                    </label>
-                    <textarea
-                      required
-                      rows={4}
-                      placeholder="Enter personalized message..."
-                      value={message}
-                      onChange={(e) => setMessage(e.target.value)}
-                      className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all resize-none placeholder:text-slate-400"
-                    />
-                  </div>
+                    <div className="space-y-2">
+                      <label className="text-[10px] font-bold text-slate-700 uppercase tracking-widest flex items-center gap-2 px-1">
+                        <MessageSquare size={14} className="text-[#1800AC]" />{" "}
+                        Message to Client
+                      </label>
+                      <textarea
+                        required
+                        rows={3}
+                        placeholder="Enter personalized message..."
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                        className="w-full bg-slate-50 border border-slate-200 px-5 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all resize-none placeholder:text-slate-400"
+                      />
+                    </div>
 
-                  <div className="pt-4">
                     <button
                       disabled={isSubmitting}
                       type="submit"
-                      className="group w-full bg-[#1800AC] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase rounded hover:bg-blue-700 active:scale-[0.98] transition-all disabled:bg-slate-300 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
+                      className="group w-full bg-[#1800AC] text-white py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-blue-800 active:scale-[0.98] transition-all disabled:bg-slate-300 flex items-center justify-center gap-3 shadow-xl shadow-blue-500/20"
                     >
-                      {isSubmitting ? (
-                        "Processing..."
-                      ) : (
-                        <>
-                          Send Response <Send size={15} />
-                        </>
-                      )}
+                      {isSubmitting ? "Processing..." : <>Approve & Send Invitation <Send size={15} /></>}
                     </button>
+                  </form>
+
+                  <div className="pt-6 border-t border-slate-100">
+                    <button
+                      onClick={() => {
+                        if(confirm("Are you sure you want to decline this booking? The slot will be re-opened for others.")) {
+                          declineBooking(booking.id);
+                        }
+                      }}
+                      disabled={isSubmitting}
+                      className="w-full bg-white border-2 border-red-100 text-red-500 py-4 text-xs font-bold tracking-[0.2em] uppercase rounded-xl hover:bg-red-50 transition-all flex items-center justify-center gap-2"
+                    >
+                      <Trash2 size={14} /> Decline & Re-open Slot
+                    </button>
+                    <p className="text-center text-[9px] text-slate-400 mt-4 uppercase tracking-widest leading-relaxed">
+                      Declining will notify the client and automatically release their selected time slot.
+                    </p>
                   </div>
-                </form>
+                </div>
               )}
             </div>
           </div>

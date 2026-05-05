@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Update - Stable Partners Group</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap');
+        body { font-family: 'Outfit', 'Helvetica Neue', Helvetica, Arial, sans-serif; margin: 0; padding: 0; background-color: #f8fafc; color: #0f172a; }
+        .container { max-width: 600px; margin: 40px auto; background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #e2e8f0; }
+        .header { background-color: #1800AC; padding: 40px; text-align: center; }
+        .logo { font-size: 24px; font-weight: bold; color: #ffffff; letter-spacing: 2px; }
+        .content { padding: 40px; }
+        .status-badge { display: inline-block; padding: 6px 12px; background: #fef2f2; color: #ef4444; border-radius: 99px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; }
+        h1 { font-size: 24px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.02em; }
+        p { line-height: 1.6; color: #64748b; margin-bottom: 24px; font-size: 15px; }
+        .details-box { background: #f8fafc; border-radius: 12px; padding: 24px; border: 1px solid #e2e8f0; margin-bottom: 32px; }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 12px; }
+        .detail-label { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
+        .detail-value { font-size: 13px; font-weight: 700; color: #1e293b; }
+        .button { display: inline-block; padding: 16px 32px; background-color: #1800AC; color: #ffffff !important; text-decoration: none; border-radius: 8px; font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; transition: background 0.2s; }
+        .footer { padding: 40px; text-align: center; border-top: 1px solid #e2e8f0; font-size: 12px; color: #94a3b8; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">S T A B L E</div>
+        </div>
+        <div class="content">
+            <div class="status-badge">Schedule Update</div>
+            <h1>Session Update</h1>
+            <p>Dear <%= customerName %>,</p>
+            <p>Thank you for your interest in a property performance assessment. Regrettably, our specialists are unable to accommodate the specific time slot you requested.</p>
+            
+            <div class="details-box">
+                <div class="detail-row">
+                    <span class="detail-label">Requested Time</span>
+                    <span class="detail-value"><%= requestedTime %></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Reference ID</span>
+                    <span class="detail-value">#<%= bookingId.substring(0,8).toUpperCase() %></span>
+                </div>
+            </div>
+
+            <p>We would still love to discuss your property strategy. Please feel free to visit our booking page again to select a different available slot that works for you.</p>
+
+            <div style="text-align: center; margin-top: 40px;">
+                <a href="https://www.stablepartnersgroup.com#registration-form" class="button">View New Slots</a>
+            </div>
+        </div>
+        <div class="footer">
+            &copy; 2026 Stable Partners Group. All rights reserved.<br>
+            Zurich | London | New York
+        </div>
+    </div>
+</body>
+</html>

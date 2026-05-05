@@ -62,7 +62,7 @@ const features = [
 
 export default function WhyWorkWithUs() {
   return (
-    <section className="py-24 bg-white">
+    <section id="work-with-us" className="py-24 bg-white">
       <div className="container">
         <div className="text-center max-w-3xl mx-auto mb-20">
           <motion.h2
