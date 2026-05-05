@@ -8,7 +8,7 @@ const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
-  const adminEmail = 'admin@stablepartners.com';
+  const adminEmail = 'stablepartnersgrp@gmail.com';
   const hashedPassword = await bcrypt.hash('admin123', 10);
 
   const admin = await prisma.user.upsert({
@@ -17,7 +17,7 @@ async function main() {
     create: {
       email: adminEmail,
       password: hashedPassword,
-      name: 'Main Admin',
+      name: 'System Admin',
       role: 'ADMIN',
     },
   });
