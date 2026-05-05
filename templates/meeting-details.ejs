@@ -27,7 +27,7 @@
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         .header {
-            background-color: #2563EB;
+            background-color: #1800AC;
             padding: 32px 40px;
             text-align: center;
         }
@@ -82,7 +82,7 @@
         }
         .button {
             display: block;
-            background-color: #2563EB;
+            background-color: #1800AC;
             color: #ffffff !important;
             padding: 16px 24px;
             text-decoration: none;
@@ -105,8 +105,8 @@
 <body>
     <div class="wrapper">
         <div class="container">
-            <div class="header">
-                <div class="logo">Stable Partners</div>
+            <div class="header" style="background-color: #ffffff; padding: 20px; text-align: center; border-bottom: 1px solid #f1f5f9;">
+                <img src="https://stablepartners.com/stable-patners-logo.jpg" alt="Stable Partners" style="height: 50px; width: auto;">
             </div>
             
             <div class="content">
@@ -119,7 +119,7 @@
                     <div class="value"><%= locals.date %></div>
                     
                     <span class="label">Meeting Link</span>
-                    <div class="value" style="word-break: break-all; color: #2563EB;"><%= locals.link %></div>
+                    <div class="value" style="word-break: break-all; color: #1800AC;"><%= locals.link %></div>
                 </div>
 
                 <a href="<%= locals.link %>" class="button">Join Google Meet</a>

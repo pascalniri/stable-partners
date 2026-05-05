@@ -23,7 +23,7 @@ export async function sendEmail({ to, subject, template, context }: {
     const html = (await ejs.renderFile(templatePath, context)) as string;
 
     await transporter.sendMail({
-      from: `"Stable Partners" <${process.env.EMAIL_USER}>`,
+      from: `"Stable Partners" <${process.env.EMAIL_FROM || process.env.EMAIL_USER}>`,
       to,
       subject,
       html,

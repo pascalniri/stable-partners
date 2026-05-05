@@ -19,8 +19,8 @@ export default function TrustSection() {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto"
         >
-          <h2 className="text-xl md:text-3xl font-bold mb-8 text-white">
-            WHY SHOULD YOU TRUST US?
+          <h2 className="text-xl md:text-3xl font-bold mb-8 text-white uppercase tracking-wider">
+            Our Foundation of Trust
           </h2>
           <p className="text-sm text-slate-300 mb-16 leading-relaxed">
             The firm is founded on direct involvement in real estate development
@@ -51,7 +51,7 @@ export default function TrustSection() {
                 <Users className="w-8 h-8" />
               </div>
               <h4 className="text-2xl font-bold mb-2">RDB Registered</h4>
-              <p className="text-slate-400">Built on Trust & Excellence</p>
+              <p className="text-slate-400">Official Registration</p>
             </div>
           </div>
         </motion.div>
