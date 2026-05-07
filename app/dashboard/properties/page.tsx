@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { EditPropertyDrawer } from "../../../components/drawers/EditPropertyDrawer";
 import { useRouter } from "next/navigation";
+import { DashboardNavbar } from "../../../components/layout/DashboardNavbar";
 
 export default function PropertiesDashboardPage() {
   const { isAuthenticated, logout } = useAuth();
@@ -42,61 +43,12 @@ export default function PropertiesDashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-[#1800AC] selection:text-white">
       {/* Header Nav */}
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-10">
-          <div
-            onClick={() => router.push("/")}
-            className="flex items-center gap-3 cursor-pointer group"
-          >
-            <div className="w-10 h-10 bg-[#1800AC] rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              S
-            </div>
-            <div>
-              <h1 className="text-sm font-bold uppercase tracking-widest text-slate-900">
-                Admin Dashboard
-              </h1>
-              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
-                Stable Partners Group
-              </p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center gap-10">
-            <Link
-              href="/dashboard"
-              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors pb-1"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/dashboard/properties"
-              className="text-xs font-bold uppercase tracking-widest text-[#1800AC] border-b-2 border-[#1800AC] pb-1"
-            >
-              Managed Assets
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-6 ml-auto">
-            <button
-              onClick={() => refresh()}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
-              title="Refresh Portfolio"
-            >
-              <RefreshCcw
-                size={18}
-                className={isLoading ? "animate-spin" : ""}
-              />
-            </button>
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition-all"
-            >
-              <LogOut size={16} />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
-          </div>
-        </div>
-      </header>
+      {/* Header Nav */}
+      <DashboardNavbar
+        currentPath="/dashboard/properties"
+        onRefresh={refresh}
+        isLoading={isLoading}
+      />
 
       <main className="container mx-auto px-6 py-12">
         {/* Header Actions */}
@@ -111,14 +63,14 @@ export default function PropertiesDashboardPage() {
           </div>
           <Link
             href="/dashboard/properties/new"
-            className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
+            className="group text-[11px] tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-3 shadow-lg shadow-blue-500/20"
           >
             <Plus size={18} /> ADD NEW PROPERTY
           </Link>
         </div>
 
         {/* Assets List */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
           <div className="grid grid-cols-12 px-8 py-4 bg-slate-50/50 text-[10px] font-bold uppercase tracking-widest text-slate-400 border-b border-slate-50">
             <div className="col-span-5">Property Details</div>
             <div className="col-span-2 text-right">Market Price</div>
@@ -154,7 +106,7 @@ export default function PropertiesDashboardPage() {
                               return (
                                 <div
                                   key={i}
-                                  className="absolute inset-0 border border-white bg-white rounded-lg transition-all duration-500 shadow-md"
+                                  className="absolute inset-0 border border-white bg-white rounded-[10px] transition-all duration-500 shadow-md"
                                   style={{
                                     transform: `translate(${index * 4}px, -${index * 4}px)`,
                                     zIndex: 10 - index,
@@ -163,19 +115,19 @@ export default function PropertiesDashboardPage() {
                                   <img
                                     src={url}
                                     alt={`${asset.title} ${index}`}
-                                    className="w-full h-full object-cover rounded-lg grayscale group-hover:grayscale-0 transition-all duration-700"
+                                    className="w-full h-full object-cover rounded-[10px] grayscale group-hover:grayscale-0 transition-all duration-700"
                                   />
                                 </div>
                               );
                             })}
                           {asset.images.length > 3 && (
-                            <div className="absolute -bottom-1 -right-1 bg-[#1800AC] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-sm z-20 shadow-sm">
+                            <div className="absolute -bottom-1 -right-1 bg-[#1800AC] text-white text-[8px] font-bold px-1.5 py-0.5 rounded-[5px] z-20 shadow-sm">
                               +{asset.images.length - 3}
                             </div>
                           )}
                         </>
                       ) : (
-                        <div className="w-full h-full border border-slate-100 bg-slate-50 rounded-lg flex items-center justify-center text-slate-300">
+                        <div className="w-full h-full border border-slate-100 bg-slate-50 rounded-[10px] flex items-center justify-center text-slate-300">
                           <ImageIcon size={20} />
                         </div>
                       )}
@@ -203,16 +155,16 @@ export default function PropertiesDashboardPage() {
                     <span
                       className={`px-4 py-1.5 rounded-full text-[10px] font-bold uppercase tracking-widest border ${
                         asset.status === "AVAILABLE"
-                          ? "border-emerald-100 text-emerald-600 bg-emerald-50/50"
+                          ? "border-green-500 text-white bg-green-500"
                           : asset.status === "SOLD"
-                            ? "border-red-100 text-red-600 bg-red-50/50"
-                            : "border-slate-100 text-slate-400 bg-slate-50"
+                            ? "border-red-500 text-white bg-red-500"
+                            : "border-slate-500 text-white bg-slate-500"
                       }`}
                     >
                       {asset.status === "AVAILABLE"
-                        ? "● Available"
+                        ? "Available"
                         : asset.status === "SOLD"
-                          ? "● Sold"
+                          ? "Sold"
                           : asset.status}
                     </span>
                   </div>
@@ -241,14 +193,14 @@ export default function PropertiesDashboardPage() {
                       <>
                         <button
                           onClick={() => handleEdit(asset)}
-                          className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
+                          className="p-2.5 bg-[#1800AC] text-white hover:bg-[#1800AC]/90 rounded transition-all"
                           title="Edit Property"
                         >
                           <Edit3 size={16} />
                         </button>
                         <button
                           onClick={() => setConfirmingDeleteId(asset.id)}
-                          className="p-2.5 bg-slate-50 text-slate-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-all"
+                          className="p-2.5 bg-red-500 text-white hover:bg-red-500/90 rounded transition-all"
                           title="Delete Property"
                         >
                           <Trash2 size={16} />

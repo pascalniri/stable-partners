@@ -62,7 +62,7 @@ function ResetPasswordForm() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white p-8 md:p-12 rounded-lg shadow-2xl shadow-blue-900/5 border border-slate-100 "
+          className="bg-white p-8 md:p-12 rounded-[10px] shadow-2xl shadow-blue-900/5 border border-slate-100 "
         >
           <h3 className="text-2xl font-bold text-slate-900 mb-8 border-b pb-4 font-outfit flex items-center gap-3">
             <Lock className="text-[#1800AC]" size={24} />

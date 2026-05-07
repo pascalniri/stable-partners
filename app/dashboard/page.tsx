@@ -13,7 +13,7 @@ import {
   User,
 } from "lucide-react";
 import { useRouter } from "next/navigation";
-
+import { DashboardNavbar } from "../../components/layout/DashboardNavbar";
 export default function DashboardPage() {
   const { isAuthenticated, logout } = useAuth();
   const { bookings, isLoading, error, refresh } = useAdmin();
@@ -29,67 +29,11 @@ export default function DashboardPage() {
   return (
     <div className="min-h-screen bg-slate-50/50 text-slate-900 font-sans selection:bg-[#1800AC] selection:text-white">
       {/* Header Nav */}
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-6 h-20 flex items-center justify-between gap-10">
-          <div
-            onClick={() => router.push("/")}
-            className="flex items-center gap-3 cursor-pointer group"
-          >
-            <div className="w-10 h-10 bg-[#1800AC] rounded-lg flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/20 group-hover:scale-105 transition-transform">
-              S
-            </div>
-            <div>
-              <h1 className="text-sm font-bold uppercase tracking-widest text-slate-900">
-                Admin Dashboard
-              </h1>
-              <p className="text-[10px] text-slate-400 font-medium uppercase tracking-wider">
-                Stable Partners Group
-              </p>
-            </div>
-          </div>
-
-          <div className="hidden md:flex items-center gap-10">
-            <Link
-              href="/dashboard"
-              className="text-xs font-bold uppercase tracking-widest text-[#1800AC] border-b-2 border-[#1800AC] pb-1"
-            >
-              Bookings
-            </Link>
-            <Link
-              href="/dashboard/properties"
-              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors pb-1"
-            >
-              Managed Assets
-            </Link>
-            <Link
-              href="/dashboard/availability"
-              className="text-xs font-bold uppercase tracking-widest text-slate-400 hover:text-slate-900 transition-colors pb-1"
-            >
-              Availability
-            </Link>
-          </div>
-
-          <div className="flex items-center gap-6 ml-auto">
-            <button
-              onClick={() => refresh()}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
-              title="Refresh Data"
-            >
-              <RefreshCcw
-                size={18}
-                className={isLoading ? "animate-spin" : ""}
-              />
-            </button>
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition-all"
-            >
-              <LogOut size={16} />
-              <span className="hidden sm:inline">Logout</span>
-            </button>
-          </div>
-        </div>
-      </header>
+      <DashboardNavbar
+        currentPath="/dashboard"
+        onRefresh={refresh}
+        isLoading={isLoading}
+      />
 
       <main className="container mx-auto px-6 py-12">
         {/* Page Title */}
@@ -104,7 +48,7 @@ export default function DashboardPage() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-white p-8 rounded-xl border border-slate-200 transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                 Total Captured
@@ -121,7 +65,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-white p-8 rounded-xl border border-slate-200 transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                 Pending Review
@@ -138,7 +82,7 @@ export default function DashboardPage() {
             </p>
           </div>
 
-          <div className="bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+          <div className="bg-white p-8 rounded-xl border border-slate-200 transition-shadow">
             <div className="flex items-center justify-between mb-4">
               <span className="text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                 Action Rate
@@ -164,7 +108,7 @@ export default function DashboardPage() {
         </div>
 
         {/* Bookings Table */}
-        <div className="bg-white rounded-2xl border border-slate-100 shadow-sm overflow-hidden">
+        <div className="bg-white rounded-xl border border-slate-200 overflow-hidden">
           <div className="px-8 py-6 border-b border-slate-50 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
             <h3 className="text-lg font-bold text-slate-900">
               Active Inquiries
@@ -261,21 +205,28 @@ export default function DashboardPage() {
                         {booking.slot ? (
                           <>
                             <div className="text-xs font-bold text-[#1800AC] uppercase">
-                              {new Date(booking.slot.startTime).toLocaleDateString(undefined, { 
-                                weekday: 'short', 
-                                month: 'short', 
-                                day: 'numeric' 
+                              {new Date(
+                                booking.slot.startTime,
+                              ).toLocaleDateString(undefined, {
+                                weekday: "short",
+                                month: "short",
+                                day: "numeric",
                               })}
                             </div>
                             <div className="text-[10px] font-black text-slate-900 mt-1 uppercase tracking-tighter">
-                              {new Date(booking.slot.startTime).toLocaleTimeString(undefined, { 
-                                hour: '2-digit', 
-                                minute: '2-digit' 
-                              })} ({booking.timezone})
+                              {new Date(
+                                booking.slot.startTime,
+                              ).toLocaleTimeString(undefined, {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}{" "}
+                              ({booking.timezone})
                             </div>
                           </>
                         ) : (
-                          <span className="text-[10px] text-slate-400 uppercase font-bold italic">Manual / Legacy</span>
+                          <span className="text-[10px] text-slate-400 uppercase font-bold italic">
+                            Manual / Legacy
+                          </span>
                         )}
                       </td>
                       <td className="px-8 py-6">
@@ -303,14 +254,14 @@ export default function DashboardPage() {
                           {booking.status === "PENDING" ? (
                             <Link
                               href={`/dashboard/bookings/${booking.id}`}
-                              className="px-4 py-2 bg-blue-50 text-[#1800AC] text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-[#1800AC] hover:text-white transition-all flex items-center gap-2"
+                              className="px-4 py-3 text-white bg-[#1800AC] hover:bg-[#1800AC]/90 text-[10px] font-bold uppercase tracking-widest rounded hover:bg-[#1800AC] hover:text-white transition-all flex items-center gap-2"
                             >
                               Process <ExternalLink size={12} />
                             </Link>
                           ) : (
                             <Link
                               href={`/dashboard/bookings/${booking.id}`}
-                              className="px-4 py-2 bg-slate-50 text-slate-400 text-[10px] font-bold uppercase tracking-widest rounded-lg hover:bg-slate-900 hover:text-white transition-all flex items-center gap-2"
+                              className="px-4 py-3 bg-slate-500 text-white text-[10px] font-bold uppercase tracking-widest rounded hover:bg-slate-900 hover:text-white transition-all flex items-center gap-2"
                             >
                               Review <Calendar size={12} />
                             </Link>

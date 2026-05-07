@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     template: "%s | Stable Partners Group",
   },
   description:
-    "Boutique property management for high-value asset owners. Reclaiming your time through radical transparency and clinical precision.",
+    "Your property should perform like a business. That's why we manage it like an investment rather than a building. From quality tenant selection to rent collection, proper maintenance, and strategies for boosting steady passive income without your involvement.",
   keywords: [
     "property management",
     "luxury real estate",

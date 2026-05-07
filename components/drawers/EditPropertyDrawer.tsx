@@ -54,7 +54,7 @@ export const EditPropertyDrawer = ({
             </div>
             <button
               onClick={onClose}
-              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-lg transition-all"
+              className="p-2.5 bg-slate-50 text-slate-400 hover:text-[#1800AC] hover:bg-blue-50 rounded-[10px] transition-all"
             >
               <X size={20} />
             </button>
@@ -202,7 +202,7 @@ export const EditPropertyDrawer = ({
                         {images.map((url, idx) => (
                           <div
                             key={idx}
-                            className="relative aspect-square border border-slate-100 bg-white rounded-xl overflow-hidden group shadow-sm"
+                            className="relative aspect-square border border-slate-100 bg-white rounded-[5px] overflow-hidden group shadow-sm"
                           >
                             <img
                               src={url}
@@ -222,7 +222,7 @@ export const EditPropertyDrawer = ({
                     )}
 
                     {videoUrl && (
-                      <div className="relative aspect-video border border-slate-100 bg-white rounded-xl overflow-hidden group shadow-sm">
+                      <div className="relative aspect-video border border-slate-100 bg-white rounded-[5px] overflow-hidden group shadow-sm">
                         <video
                           src={videoUrl}
                           controls

@@ -37,13 +37,31 @@ export async function POST(
     });
 
     // 3. Send Email
+    let formattedDate = body.scheduledDate;
+    try {
+      const dateObj = new Date(body.scheduledDate);
+      if (!isNaN(dateObj.getTime())) {
+        formattedDate = dateObj.toLocaleString('en-US', {
+          weekday: 'long',
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          timeZone: booking.timezone
+        }) + ` (${booking.timezone})`;
+      }
+    } catch (e) {
+      console.error('Date formatting error:', e);
+    }
+
     await sendEmail({
       to: booking.customerEmail,
       subject: 'Meeting Details - Stable Partners',
       template: 'meeting-details',
       context: {
         name: booking.customerName,
-        date: body.scheduledDate,
+        date: formattedDate,
         link: body.meetingLink,
       },
     });

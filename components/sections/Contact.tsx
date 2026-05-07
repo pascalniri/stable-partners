@@ -115,7 +115,7 @@ export default function Contact() {
               </p>
               <button
                 onClick={() => setStatus("idle")}
-                className="px-8 py-3 bg-primary text-white rounded-xl font-bold transition-all hover:bg-secondary"
+                className="px-8 py-3 bg-primary text-white rounded-[5px] font-bold transition-all hover:bg-secondary"
               >
                 Send Another Request
               </button>
@@ -129,7 +129,7 @@ export default function Contact() {
                 <input
                   type="text"
                   placeholder="John Doe"
-                  className="p-4 bg-card border border-border rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="p-4 bg-card border border-border rounded-[5px] focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                   required
                   value={formData.customerName}
                   onChange={(e) =>
@@ -144,7 +144,7 @@ export default function Contact() {
                 <input
                   type="email"
                   placeholder="john@example.com"
-                  className="p-4 bg-card border border-border rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="p-4 bg-card border border-border rounded-[5px] focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                   required
                   value={formData.customerEmail}
                   onChange={(e) =>
@@ -157,7 +157,7 @@ export default function Contact() {
                   Service Interested In
                 </label>
                 <select
-                  className="p-4 bg-card border border-border rounded-xl focus:outline-none focus:border-primary transition-all"
+                  className="p-4 bg-card border border-border rounded-[5px] focus:outline-none focus:border-primary transition-all"
                   value={formData.serviceType}
                   onChange={(e) =>
                     setFormData({ ...formData, serviceType: e.target.value })
@@ -176,7 +176,7 @@ export default function Contact() {
                 <textarea
                   rows={4}
                   placeholder="I'm looking to optimize my multi-family portfolio..."
-                  className="p-4 bg-card border border-border rounded-xl focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
+                  className="p-4 bg-card border border-border rounded-[5px] focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                   value={formData.description}
                   onChange={(e) =>
                     setFormData({ ...formData, description: e.target.value })
@@ -185,7 +185,7 @@ export default function Contact() {
               </div>
               <button
                 type="submit"
-                className="mt-4 p-4 bg-primary text-white rounded-xl font-bold text-md flex items-center justify-center gap-3 transition-all hover:bg-secondary hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="mt-4 p-4 bg-primary text-white rounded-[5px] font-bold text-md flex items-center justify-center gap-3 transition-all hover:bg-secondary hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={status === "loading"}
               >
                 {status === "loading" ? "Sending..." : "Schedule Consultation"}

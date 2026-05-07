@@ -187,7 +187,7 @@ export default function NewPropertyPage() {
                   {images.map((url, idx) => (
                     <div
                       key={idx}
-                      className="relative aspect-square border border-slate-100 bg-slate-50 rounded-xl overflow-hidden group shadow-sm"
+                      className="relative aspect-square border border-slate-100 bg-slate-50 rounded-[5px] overflow-hidden group shadow-sm"
                     >
                       <img
                         src={url}
@@ -205,7 +205,7 @@ export default function NewPropertyPage() {
                   ))}
 
                   {videoUrl && (
-                    <div className="relative col-span-2 aspect-video border border-slate-100 bg-slate-50 rounded-xl overflow-hidden group shadow-sm">
+                    <div className="relative col-span-2 aspect-video border border-slate-100 bg-slate-50 rounded-[5px] overflow-hidden group shadow-sm">
                       <video
                         src={videoUrl}
                         controls

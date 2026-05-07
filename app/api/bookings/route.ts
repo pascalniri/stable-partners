@@ -114,7 +114,17 @@ export async function POST(request: Request) {
             additionalInfo: booking.additionalInfo,
             serviceType: booking.serviceType,
             propertyName: booking.property?.title,
-            scheduledTime: booking.slot ? new Date(booking.slot.startTime).toLocaleString() : 'Manual scheduling',
+            scheduledTime: booking.slot 
+              ? new Date(booking.slot.startTime).toLocaleString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric', 
+                  hour: '2-digit', 
+                  minute: '2-digit',
+                  timeZone: booking.timezone 
+                }) + ` (${booking.timezone})`
+              : 'Manual scheduling',
             timezone: booking.timezone
           },
         }),

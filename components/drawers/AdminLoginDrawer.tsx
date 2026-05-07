@@ -80,7 +80,7 @@ export function AdminLoginDrawer({ children }: AdminLoginDrawerProps) {
 
                   <div className="pt-4">
                     {resetSent ? (
-                      <div className="p-4 bg-green-50 border border-green-100 text-green-700 text-xs font-bold rounded-lg text-center">
+                      <div className="p-4 bg-green-50 border border-green-100 text-green-700 text-xs font-bold rounded-[10px] text-center">
                         Reset link sent if account exists. Check your inbox.
                       </div>
                     ) : (
@@ -104,7 +104,7 @@ export function AdminLoginDrawer({ children }: AdminLoginDrawerProps) {
               ) : (
                 <form className="space-y-8" onSubmit={onSubmit}>
                   {apiError && (
-                    <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-xs font-bold rounded-lg text-center">
+                    <div className="p-4 bg-red-50 border border-red-100 text-red-600 text-xs font-bold rounded-[10px] text-center">
                       {apiError}
                     </div>
                   )}

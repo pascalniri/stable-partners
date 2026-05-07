@@ -28,31 +28,31 @@ export default function Navbar() {
       className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 bg-white h-20 flex items-center`}
     >
       <div className="container flex items-center justify-between bg-white">
-        <div className="flex items-center gap-2 group cursor-pointer">
+        <Link href="/" className="flex items-center gap-2 group cursor-pointer">
           <Image
             src="/stable-patners-logo.jpg"
             alt="Stable Partners Group Logo"
             width={80}
             height={80}
           />
-        </div>
+        </Link>
 
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center gap-12">
           <Link
-            href="#"
+            href="/"
             className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
           >
             Home
           </Link>
           <Link
-            href="#work-with-us"
+            href="/#work-with-us"
             className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
           >
             What We Do
           </Link>
           <Link
-            href="#registration-form"
+            href="/#registration-form"
             className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
           >
             Assessment
@@ -73,16 +73,12 @@ export default function Navbar() {
               </button>
             </AdminLoginDrawer>
           )}
-          <button
-            onClick={() =>
-              document
-                .getElementById("registration-form")
-                ?.scrollIntoView({ behavior: "smooth" })
-            }
-            className="bg-[#1800AC] text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 rounded"
+          <Link
+            href="/#registration-form"
+            className="bg-[#1800AC] text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 rounded text-center inline-block"
           >
             Free Assessment
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Toggle */}
@@ -98,21 +94,21 @@ export default function Navbar() {
       {isMobileMenuOpen && (
         <div className="absolute top-full left-0 right-0 bg-white p-8 flex flex-col gap-6 border-b border-gray-100 shadow-xl md:hidden">
           <Link 
-            href="#" 
+            href="/" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
             Home
           </Link>
           <Link 
-            href="#work-with-us" 
+            href="/#work-with-us" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
             What We Do
           </Link>
           <Link 
-            href="#registration-form" 
+            href="/#registration-form" 
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
@@ -133,17 +129,13 @@ export default function Navbar() {
                 </button>
               </AdminLoginDrawer>
             )}
-            <button
-              onClick={() => {
-                document
-                  .getElementById("registration-form")
-                  ?.scrollIntoView({ behavior: "smooth" });
-                setIsMobileMenuOpen(false);
-              }}
-              className="w-full bg-[#1800AC] text-white py-4 text-[11px] font-bold uppercase tracking-[0.2em] rounded"
+            <Link
+              href="/#registration-form"
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="w-full bg-[#1800AC] text-white py-4 text-[11px] font-bold uppercase tracking-[0.2em] rounded text-center block"
             >
               Free Assessment
-            </button>
+            </Link>
           </div>
         </div>
       )}
