@@ -30,7 +30,7 @@ export default function Navbar() {
       <div className="container flex items-center justify-between bg-white">
         <Link href="/" className="flex items-center gap-2 group cursor-pointer">
           <Image
-            src="/stable-patners-logo.jpg"
+            src="/stable-partners-group-logo.png"
             alt="Stable Partners Group Logo"
             width={80}
             height={80}

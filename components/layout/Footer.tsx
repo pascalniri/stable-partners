@@ -10,7 +10,7 @@ export default function Footer() {
       <div className="container flex flex-col items-center justify-center gap-6">
         <div className="flex items-center gap-2">
           <Image
-            src="/stable-patners-logo.jpg"
+            src="/stable-partners-group-logo.png"
             alt="Stable Partners Group Logo"
             width={180}
             height={60}
