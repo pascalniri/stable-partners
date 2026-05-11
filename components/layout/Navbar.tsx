@@ -55,7 +55,7 @@ export default function Navbar() {
             href="/#registration-form"
             className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
           >
-            Assessment
+            Talk to An Expert
           </Link>
         </div>
 
@@ -112,7 +112,7 @@ export default function Navbar() {
             onClick={() => setIsMobileMenuOpen(false)}
             className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
-            Assessment
+            Talk to An Expert
           </Link>
           
           <div className="flex flex-col gap-4 mt-4">
