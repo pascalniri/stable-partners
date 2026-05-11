@@ -112,13 +112,16 @@ export default function RegistrationForm() {
   const nextStep = async () => {
     let fieldsToValidate: (keyof FormData)[] = [];
     if (step === 0)
-      fieldsToValidate = ["propertyType", "propertyLocation", "unitsRooms"];
+      fieldsToValidate = ["propertyType", "propertyTypeOther", "propertyLocation", "unitsRooms"];
     if (step === 1)
       fieldsToValidate = [
         "occupancyStatus",
+        "occupancyStatusOther",
         "estimatedIncome",
         "mainChallenge",
+        "mainChallengeOther",
         "mainGoal",
+        "mainGoalOther",
       ];
     if (step === 2) fieldsToValidate = ["slotId", "timezone"];
 
@@ -290,11 +293,14 @@ export default function RegistrationForm() {
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="pt-2"
+                              className="pt-2 space-y-2"
                             >
+                              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                                Specify Property Type <span className="text-red-500">*</span>
+                              </label>
                               <input
                                 {...register("propertyTypeOther")}
-                                placeholder="Please specify property type..."
+                                placeholder="e.g. Warehouse, Industrial..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
                                   errors.propertyTypeOther ? "border-red-500" : "border-slate-200"
                                 }`}
@@ -382,11 +388,14 @@ export default function RegistrationForm() {
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="pt-2"
+                              className="pt-2 space-y-2"
                             >
+                              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                                Specify Challenge <span className="text-red-500">*</span>
+                              </label>
                               <input
                                 {...register("mainChallengeOther")}
-                                placeholder="Please specify your challenge..."
+                                placeholder="Describe your biggest hurdle..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
                                   errors.mainChallengeOther ? "border-red-500" : "border-slate-200"
                                 }`}
@@ -432,11 +441,14 @@ export default function RegistrationForm() {
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="pt-2"
+                              className="pt-2 space-y-2"
                             >
+                              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                                Specify Objective <span className="text-red-500">*</span>
+                              </label>
                               <input
                                 {...register("mainGoalOther")}
-                                placeholder="Please specify your objective..."
+                                placeholder="Describe your primary goal..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
                                   errors.mainGoalOther ? "border-red-500" : "border-slate-200"
                                 }`}
@@ -499,11 +511,14 @@ export default function RegistrationForm() {
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
                               exit={{ opacity: 0, height: 0 }}
-                              className="pt-2"
+                              className="pt-2 space-y-2"
                             >
+                              <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
+                                Specify Occupancy Status <span className="text-red-500">*</span>
+                              </label>
                               <input
                                 {...register("occupancyStatusOther")}
-                                placeholder="Please specify status..."
+                                placeholder="Describe current occupancy..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
                                   errors.occupancyStatusOther ? "border-red-500" : "border-slate-200"
                                 }`}
