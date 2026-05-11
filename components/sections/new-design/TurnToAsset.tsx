@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function TurnToAsset() {
   return (
@@ -57,16 +57,33 @@ export default function TurnToAsset() {
               increase your rental returns.
             </p>
 
-            <button
-              onClick={() =>
-                document
-                  .getElementById("registration-form")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
-              className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
-            >
-              TALK TO AN EXPERT
-            </button>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <button
+                onClick={() =>
+                  document
+                    .getElementById("registration-form")
+                    ?.scrollIntoView({ behavior: "smooth" })
+                }
+                className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
+              >
+                TALK TO AN EXPERT
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </button>
+              <div className="flex flex-col justify-center space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-semibold text-slate-900">
+                    It's Completely Free
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-semibold text-slate-900">
+                    Takes less than 60 seconds to register
+                  </p>
+                </div>
+              </div>
+            </div>
           </motion.div>
         </div>
       </div>

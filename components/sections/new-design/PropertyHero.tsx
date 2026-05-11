@@ -3,7 +3,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 
 export default function PropertyHero() {
   return (
@@ -48,13 +48,19 @@ export default function PropertyHero() {
                 TALK TO AN EXPERT
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <div className="flex flex-col justify-center">
-                <p className="text-sm font-semibold text-slate-900">
-                  It's Completely Free
-                </p>
-                <p className="text-xs text-slate-500">
-                  Takes less than 60 seconds to register
-                </p>
+              <div className="flex flex-col justify-center space-y-1.5">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-semibold text-slate-900">
+                    It's Completely Free
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-semibold text-slate-900">
+                    Takes less than 60 seconds to register
+                  </p>
+                </div>
               </div>
             </div>
           </motion.div>
