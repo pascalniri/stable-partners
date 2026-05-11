@@ -214,8 +214,7 @@ export default function RegistrationForm() {
             Elevate your property performance
           </h2>
           <p className="text-lg text-slate-600 leading-relaxed">
-            Begin your journey toward maximized returns with a bespoke property
-            assessment call.
+           Ready to take the stress out of landlording? Fill out the details below to book a free, private meeting at a time that works best for you. One of our experts is ready to help whenever you're available.
           </p>
         </div>
 
