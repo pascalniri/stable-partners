@@ -12,6 +12,7 @@ import {
   Target,
   Calendar as CalendarIcon,
   User,
+  CheckCircle2,
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -114,7 +115,12 @@ export default function RegistrationForm() {
   const nextStep = async () => {
     let fieldsToValidate: (keyof FormData)[] = [];
     if (step === 0)
-      fieldsToValidate = ["propertyType", "propertyTypeOther", "propertyLocation", "unitsRooms"];
+      fieldsToValidate = [
+        "propertyType",
+        "propertyTypeOther",
+        "propertyLocation",
+        "unitsRooms",
+      ];
     if (step === 1)
       fieldsToValidate = [
         "occupancyStatus",
@@ -139,10 +145,22 @@ export default function RegistrationForm() {
     try {
       const submissionData = {
         ...data,
-        propertyType: data.propertyType === "Other" ? data.propertyTypeOther : data.propertyType,
-        mainChallenge: data.mainChallenge === "Other (Please specify)" ? data.mainChallengeOther : data.mainChallenge,
-        mainGoal: data.mainGoal === "Other (Please specify)" ? data.mainGoalOther : data.mainGoal,
-        occupancyStatus: data.occupancyStatus === "Other (Please specify)" ? data.occupancyStatusOther : data.occupancyStatus,
+        propertyType:
+          data.propertyType === "Other"
+            ? data.propertyTypeOther
+            : data.propertyType,
+        mainChallenge:
+          data.mainChallenge === "Other (Please specify)"
+            ? data.mainChallengeOther
+            : data.mainChallenge,
+        mainGoal:
+          data.mainGoal === "Other (Please specify)"
+            ? data.mainGoalOther
+            : data.mainGoal,
+        occupancyStatus:
+          data.occupancyStatus === "Other (Please specify)"
+            ? data.occupancyStatusOther
+            : data.occupancyStatus,
         serviceType: "Property Assessment",
       };
 
@@ -209,13 +227,30 @@ export default function RegistrationForm() {
   return (
     <section id="registration-form" className="py-24 bg-slate-50/50">
       <div className="container px-4">
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-16">
           <h2 className="text-3xl md:text-5xl font-bold text-slate-900 mb-6 font-outfit tracking-tight">
             Elevate your property performance
           </h2>
           <p className="text-lg text-slate-600 leading-relaxed">
-           Ready to take the stress out of landlording? Fill out the details below to book a free, private meeting at a time that works best for you. One of our experts is ready to help whenever you're available.
+            Ready to take the stress out of landlording? Fill out the details
+            below to book a free, private meeting at a time that works best for
+            you. One of our experts is ready to help whenever you're available.
           </p>
+          <div className="flex flex-col justify-center gap-4 mt-5">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <p className="text-sm font-semibold text-slate-900">
+                Fast: Only takes 60 seconds to register.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <p className="text-sm font-semibold text-slate-900">
+                Free: It is completely free. Flexible: You choose the time that
+                works for you.
+              </p>
+            </div>
+          </div>
         </div>
 
         <div className="max-w-5xl mx-auto">
@@ -271,17 +306,30 @@ export default function RegistrationForm() {
                         <select
                           {...register("propertyType")}
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.propertyType ? "border-red-500" : "border-slate-200"
+                            errors.propertyType
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         >
                           <option value="">Select type...</option>
-                          <option value="House (Single-Family)">House (Single-Family)</option>
-                          <option value="Apartment / Condo">Apartment / Condo</option>
-                          <option value="Commercial (Office/Retail)">Commercial (Office/Retail)</option>
-                          <option value="Mixed-Use (Residential & Commercial)">Mixed-Use (Residential & Commercial)</option>
+                          <option value="House (Single-Family)">
+                            House (Single-Family)
+                          </option>
+                          <option value="Apartment / Condo">
+                            Apartment / Condo
+                          </option>
+                          <option value="Commercial (Office/Retail)">
+                            Commercial (Office/Retail)
+                          </option>
+                          <option value="Mixed-Use (Residential & Commercial)">
+                            Mixed-Use (Residential & Commercial)
+                          </option>
                           <option value="Other">Other</option>
                         </select>
-                        <p className="text-[10px] text-slate-400 ml-1">Select the classification that best describes your property.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Select the classification that best describes your
+                          property.
+                        </p>
                         {errors.propertyType && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.propertyType.message}
@@ -297,13 +345,16 @@ export default function RegistrationForm() {
                               className="pt-2 space-y-2"
                             >
                               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                                Specify Property Type <span className="text-red-500">*</span>
+                                Specify Property Type{" "}
+                                <span className="text-red-500">*</span>
                               </label>
                               <input
                                 {...register("propertyTypeOther")}
                                 placeholder="e.g. Warehouse, Industrial..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
-                                  errors.propertyTypeOther ? "border-red-500" : "border-slate-200"
+                                  errors.propertyTypeOther
+                                    ? "border-red-500"
+                                    : "border-slate-200"
                                 }`}
                               />
                               {errors.propertyTypeOther && (
@@ -323,10 +374,14 @@ export default function RegistrationForm() {
                           {...register("propertyLocation")}
                           placeholder="e.g. Kigali, Rwanda"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.propertyLocation ? "border-red-500" : "border-slate-200"
+                            errors.propertyLocation
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">The primary city or region of the asset.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          The primary city or region of the asset.
+                        </p>
                         {errors.propertyLocation && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.propertyLocation.message}
@@ -335,16 +390,21 @@ export default function RegistrationForm() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Total Number of Units <span className="text-red-500">*</span>
+                          Total Number of Units{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <input
                           {...register("unitsRooms")}
                           type="number"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.unitsRooms ? "border-red-500" : "border-slate-200"
+                            errors.unitsRooms
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">Total number of individual spaces available.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Total number of individual spaces available.
+                        </p>
                         {errors.unitsRooms && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.unitsRooms.message}
@@ -358,25 +418,47 @@ export default function RegistrationForm() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Primary Challenge <span className="text-red-500">*</span>
+                          Primary Challenge{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <select
                           {...register("mainChallenge")}
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.mainChallenge ? "border-red-500" : "border-slate-200"
+                            errors.mainChallenge
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         >
                           <option value="">Select challenge...</option>
-                          <option value="Maintenance & Repairs (Corrective)">Maintenance & Repairs (Corrective)</option>
-                          <option value="Preventive Maintenance Planning">Preventive Maintenance Planning</option>
-                          <option value="Tenant Relations & Rent Collection">Tenant Relations & Rent Collection</option>
-                          <option value="Vendor & Contractor Management">Vendor & Contractor Management</option>
-                          <option value="Health, Safety, & Regulatory Compliance">Health, Safety, & Regulatory Compliance</option>
-                          <option value="High Operating Costs / Utility Waste">High Operating Costs / Utility Waste</option>
-                          <option value="Administrative & Financial Reporting">Administrative & Financial Reporting</option>
-                          <option value="Other (Please specify)">Other (Please specify)</option>
+                          <option value="Maintenance & Repairs (Corrective)">
+                            Maintenance & Repairs (Corrective)
+                          </option>
+                          <option value="Preventive Maintenance Planning">
+                            Preventive Maintenance Planning
+                          </option>
+                          <option value="Tenant Relations & Rent Collection">
+                            Tenant Relations & Rent Collection
+                          </option>
+                          <option value="Vendor & Contractor Management">
+                            Vendor & Contractor Management
+                          </option>
+                          <option value="Health, Safety, & Regulatory Compliance">
+                            Health, Safety, & Regulatory Compliance
+                          </option>
+                          <option value="High Operating Costs / Utility Waste">
+                            High Operating Costs / Utility Waste
+                          </option>
+                          <option value="Administrative & Financial Reporting">
+                            Administrative & Financial Reporting
+                          </option>
+                          <option value="Other (Please specify)">
+                            Other (Please specify)
+                          </option>
                         </select>
-                        <p className="text-[10px] text-slate-400 ml-1">Identify the biggest hurdle in your current management.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Identify the biggest hurdle in your current
+                          management.
+                        </p>
                         {errors.mainChallenge && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.mainChallenge.message}
@@ -384,7 +466,8 @@ export default function RegistrationForm() {
                         )}
 
                         <AnimatePresence>
-                          {watch("mainChallenge") === "Other (Please specify)" && (
+                          {watch("mainChallenge") ===
+                            "Other (Please specify)" && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
@@ -392,13 +475,16 @@ export default function RegistrationForm() {
                               className="pt-2 space-y-2"
                             >
                               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                                Specify Challenge <span className="text-red-500">*</span>
+                                Specify Challenge{" "}
+                                <span className="text-red-500">*</span>
                               </label>
                               <input
                                 {...register("mainChallengeOther")}
                                 placeholder="Describe your biggest hurdle..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
-                                  errors.mainChallengeOther ? "border-red-500" : "border-slate-200"
+                                  errors.mainChallengeOther
+                                    ? "border-red-500"
+                                    : "border-slate-200"
                                 }`}
                               />
                               {errors.mainChallengeOther && (
@@ -417,19 +503,37 @@ export default function RegistrationForm() {
                         <select
                           {...register("mainGoal")}
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.mainGoal ? "border-red-500" : "border-slate-200"
+                            errors.mainGoal
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         >
                           <option value="">Select goal...</option>
-                          <option value="Reduce Operational Costs">Reduce Operational Costs</option>
-                          <option value="Improve Tenant Retention">Improve Tenant Retention</option>
-                          <option value="Increase Asset Lifecycle / Value">Increase Asset Lifecycle / Value</option>
-                          <option value="Ensure Regulatory Compliance">Ensure Regulatory Compliance</option>
-                          <option value="Streamline Daily Operations">Streamline Daily Operations</option>
-                          <option value="Maximise Rental Yield">Maximise Rental Yield</option>
-                          <option value="Other (Please specify)">Other (Please specify)</option>
+                          <option value="Reduce Operational Costs">
+                            Reduce Operational Costs
+                          </option>
+                          <option value="Improve Tenant Retention">
+                            Improve Tenant Retention
+                          </option>
+                          <option value="Increase Asset Lifecycle / Value">
+                            Increase Asset Lifecycle / Value
+                          </option>
+                          <option value="Ensure Regulatory Compliance">
+                            Ensure Regulatory Compliance
+                          </option>
+                          <option value="Streamline Daily Operations">
+                            Streamline Daily Operations
+                          </option>
+                          <option value="Maximise Rental Yield">
+                            Maximise Rental Yield
+                          </option>
+                          <option value="Other (Please specify)">
+                            Other (Please specify)
+                          </option>
                         </select>
-                        <p className="text-[10px] text-slate-400 ml-1">What is your primary priority for this property?</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          What is your primary priority for this property?
+                        </p>
                         {errors.mainGoal && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.mainGoal.message}
@@ -445,13 +549,16 @@ export default function RegistrationForm() {
                               className="pt-2 space-y-2"
                             >
                               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                                Specify Objective <span className="text-red-500">*</span>
+                                Specify Objective{" "}
+                                <span className="text-red-500">*</span>
                               </label>
                               <input
                                 {...register("mainGoalOther")}
                                 placeholder="Describe your primary goal..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
-                                  errors.mainGoalOther ? "border-red-500" : "border-slate-200"
+                                  errors.mainGoalOther
+                                    ? "border-red-500"
+                                    : "border-slate-200"
                                 }`}
                               />
                               {errors.mainGoalOther && (
@@ -471,10 +578,14 @@ export default function RegistrationForm() {
                           {...register("estimatedIncome")}
                           placeholder="e.g. $5,000/mo"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.estimatedIncome ? "border-red-500" : "border-slate-200"
+                            errors.estimatedIncome
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">Your current average monthly income from this asset.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Your current average monthly income from this asset.
+                        </p>
                         {errors.estimatedIncome && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.estimatedIncome.message}
@@ -483,23 +594,40 @@ export default function RegistrationForm() {
                       </div>
                       <div className="md:col-span-2 space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Current Occupancy <span className="text-red-500">*</span>
+                          Current Occupancy{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <select
                           {...register("occupancyStatus")}
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.occupancyStatus ? "border-red-500" : "border-slate-200"
+                            errors.occupancyStatus
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         >
                           <option value="">Select status...</option>
-                          <option value="Fully Occupied / Operational">Fully Occupied / Operational</option>
-                          <option value="Partially Occupied / Shared">Partially Occupied / Shared</option>
-                          <option value="Vacant / Non-Operational">Vacant / Non-Operational</option>
-                          <option value="Under Renovation / Fit-out">Under Renovation / Fit-out</option>
-                          <option value="Notice Given (Pending Vacancy)">Notice Given (Pending Vacancy)</option>
-                          <option value="Other (Please specify)">Other (Please specify)</option>
+                          <option value="Fully Occupied / Operational">
+                            Fully Occupied / Operational
+                          </option>
+                          <option value="Partially Occupied / Shared">
+                            Partially Occupied / Shared
+                          </option>
+                          <option value="Vacant / Non-Operational">
+                            Vacant / Non-Operational
+                          </option>
+                          <option value="Under Renovation / Fit-out">
+                            Under Renovation / Fit-out
+                          </option>
+                          <option value="Notice Given (Pending Vacancy)">
+                            Notice Given (Pending Vacancy)
+                          </option>
+                          <option value="Other (Please specify)">
+                            Other (Please specify)
+                          </option>
                         </select>
-                        <p className="text-[10px] text-slate-400 ml-1">The current usage state of your property.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          The current usage state of your property.
+                        </p>
                         {errors.occupancyStatus && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.occupancyStatus.message}
@@ -507,7 +635,8 @@ export default function RegistrationForm() {
                         )}
 
                         <AnimatePresence>
-                          {watch("occupancyStatus") === "Other (Please specify)" && (
+                          {watch("occupancyStatus") ===
+                            "Other (Please specify)" && (
                             <motion.div
                               initial={{ opacity: 0, height: 0 }}
                               animate={{ opacity: 1, height: "auto" }}
@@ -515,13 +644,16 @@ export default function RegistrationForm() {
                               className="pt-2 space-y-2"
                             >
                               <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                                Specify Occupancy Status <span className="text-red-500">*</span>
+                                Specify Occupancy Status{" "}
+                                <span className="text-red-500">*</span>
                               </label>
                               <input
                                 {...register("occupancyStatusOther")}
                                 placeholder="Describe current occupancy..."
                                 className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
-                                  errors.occupancyStatusOther ? "border-red-500" : "border-slate-200"
+                                  errors.occupancyStatusOther
+                                    ? "border-red-500"
+                                    : "border-slate-200"
                                 }`}
                               />
                               {errors.occupancyStatusOther && (
@@ -558,16 +690,21 @@ export default function RegistrationForm() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Client Full Name <span className="text-red-500">*</span>
+                          Client Full Name{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <input
                           {...register("customerName")}
                           placeholder="John Smith"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.customerName ? "border-red-500" : "border-slate-200"
+                            errors.customerName
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">Your legal name for documentation.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Your legal name for documentation.
+                        </p>
                         {errors.customerName && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.customerName.message}
@@ -576,16 +713,21 @@ export default function RegistrationForm() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Professional Email <span className="text-red-500">*</span>
+                          Professional Email{" "}
+                          <span className="text-red-500">*</span>
                         </label>
                         <input
                           {...register("customerEmail")}
                           placeholder="john@example.com"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.customerEmail ? "border-red-500" : "border-slate-200"
+                            errors.customerEmail
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">We will send the assessment report here.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          We will send the assessment report here.
+                        </p>
                         {errors.customerEmail && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.customerEmail.message}
@@ -600,10 +742,14 @@ export default function RegistrationForm() {
                           {...register("customerPhone")}
                           placeholder="+44 000 000 000"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.customerPhone ? "border-red-500" : "border-slate-200"
+                            errors.customerPhone
+                              ? "border-red-500"
+                              : "border-slate-200"
                           }`}
                         />
-                        <p className="text-[10px] text-slate-400 ml-1">Best number for our specialists to reach you.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">
+                          Best number for our specialists to reach you.
+                        </p>
                         {errors.customerPhone && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.customerPhone.message}
