@@ -12,7 +12,7 @@ const outfit = Google_Sans({
 
 export const metadata: Metadata = {
   title: {
-    default: "Stable Partners Group | Boutique Property Management",
+    default: "Stable Partners Group",
     template: "%s | Stable Partners Group",
   },
   description:
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://stablepartners.com",
     siteName: "Stable Partners Group",
-    title: "Stable Partners Group | Boutique Property Management",
+    title: "Stable Partners Group",
     description:
       "Expert property management for high-value assets. We handle the complexity, you reclaim your time.",
     images: [
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Stable Partners Group | Boutique Property Management",
+    title: "Stable Partners Group",
     description: "Expert property management for high-value assets.",
     images: ["/stable-partners-group-favicon.png"],
   },
@@ -63,8 +63,21 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Stable Partners Group",
+    "url": "https://stablepartnersgroup.com",
+  };
+
   return (
     <html lang="en" className={outfit.variable}>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className={outfit.className}>
         <Script
           src="https://upload-widget.cloudinary.com/global/all.js"
