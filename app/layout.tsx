@@ -38,7 +38,7 @@ export const metadata: Metadata = {
       "Expert property management for high-value assets. We handle the complexity, you reclaim your time.",
     images: [
       {
-        url: "/stable-patners-logo.jpg",
+        url: "/stable-partners-group-favicon.png",
         width: 1200,
         height: 630,
         alt: "Stable Partners Group Logo",
@@ -49,12 +49,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Stable Partners Group | Boutique Property Management",
     description: "Expert property management for high-value assets.",
-    images: ["/stable-patners-logo.jpg"],
+    images: ["/stable-partners-group-favicon.png"],
   },
   icons: {
-    icon: "/stable-patners-logo.jpg",
-    shortcut: "/stable-patners-logo.jpg",
-    apple: "/stable-patners-logo.jpg",
+    icon: "/stable-partners-group-favicon.png",
+    shortcut: "/stable-partners-group-favicon.png",
+    apple: "/stable-partners-group-favicon.png",
   },
 };
 
