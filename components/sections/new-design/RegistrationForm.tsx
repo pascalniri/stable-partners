@@ -56,8 +56,10 @@ const schema: yup.ObjectSchema<FormData> = yup.object({
   propertyLocation: yup.string().notRequired(),
   unitsRooms: yup
     .number()
-    .transform((value) => (isNaN(value) ? undefined : value))
-    .notRequired(),
+    .typeError("Please enter a number")
+    .required("Required")
+    .min(1, "Must be at least 1 unit")
+    .transform((value) => (isNaN(value) ? undefined : value)),
   occupancyStatus: yup.string().required("Required"),
   occupancyStatusOther: yup.string().when("occupancyStatus", {
     is: "Other (Please specify)",
@@ -334,7 +336,7 @@ export default function RegistrationForm() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Total Number of Units
+                          Total Number of Units <span className="text-red-500">*</span>
                         </label>
                         <input
                           {...register("unitsRooms")}

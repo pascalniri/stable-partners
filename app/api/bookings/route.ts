@@ -53,6 +53,7 @@ export async function POST(request: Request) {
       'customerPhone',
       'slotId',
       'propertyType',
+      'unitsRooms',
       'occupancyStatus',
       'mainChallenge',
       'mainGoal'
