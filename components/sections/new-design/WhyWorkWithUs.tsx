@@ -83,7 +83,7 @@ export default function WhyWorkWithUs() {
             If you register for our property management services, you will be
             able to boost your property rental income stress-free because we
             have identified the proven framework for transforming underperforming
-            properties into high yield asset.
+            properties into high-yield assets.
           </motion.p>
         </div>
 
