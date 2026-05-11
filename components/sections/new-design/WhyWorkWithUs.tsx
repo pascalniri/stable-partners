@@ -71,7 +71,7 @@ export default function WhyWorkWithUs() {
             viewport={{ once: true }}
             className="text-xl md:text-3xl font-bold text-slate-900 mb-6"
           >
-            WHAT WE DO?
+            WHAT WE DO
           </motion.h2>
           <motion.p
             initial={{ opacity: 0, y: 20 }}
