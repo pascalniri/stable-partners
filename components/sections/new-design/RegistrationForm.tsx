@@ -25,14 +25,14 @@ interface FormData {
   customerPhone: string;
   customerEmail: string;
   propertyType: string;
-  propertyTypeOther?: string;
-  propertyLocation?: string;
-  unitsRooms?: number;
-  occupancyStatus?: string;
-  estimatedIncome?: string;
+  propertyTypeOther?: string | null;
+  propertyLocation?: string | null;
+  unitsRooms?: number | null;
+  occupancyStatus?: string | null;
+  estimatedIncome?: string | null;
   mainChallenge: string;
   mainGoal: string;
-  additionalInfo?: string;
+  additionalInfo?: string | null;
   slotId: string;
   timezone: string;
 }
