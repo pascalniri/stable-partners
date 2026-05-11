@@ -77,7 +77,7 @@ export default function Navbar() {
             href="/#registration-form"
             className="bg-[#1800AC] text-white px-8 py-3 text-[11px] font-bold uppercase tracking-[0.2em] hover:bg-blue-700 transition-all shadow-lg shadow-blue-500/20 rounded text-center inline-block"
           >
-            Free Assessment
+            TALK TO AN EXPERT
           </Link>
         </div>
 
@@ -134,7 +134,7 @@ export default function Navbar() {
               onClick={() => setIsMobileMenuOpen(false)}
               className="w-full bg-[#1800AC] text-white py-4 text-[11px] font-bold uppercase tracking-[0.2em] rounded text-center block"
             >
-              Free Assessment
+              TALK TO AN EXPERT
             </Link>
           </div>
         </div>

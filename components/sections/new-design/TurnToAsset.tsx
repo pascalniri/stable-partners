@@ -65,7 +65,7 @@ export default function TurnToAsset() {
               }
               className="group text-xs tracking-widest relative px-8 py-4 bg-[#1800AC] text-white rounded font-bold transition-all hover:bg-blue-700 active:scale-95 flex items-center justify-center gap-2"
             >
-              BOOK A FREE ASSESSMENT CALL
+              TALK TO AN EXPERT
             </button>
           </motion.div>
         </div>

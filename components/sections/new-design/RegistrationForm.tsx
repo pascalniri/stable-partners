@@ -28,10 +28,13 @@ interface FormData {
   propertyTypeOther?: string | null;
   propertyLocation?: string | null;
   unitsRooms?: number | null;
-  occupancyStatus?: string | null;
+  occupancyStatus: string;
+  occupancyStatusOther?: string | null;
   estimatedIncome?: string | null;
   mainChallenge: string;
   mainGoal: string;
+  mainGoalOther?: string | null;
+  mainChallengeOther?: string | null;
   additionalInfo?: string | null;
   slotId: string;
   timezone: string;
@@ -55,10 +58,25 @@ const schema: yup.ObjectSchema<FormData> = yup.object({
     .number()
     .transform((value) => (isNaN(value) ? undefined : value))
     .notRequired(),
-  occupancyStatus: yup.string().notRequired(),
+  occupancyStatus: yup.string().required("Required"),
+  occupancyStatusOther: yup.string().when("occupancyStatus", {
+    is: "Other (Please specify)",
+    then: (schema) => schema.required("Please specify occupancy status"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   estimatedIncome: yup.string().notRequired(),
   mainChallenge: yup.string().required("Required"),
+  mainChallengeOther: yup.string().when("mainChallenge", {
+    is: "Other (Please specify)",
+    then: (schema) => schema.required("Please specify your challenge"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   mainGoal: yup.string().required("Required"),
+  mainGoalOther: yup.string().when("mainGoal", {
+    is: "Other (Please specify)",
+    then: (schema) => schema.required("Please specify your objective"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
   additionalInfo: yup.string().notRequired(),
   slotId: yup.string().required("Please select a time slot"),
   timezone: yup.string().required("Timezone is required"),
@@ -117,6 +135,9 @@ export default function RegistrationForm() {
       const submissionData = {
         ...data,
         propertyType: data.propertyType === "Other" ? data.propertyTypeOther : data.propertyType,
+        mainChallenge: data.mainChallenge === "Other (Please specify)" ? data.mainChallengeOther : data.mainChallenge,
+        mainGoal: data.mainGoal === "Other (Please specify)" ? data.mainGoalOther : data.mainGoal,
+        occupancyStatus: data.occupancyStatus === "Other (Please specify)" ? data.occupancyStatusOther : data.occupancyStatus,
         serviceType: "Property Assessment",
       };
 
@@ -339,11 +360,14 @@ export default function RegistrationForm() {
                           }`}
                         >
                           <option value="">Select challenge...</option>
-                          <option value="Low rent">Low rent</option>
-                          <option value="Vacancies">Vacancies</option>
-                          <option value="Management issues">
-                            Management issues
-                          </option>
+                          <option value="Maintenance & Repairs (Corrective)">Maintenance & Repairs (Corrective)</option>
+                          <option value="Preventive Maintenance Planning">Preventive Maintenance Planning</option>
+                          <option value="Tenant Relations & Rent Collection">Tenant Relations & Rent Collection</option>
+                          <option value="Vendor & Contractor Management">Vendor & Contractor Management</option>
+                          <option value="Health, Safety, & Regulatory Compliance">Health, Safety, & Regulatory Compliance</option>
+                          <option value="High Operating Costs / Utility Waste">High Operating Costs / Utility Waste</option>
+                          <option value="Administrative & Financial Reporting">Administrative & Financial Reporting</option>
+                          <option value="Other (Please specify)">Other (Please specify)</option>
                         </select>
                         <p className="text-[10px] text-slate-400 ml-1">Identify the biggest hurdle in your current management.</p>
                         {errors.mainChallenge && (
@@ -351,6 +375,30 @@ export default function RegistrationForm() {
                             {errors.mainChallenge.message}
                           </p>
                         )}
+
+                        <AnimatePresence>
+                          {watch("mainChallenge") === "Other (Please specify)" && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pt-2"
+                            >
+                              <input
+                                {...register("mainChallengeOther")}
+                                placeholder="Please specify your challenge..."
+                                className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
+                                  errors.mainChallengeOther ? "border-red-500" : "border-slate-200"
+                                }`}
+                              />
+                              {errors.mainChallengeOther && (
+                                <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
+                                  {errors.mainChallengeOther.message}
+                                </p>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
@@ -363,12 +411,13 @@ export default function RegistrationForm() {
                           }`}
                         >
                           <option value="">Select goal...</option>
-                          <option value="Increase income">
-                            Increase income
-                          </option>
-                          <option value="Improve tenants">
-                            Improve tenants
-                          </option>
+                          <option value="Reduce Operational Costs">Reduce Operational Costs</option>
+                          <option value="Improve Tenant Retention">Improve Tenant Retention</option>
+                          <option value="Increase Asset Lifecycle / Value">Increase Asset Lifecycle / Value</option>
+                          <option value="Ensure Regulatory Compliance">Ensure Regulatory Compliance</option>
+                          <option value="Streamline Daily Operations">Streamline Daily Operations</option>
+                          <option value="Maximise Rental Yield">Maximise Rental Yield</option>
+                          <option value="Other (Please specify)">Other (Please specify)</option>
                         </select>
                         <p className="text-[10px] text-slate-400 ml-1">What is your primary priority for this property?</p>
                         {errors.mainGoal && (
@@ -376,6 +425,30 @@ export default function RegistrationForm() {
                             {errors.mainGoal.message}
                           </p>
                         )}
+
+                        <AnimatePresence>
+                          {watch("mainGoal") === "Other (Please specify)" && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pt-2"
+                            >
+                              <input
+                                {...register("mainGoalOther")}
+                                placeholder="Please specify your objective..."
+                                className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
+                                  errors.mainGoalOther ? "border-red-500" : "border-slate-200"
+                                }`}
+                              />
+                              {errors.mainGoalOther && (
+                                <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
+                                  {errors.mainGoalOther.message}
+                                </p>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                       <div className="md:col-span-2 space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
@@ -397,7 +470,7 @@ export default function RegistrationForm() {
                       </div>
                       <div className="md:col-span-2 space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Current Occupancy
+                          Current Occupancy <span className="text-red-500">*</span>
                         </label>
                         <select
                           {...register("occupancyStatus")}
@@ -406,15 +479,43 @@ export default function RegistrationForm() {
                           }`}
                         >
                           <option value="">Select status...</option>
-                          <option value="Fully occupied">Fully occupied</option>
-                          <option value="Vacant">Vacant</option>
+                          <option value="Fully Occupied / Operational">Fully Occupied / Operational</option>
+                          <option value="Partially Occupied / Shared">Partially Occupied / Shared</option>
+                          <option value="Vacant / Non-Operational">Vacant / Non-Operational</option>
+                          <option value="Under Renovation / Fit-out">Under Renovation / Fit-out</option>
+                          <option value="Notice Given (Pending Vacancy)">Notice Given (Pending Vacancy)</option>
+                          <option value="Other (Please specify)">Other (Please specify)</option>
                         </select>
-                        <p className="text-[10px] text-slate-400 ml-1">Current status of the property's availability.</p>
+                        <p className="text-[10px] text-slate-400 ml-1">The current usage state of your property.</p>
                         {errors.occupancyStatus && (
                           <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
                             {errors.occupancyStatus.message}
                           </p>
                         )}
+
+                        <AnimatePresence>
+                          {watch("occupancyStatus") === "Other (Please specify)" && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pt-2"
+                            >
+                              <input
+                                {...register("occupancyStatusOther")}
+                                placeholder="Please specify status..."
+                                className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
+                                  errors.occupancyStatusOther ? "border-red-500" : "border-slate-200"
+                                }`}
+                              />
+                              {errors.occupancyStatusOther && (
+                                <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
+                                  {errors.occupancyStatusOther.message}
+                                </p>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                     </div>
                   )}

@@ -40,8 +40,11 @@ export async function POST(request: Request) {
       propertyId 
     } = body;
 
-    // Resolve "Other" property type
+    // Resolve "Other" property type and challenge
     const resolvedPropertyType = propertyType === 'Other' ? body.propertyTypeOther : propertyType;
+    const resolvedMainChallenge = mainChallenge === 'Other (Please specify)' ? body.mainChallengeOther : mainChallenge;
+    const resolvedMainGoal = mainGoal === 'Other (Please specify)' ? body.mainGoalOther : mainGoal;
+    const resolvedOccupancyStatus = occupancyStatus === 'Other (Please specify)' ? body.occupancyStatusOther : occupancyStatus;
 
     // Validation
     const mandatoryFields = [
@@ -50,12 +53,16 @@ export async function POST(request: Request) {
       'customerPhone',
       'slotId',
       'propertyType',
+      'occupancyStatus',
       'mainChallenge',
       'mainGoal'
     ];
 
     const missingFields = mandatoryFields.filter(field => {
       if (field === 'propertyType') return !resolvedPropertyType;
+      if (field === 'mainChallenge') return !resolvedMainChallenge;
+      if (field === 'mainGoal') return !resolvedMainGoal;
+      if (field === 'occupancyStatus') return !resolvedOccupancyStatus;
       return !body[field];
     });
 
@@ -92,10 +99,10 @@ export async function POST(request: Request) {
         propertyType: resolvedPropertyType || null,
         propertyLocation: propertyLocation || null,
         unitsRooms: unitsRooms ? String(unitsRooms) : null,
-        occupancyStatus: occupancyStatus || null,
+        occupancyStatus: resolvedOccupancyStatus || null,
         estimatedIncome: estimatedIncome || null,
-        mainChallenge: mainChallenge || null,
-        mainGoal: mainGoal || null,
+        mainChallenge: resolvedMainChallenge || null,
+        mainGoal: resolvedMainGoal || null,
         additionalInfo: additionalInfo || null,
         serviceType: serviceType || 'Property Assessment',
         propertyId: propertyId || null,
