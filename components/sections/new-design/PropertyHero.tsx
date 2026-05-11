@@ -36,7 +36,7 @@ export default function PropertyHero() {
               investment as their own.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-col items-center sm:flex-row gap-4">
               <button
                 onClick={() =>
                   document
@@ -48,17 +48,23 @@ export default function PropertyHero() {
                 TALK TO AN EXPERT
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
-              <div className="flex flex-col justify-center space-y-1.5">
+              <div className="flex flex-col items-start gap-4">
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
                   <p className="text-sm font-semibold text-slate-900">
-                    It's Completely Free
+                    Fast: Only takes 60 seconds to register.
                   </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <CheckCircle2 className="w-4 h-4 text-green-500" />
                   <p className="text-sm font-semibold text-slate-900">
-                    Takes less than 60 seconds to register
+                    Free: It is completely free.
+                  </p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="w-4 h-4 text-green-500" />
+                  <p className="text-sm font-semibold text-slate-900">
+                    Flexible: You choose the time that works for you.
                   </p>
                 </div>
               </div>

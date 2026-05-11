@@ -246,8 +246,13 @@ export default function RegistrationForm() {
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-green-500" />
               <p className="text-sm font-semibold text-slate-900">
-                Free: It is completely free. Flexible: You choose the time that
-                works for you.
+                Free: It is completely free.
+              </p>
+            </div>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="w-4 h-4 text-green-500" />
+              <p className="text-sm font-semibold text-slate-900">
+                Flexible: You choose the time that works for you.
               </p>
             </div>
           </div>
