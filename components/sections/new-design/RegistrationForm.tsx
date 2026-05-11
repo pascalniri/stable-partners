@@ -20,7 +20,24 @@ import toast from "react-hot-toast";
 import BookingCalendar from "../../BookingCalendar";
 
 // Validation Schema
-const schema = yup.object().shape({
+interface FormData {
+  customerName: string;
+  customerPhone: string;
+  customerEmail: string;
+  propertyType: string;
+  propertyTypeOther?: string;
+  propertyLocation?: string;
+  unitsRooms?: number;
+  occupancyStatus?: string;
+  estimatedIncome?: string;
+  mainChallenge: string;
+  mainGoal: string;
+  additionalInfo?: string;
+  slotId: string;
+  timezone: string;
+}
+
+const schema: yup.ObjectSchema<FormData> = yup.object({
   customerName: yup.string().required("Full name is required"),
   customerPhone: yup.string().required("Phone number is required"),
   customerEmail: yup
@@ -28,22 +45,24 @@ const schema = yup.object().shape({
     .email("Invalid email")
     .required("Email is required"),
   propertyType: yup.string().required("Property type is required"),
-  propertyLocation: yup.string().required("Location is required"),
+  propertyTypeOther: yup.string().when("propertyType", {
+    is: "Other",
+    then: (schema) => schema.required("Please specify your property type"),
+    otherwise: (schema) => schema.notRequired(),
+  }),
+  propertyLocation: yup.string().notRequired(),
   unitsRooms: yup
     .number()
-    .typeError("Must be a number")
-    .required("Required")
-    .min(1),
-  occupancyStatus: yup.string().required("Required"),
-  estimatedIncome: yup.string().required("Required"),
+    .transform((value) => (isNaN(value) ? undefined : value))
+    .notRequired(),
+  occupancyStatus: yup.string().notRequired(),
+  estimatedIncome: yup.string().notRequired(),
   mainChallenge: yup.string().required("Required"),
   mainGoal: yup.string().required("Required"),
-  additionalInfo: yup.string().ensure(),
+  additionalInfo: yup.string().notRequired(),
   slotId: yup.string().required("Please select a time slot"),
   timezone: yup.string().required("Timezone is required"),
 });
-
-type FormData = yup.InferType<typeof schema>;
 
 const STEPS = [
   { id: "property", title: "Property Profile", icon: Home },
@@ -95,10 +114,16 @@ export default function RegistrationForm() {
     setLoading(true);
     const toastId = toast.loading("Confirming your premium assessment...");
     try {
+      const submissionData = {
+        ...data,
+        propertyType: data.propertyType === "Other" ? data.propertyTypeOther : data.propertyType,
+        serviceType: "Property Assessment",
+      };
+
       const response = await fetch("/api/bookings", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...data, serviceType: "Property Assessment" }),
+        body: JSON.stringify(submissionData),
       });
 
       if (response.ok) {
@@ -225,10 +250,11 @@ export default function RegistrationForm() {
                           }`}
                         >
                           <option value="">Select type...</option>
-                          <option value="Apartment">Apartment</option>
-                          <option value="House">House</option>
-                          <option value="Commercial">Commercial</option>
-                          <option value="Mixed-use">Mixed-use</option>
+                          <option value="House (Single-Family)">House (Single-Family)</option>
+                          <option value="Apartment / Condo">Apartment / Condo</option>
+                          <option value="Commercial (Office/Retail)">Commercial (Office/Retail)</option>
+                          <option value="Mixed-Use (Residential & Commercial)">Mixed-Use (Residential & Commercial)</option>
+                          <option value="Other">Other</option>
                         </select>
                         <p className="text-[10px] text-slate-400 ml-1">Select the classification that best describes your property.</p>
                         {errors.propertyType && (
@@ -236,14 +262,38 @@ export default function RegistrationForm() {
                             {errors.propertyType.message}
                           </p>
                         )}
+
+                        <AnimatePresence>
+                          {watch("propertyType") === "Other" && (
+                            <motion.div
+                              initial={{ opacity: 0, height: 0 }}
+                              animate={{ opacity: 1, height: "auto" }}
+                              exit={{ opacity: 0, height: 0 }}
+                              className="pt-2"
+                            >
+                              <input
+                                {...register("propertyTypeOther")}
+                                placeholder="Please specify property type..."
+                                className={`w-full px-6 py-3 bg-white border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm ${
+                                  errors.propertyTypeOther ? "border-red-500" : "border-slate-200"
+                                }`}
+                              />
+                              {errors.propertyTypeOther && (
+                                <p className="text-[10px] text-red-500 font-bold uppercase mt-1 ml-1">
+                                  {errors.propertyTypeOther.message}
+                                </p>
+                              )}
+                            </motion.div>
+                          )}
+                        </AnimatePresence>
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Property Location <span className="text-red-500">*</span>
+                          Property Location
                         </label>
                         <input
                           {...register("propertyLocation")}
-                          placeholder="e.g. Zurich"
+                          placeholder="e.g. Kigali, Rwanda"
                           className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
                             errors.propertyLocation ? "border-red-500" : "border-slate-200"
                           }`}
@@ -257,7 +307,7 @@ export default function RegistrationForm() {
                       </div>
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Total Number of Units / Rooms <span className="text-red-500">*</span>
+                          Total Number of Units
                         </label>
                         <input
                           {...register("unitsRooms")}
@@ -329,7 +379,7 @@ export default function RegistrationForm() {
                       </div>
                       <div className="md:col-span-2 space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Estimated Monthly Revenue <span className="text-red-500">*</span>
+                          Estimated Monthly Revenue
                         </label>
                         <input
                           {...register("estimatedIncome")}
@@ -347,7 +397,7 @@ export default function RegistrationForm() {
                       </div>
                       <div className="md:col-span-2 space-y-2">
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
-                          Current Occupancy <span className="text-red-500">*</span>
+                          Current Occupancy
                         </label>
                         <select
                           {...register("occupancyStatus")}

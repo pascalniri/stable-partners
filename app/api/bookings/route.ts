@@ -40,9 +40,29 @@ export async function POST(request: Request) {
       propertyId 
     } = body;
 
+    // Resolve "Other" property type
+    const resolvedPropertyType = propertyType === 'Other' ? body.propertyTypeOther : propertyType;
+
     // Validation
-    if (!customerName || !customerEmail) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    const mandatoryFields = [
+      'customerName',
+      'customerEmail',
+      'customerPhone',
+      'slotId',
+      'propertyType',
+      'mainChallenge',
+      'mainGoal'
+    ];
+
+    const missingFields = mandatoryFields.filter(field => {
+      if (field === 'propertyType') return !resolvedPropertyType;
+      return !body[field];
+    });
+
+    if (missingFields.length > 0) {
+      return NextResponse.json({ 
+        error: `Missing mandatory fields: ${missingFields.join(', ')}` 
+      }, { status: 400 });
     }
 
     // If slot-based booking
@@ -69,7 +89,7 @@ export async function POST(request: Request) {
         customerPhone: customerPhone || null,
         timezone: timezone || 'UTC',
         slotId: slotId || null,
-        propertyType: propertyType || null,
+        propertyType: resolvedPropertyType || null,
         propertyLocation: propertyLocation || null,
         unitsRooms: unitsRooms ? String(unitsRooms) : null,
         occupancyStatus: occupancyStatus || null,
