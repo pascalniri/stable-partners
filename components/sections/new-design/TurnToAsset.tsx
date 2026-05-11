@@ -17,10 +17,10 @@ export default function TurnToAsset() {
             transition={{ duration: 0.8 }}
             className="order-2 lg:order-1"
           >
-            <div className="relative aspect-square max-w-lg mx-auto rounded-[5px] overflow-hidden">
+            <div className="relative aspect-square max-w-lg mx-auto rounded-[15px] overflow-hidden">
               <div className="absolute inset-0 bg-white rounded-full blur-2xl" />
               <Image
-                src="/Rental-Properties-for-Passive-Income.webp"
+                src="/stable-partner-shaking-hands.jpg"
                 alt="How it works"
                 fill
                 className="object-cover h-full w-full"
