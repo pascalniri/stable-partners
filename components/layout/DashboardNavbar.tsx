@@ -24,7 +24,7 @@ export function DashboardNavbar({
   const navLinks = [
     { href: "/dashboard", label: "Bookings" },
     { href: "/dashboard/properties", label: "Managed Assets" },
-    { href: "/dashboard/availability", label: "Availability" },
+    { href: "/dashboard/sessions", label: "Strategy Sessions" },
   ];
 
   return (

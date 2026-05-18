@@ -77,12 +77,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
-      </head>
-      <body className={outfit.className}>
         <Script
           src="https://upload-widget.cloudinary.com/global/all.js"
           strategy="beforeInteractive"
         />
+      </head>
+      <body className={outfit.className}>
         {children}
         <Toaster
           position="bottom-right"

@@ -202,7 +202,28 @@ export default function DashboardPage() {
                         )}
                       </td>
                       <td className="px-8 py-6">
-                        {booking.slot ? (
+                        {booking.session ? (
+                          <>
+                            <div className="text-xs font-bold text-[#1800AC] uppercase">
+                              {new Date(
+                                booking.session.startTime,
+                              ).toLocaleDateString(undefined, {
+                                weekday: "short",
+                                month: "short",
+                                day: "numeric",
+                              })}
+                            </div>
+                            <div className="text-[10px] font-black text-slate-900 mt-1 uppercase tracking-tighter">
+                              {new Date(
+                                booking.session.startTime,
+                              ).toLocaleTimeString(undefined, {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                              })}{" "}
+                              ({booking.timezone})
+                            </div>
+                          </>
+                        ) : booking.slot ? (
                           <>
                             <div className="text-xs font-bold text-[#1800AC] uppercase">
                               {new Date(

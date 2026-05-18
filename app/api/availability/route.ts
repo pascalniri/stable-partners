@@ -6,11 +6,11 @@ export const dynamic = "force-dynamic";
 
 export async function GET() {
   try {
-    const slots = await prisma.availabilitySlot.findMany({
+    const sessions = await prisma.session.findMany({
       where: {
-        isBooked: false,
+        status: "OPEN",
         startTime: {
-          gt: addDays(startOfDay(new Date()), 1), // Only show from tomorrow onwards
+          gt: new Date(), // Only show future sessions
         },
       },
       orderBy: {
@@ -18,9 +18,9 @@ export async function GET() {
       },
     });
 
-    return NextResponse.json(slots);
+    return NextResponse.json(sessions);
   } catch (error) {
-    console.error("Error fetching availability:", error);
+    console.error("Error fetching availability sessions:", error);
     return NextResponse.json(
       { message: "Internal Server Error" },
       { status: 500 }

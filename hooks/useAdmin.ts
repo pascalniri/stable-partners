@@ -27,8 +27,14 @@ export interface Booking {
   meetingLink?: string;
   propertyId?: string;
   slotId?: string;
+  sessionId?: string;
   timezone?: string;
   slot?: {
+    id: string;
+    startTime: string;
+    endTime: string;
+  };
+  session?: {
     id: string;
     startTime: string;
     endTime: string;

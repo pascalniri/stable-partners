@@ -13,7 +13,7 @@ export async function POST(
     const { id } = await params;
     const booking = await prisma.booking.findUnique({
       where: { id },
-      include: { slot: true }
+      include: { slot: true, session: true }
     });
 
     if (!booking) {
@@ -28,8 +28,13 @@ export async function POST(
       },
     });
 
-    // 2. If it has a slot, RE-OPEN IT
-    if (booking.slotId) {
+    // 2. If it has a slot/session, RE-OPEN IT
+    if (booking.sessionId) {
+      await prisma.session.update({
+        where: { id: booking.sessionId },
+        data: { status: 'OPEN' }
+      });
+    } else if (booking.slotId) {
       await prisma.availabilitySlot.update({
         where: { id: booking.slotId },
         data: { isBooked: false }
@@ -37,9 +42,12 @@ export async function POST(
     }
 
     // 3. Send Decline Email
-    const requestedTime = booking.slot 
-      ? format(parseISO(booking.slot.startTime.toISOString()), "EEEE, MMMM do 'at' HH:mm") + " (" + booking.timezone + ")"
-      : "the requested time";
+    let requestedTime = "the requested time";
+    if (booking.session) {
+      requestedTime = format(new Date(booking.session.startTime), "EEEE, MMMM do 'at' HH:mm") + " (" + booking.timezone + ")";
+    } else if (booking.slot) {
+      requestedTime = format(new Date(booking.slot.startTime), "EEEE, MMMM do 'at' HH:mm") + " (" + booking.timezone + ")";
+    }
 
     await sendEmail({
       to: booking.customerEmail,

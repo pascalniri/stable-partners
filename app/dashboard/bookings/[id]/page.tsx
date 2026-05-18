@@ -56,9 +56,11 @@ export default function BookingDetailPage() {
   const [meetingLink, setMeetingLink] = useState("");
   const [message, setMessage] = useState("Looking forward to our session!");
 
-  // Pre-fill if slot exists
+  // Pre-fill if slot or session exists
   useEffect(() => {
-    if (booking?.slot) {
+    if (booking?.session) {
+      setScheduledDate(booking.session.startTime);
+    } else if (booking?.slot) {
       setScheduledDate(booking.slot.startTime);
     }
   }, [booking]);
@@ -378,7 +380,31 @@ export default function BookingDetailPage() {
                         Requested Session
                       </label>
 
-                      {booking.slot ? (
+                      {booking.session ? (
+                        <div className="bg-blue-50 border border-blue-100 p-6 rounded-[5px]">
+                          <div className="text-sm font-bold text-slate-900 mb-1">
+                            {new Date(
+                              booking.session.startTime,
+                            ).toLocaleDateString('en-US', {
+                              weekday: "long",
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                              timeZone: booking.timezone
+                            })}
+                          </div>
+                          <div className="text-xs font-black text-[#1800AC] uppercase tracking-widest">
+                            {new Date(
+                              booking.session.startTime,
+                            ).toLocaleTimeString('en-US', {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              timeZone: booking.timezone
+                            })}{" "}
+                            ({booking.timezone})
+                          </div>
+                        </div>
+                      ) : booking.slot ? (
                         <div className="bg-blue-50 border border-blue-100 p-6 rounded-[5px]">
                           <div className="text-sm font-bold text-slate-900 mb-1">
                             {new Date(

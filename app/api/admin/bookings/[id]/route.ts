@@ -12,7 +12,7 @@ export async function PATCH(
 
     const booking = await prisma.booking.findUnique({
       where: { id },
-      include: { slot: true }
+      include: { slot: true, session: true }
     });
 
     if (!booking) {
@@ -25,28 +25,40 @@ export async function PATCH(
         status: status || 'CONFIRMED',
         meetingLink: meetingLink || booking.meetingLink,
       },
-      include: { slot: true }
+      include: { slot: true, session: true }
     });
 
     // If approved, send the meeting details email
     if (status === 'CONFIRMED' || (!status && meetingLink)) {
+      const scheduledTime = updatedBooking.session
+        ? new Date(updatedBooking.session.startTime).toLocaleString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZone: updatedBooking.timezone 
+          }) + ` (${updatedBooking.timezone})`
+        : updatedBooking.slot
+        ? new Date(updatedBooking.slot.startTime).toLocaleString('en-US', { 
+            weekday: 'long', 
+            year: 'numeric', 
+            month: 'long', 
+            day: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit',
+            timeZone: updatedBooking.timezone 
+          }) + ` (${updatedBooking.timezone})`
+        : 'To be determined';
+
       await sendEmail({
         to: updatedBooking.customerEmail,
         subject: 'Session Confirmed - Stable Partners',
         template: 'meeting-details',
         context: {
           name: updatedBooking.customerName,
-          date: updatedBooking.slot 
-            ? new Date(updatedBooking.slot.startTime).toLocaleString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric', 
-                hour: '2-digit', 
-                minute: '2-digit',
-                timeZone: updatedBooking.timezone 
-              }) + ` (${updatedBooking.timezone})`
-            : 'To be determined',
+          date: scheduledTime,
           link: meetingLink
         },
       });

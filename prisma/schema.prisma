@@ -16,15 +16,16 @@ enum UserRole {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  email     String   @unique
-  password  String
-  name      String?
-  role      UserRole @default(ADMIN)
-  resetToken       String?  @unique
+  id               String    @id @default(uuid())
+  email            String    @unique
+  password         String
+  name             String?
+  role             UserRole  @default(ADMIN)
+  resetToken       String?   @unique
   resetTokenExpiry DateTime?
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
+  bookings         Booking[] // Relation to Bookings
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
 }
 
 enum BookingStatus {
@@ -43,6 +44,45 @@ model AvailabilitySlot {
   createdAt DateTime @default(now())
 }
 
+model AvailabilityTemplate {
+  id              String   @id @default(uuid())
+  dayOfWeek       Int      // 0 (Sunday) to 6 (Saturday)
+  startTime       String   // e.g. "09:00"
+  endTime         String   // e.g. "17:00"
+  timezone        String   // e.g. "America/New_York"
+  duration        Int      // Session duration in minutes
+  buffer          Int      // Buffer between sessions in minutes
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model AvailabilityOverride {
+  id            String   @id @default(uuid())
+  date          DateTime // Date of override (e.g. 2026-05-25)
+  isUnavailable Boolean  @default(false)
+  startTime     String?  // Custom start time e.g. "10:00" (null if unavailable)
+  endTime       String?  // Custom end time e.g. "14:00" (null if unavailable)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+enum SessionStatus {
+  OPEN
+  BOOKED
+  CANCELLED
+}
+
+model Session {
+  id        String        @id @default(uuid())
+  date      DateTime      // Date of the slot
+  startTime DateTime      // Start time in UTC
+  endTime   DateTime      // End time in UTC
+  status    SessionStatus @default(OPEN)
+  booking   Booking?      // One-to-one relation to booking
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}
+
 model Booking {
   id            String        @id @default(uuid())
   customerName  String
@@ -53,6 +93,13 @@ model Booking {
   timezone      String        @default("UTC")
   slotId        String?       @unique
   slot          AvailabilitySlot? @relation(fields: [slotId], references: [id])
+  
+  // Session Booking fields
+  sessionId     String?       @unique
+  session       Session?      @relation(fields: [sessionId], references: [id])
+  userId        String?
+  user          User?         @relation(fields: [userId], references: [id])
+  notes         String?
   
   // Detailed Property Assessment Fields
   propertyType     String?
@@ -110,3 +157,4 @@ model Property {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
+

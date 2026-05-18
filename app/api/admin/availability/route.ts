@@ -1,5 +1,6 @@
-import { NextResponse } from 'next/server';
-import prisma from '@/lib/prisma';
+import { NextResponse } from "next/server";
+import prisma from "@/lib/prisma";
+import { verifyAdmin } from "@/lib/auth";
 import { 
   addMinutes, 
   parseISO, 
@@ -10,12 +11,38 @@ import {
   setMinutes,
   differenceInDays,
   isAfter
-} from 'date-fns';
+} from "date-fns";
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 
-export async function GET() {
+export async function GET(request: Request) {
   try {
+    const admin = await verifyAdmin();
+    if (!admin) {
+      return NextResponse.json({ error: "Unauthorized. Admin role required." }, { status: 401 });
+    }
+
+    const { searchParams } = new URL(request.url);
+    const formatParam = searchParams.get("format"); // 'template' or undefined
+
+    if (formatParam === "template") {
+      const [templates, overrides] = await Promise.all([
+        prisma.availabilityTemplate.findMany({
+          orderBy: { dayOfWeek: "asc" },
+        }),
+        prisma.availabilityOverride.findMany({
+          where: {
+            date: {
+              gte: startOfDay(new Date()),
+            },
+          },
+          orderBy: { date: "asc" },
+        }),
+      ]);
+      return NextResponse.json({ templates, overrides });
+    }
+
+    // Old slot retrieval
     const slots = await prisma.availabilitySlot.findMany({
       where: {
         startTime: {
@@ -27,48 +54,104 @@ export async function GET() {
           select: { id: true }
         }
       },
-      orderBy: { startTime: 'asc' },
+      orderBy: { startTime: "asc" },
     });
-    console.log(`[DEBUG] FETCHED SLOTS: Total = ${slots.length}`);
-    if (slots.length > 0) {
-      console.log(`[DEBUG] FIRST SLOT SAMPLE:`, JSON.stringify(slots[0], null, 2));
-    }
     return NextResponse.json(slots);
   } catch (error) {
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+    console.error("Error in GET admin availability:", error);
+    return NextResponse.json({ error: "Internal Server Error" }, { status: 500 });
   }
 }
 
 export async function POST(request: Request) {
   try {
+    const admin = await verifyAdmin();
+    if (!admin) {
+      return NextResponse.json({ error: "Unauthorized. Admin role required." }, { status: 401 });
+    }
+
+    const body = await request.json();
+
+    // --- NEW WEEKLY TEMPLATE & OVERRIDES SAVING ---
+    if ("templates" in body || "overrides" in body) {
+      const { templates, overrides } = body;
+
+      // Update weekly templates
+      if (templates && Array.isArray(templates)) {
+        await prisma.availabilityTemplate.deleteMany();
+        if (templates.length > 0) {
+          await prisma.availabilityTemplate.createMany({
+            data: templates.map((t: any) => ({
+              dayOfWeek: Number(t.dayOfWeek),
+              startTime: t.startTime,
+              endTime: t.endTime,
+              timezone: t.timezone || "UTC",
+              duration: t.duration !== undefined && t.duration !== null ? Number(t.duration) : 30,
+              buffer: t.buffer !== undefined && t.buffer !== null ? Number(t.buffer) : 10,
+            })),
+          });
+        }
+      }
+
+      // Update overrides
+      if (overrides && Array.isArray(overrides)) {
+        const overrideDates = overrides.map((o: any) => new Date(o.date));
+        if (overrideDates.length > 0) {
+          await prisma.availabilityOverride.deleteMany({
+            where: {
+              date: {
+                in: overrideDates,
+              },
+            },
+          });
+        }
+
+        await prisma.availabilityOverride.createMany({
+          data: overrides.map((o: any) => ({
+            date: new Date(o.date),
+            isUnavailable: Boolean(o.isUnavailable),
+            startTime: o.isUnavailable ? null : o.startTime,
+            endTime: o.isUnavailable ? null : o.endTime,
+          })),
+        });
+      }
+
+      const [freshTemplates, freshOverrides] = await Promise.all([
+        prisma.availabilityTemplate.findMany({ orderBy: { dayOfWeek: "asc" } }),
+        prisma.availabilityOverride.findMany({ orderBy: { date: "asc" } }),
+      ]);
+
+      return NextResponse.json({
+        success: true,
+        templates: freshTemplates,
+        overrides: freshOverrides,
+      });
+    }
+
+    // --- OLD SLOT GENERATION ---
     const { 
       startDate, 
       endDate, 
       startTime, 
       endTime, 
       slotDuration 
-    } = await request.json();
+    } = body;
 
     if (!startDate || !endDate || !startTime || !endTime) {
-      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    // 1. Normalize dates to start of day
-    // Using parseISO on "YYYY-MM-DD" strings is safe
     const firstDay = startOfDay(parseISO(startDate));
     const lastDay = startOfDay(parseISO(endDate));
     
-    // Safety check: ensure start is not after end
     if (isAfter(firstDay, lastDay)) {
-      return NextResponse.json({ error: 'Start date must be before or equal to end date' }, { status: 400 });
+      return NextResponse.json({ error: "Start date must be before or equal to end date" }, { status: 400 });
     }
 
-    // 2. Parse time window
-    const [startH, startM] = startTime.split(':').map(Number);
-    const [endH, endM] = endTime.split(':').map(Number);
+    const [startH, startM] = startTime.split(":").map(Number);
+    const [endH, endM] = endTime.split(":").map(Number);
     const duration = Number(slotDuration);
 
-    // 3. DEEP CLEAN: Delete all unbooked slots in this range
     const deleteResult = await prisma.availabilitySlot.deleteMany({
       where: {
         isBooked: false,
@@ -80,7 +163,6 @@ export async function POST(request: Request) {
     });
     console.log(`DEEP CLEAN: Removed ${deleteResult.count} unbooked slots.`);
 
-    // 4. Fetch existing BOOKED slots to prevent overlaps
     const bookedSlots = await prisma.availabilitySlot.findMany({
       where: {
         isBooked: true,
@@ -95,7 +177,7 @@ export async function POST(request: Request) {
     const daysToProcess = differenceInDays(lastDay, firstDay) + 1;
     
     if (daysToProcess > 60) {
-      return NextResponse.json({ error: 'Range too large. Max 60 days.' }, { status: 400 });
+      return NextResponse.json({ error: "Range too large. Max 60 days." }, { status: 400 });
     }
 
     for (let i = 0; i < daysToProcess; i++) {
@@ -107,7 +189,6 @@ export async function POST(request: Request) {
         const potentialEnd = addMinutes(currentPointer, duration);
         
         if (potentialEnd <= dayEndThreshold) {
-          // Check if this new slot would overlap with any booked slot
           const overlapsWithBooking = bookedSlots.some(booked => {
             const bStart = booked.startTime.getTime();
             const bEnd = booked.endTime.getTime();
@@ -129,7 +210,6 @@ export async function POST(request: Request) {
       }
     }
 
-    // 5. Batch create new slots
     if (slotsToCreate.length > 0) {
       await prisma.availabilitySlot.createMany({
         data: slotsToCreate,
@@ -143,7 +223,8 @@ export async function POST(request: Request) {
     });
 
   } catch (error) {
-    console.error('CRITICAL ERROR IN SCHEDULER:', error);
-    return NextResponse.json({ error: 'Failed to generate slots' }, { status: 500 });
+    console.error("CRITICAL ERROR IN SCHEDULER:", error);
+    return NextResponse.json({ error: "Failed to generate slots" }, { status: 500 });
   }
 }
+
