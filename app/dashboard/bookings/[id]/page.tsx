@@ -401,6 +401,14 @@ export default function BookingDetailPage() {
                               minute: "2-digit",
                               timeZone: booking.timezone
                             })}{" "}
+                            -{" "}
+                            {new Date(
+                              booking.session.endTime,
+                            ).toLocaleTimeString('en-US', {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              timeZone: booking.timezone
+                            })}{" "}
                             ({booking.timezone})
                           </div>
                         </div>
@@ -420,6 +428,14 @@ export default function BookingDetailPage() {
                           <div className="text-xs font-black text-[#1800AC] uppercase tracking-widest">
                             {new Date(
                               booking.slot.startTime,
+                            ).toLocaleTimeString('en-US', {
+                              hour: "2-digit",
+                              minute: "2-digit",
+                              timeZone: booking.timezone
+                            })}{" "}
+                            -{" "}
+                            {new Date(
+                              booking.slot.endTime,
                             ).toLocaleTimeString('en-US', {
                               hour: "2-digit",
                               minute: "2-digit",

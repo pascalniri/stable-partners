@@ -7,6 +7,8 @@ interface SlotItem {
   startTime: string | Date;
   endTime: string | Date;
   status: "OPEN" | "BOOKED" | "CANCELLED";
+  localTime?: string; // provided by backend
+  localEndTime?: string;
 }
 
 interface TimeSlotPickerProps {
@@ -23,8 +25,8 @@ export default function TimeSlotPicker({
   timezone,
 }: TimeSlotPickerProps) {
   const formatSlotTime = (timeInput: string | Date) => {
+    // Fallback if localTime is not available (e.g., from old static flow)
     const dateObj = typeof timeInput === "string" ? parseISO(timeInput) : timeInput;
-    // Format to HH:mm in chosen timezone
     return dateObj.toLocaleTimeString("en-US", {
       hour: "2-digit",
       minute: "2-digit",
@@ -64,8 +66,8 @@ export default function TimeSlotPicker({
               })
               .map((slot) => {
                 const isSelected = selectedSlotId === slot.id;
-                const startTimeStr = formatSlotTime(slot.startTime);
-                const endTimeStr = formatSlotTime(slot.endTime);
+                const startTimeStr = slot.localTime || formatSlotTime(slot.startTime);
+                const endTimeStr = slot.localEndTime || formatSlotTime(slot.endTime);
 
                 return (
                   <button

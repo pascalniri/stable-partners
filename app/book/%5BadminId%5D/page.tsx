@@ -36,7 +36,7 @@ export default function PublicBookingPage() {
   const fetchAvailableSlots = async () => {
     setLoading(true);
     try {
-      const res = await fetch("/api/sessions");
+      const res = await fetch(`/api/sessions?timezone=${encodeURIComponent(timezone)}`);
       if (res.ok) {
         const data = await res.json();
         setAvailableSlots(data || []);
@@ -51,22 +51,25 @@ export default function PublicBookingPage() {
   };
 
   useEffect(() => {
-    fetchAvailableSlots();
-  }, []);
+    if (timezone) {
+      fetchAvailableSlots();
+    }
+  }, [timezone]);
 
   // Compute available dates with at least 1 open slot
   const uniqueAvailableDates = Array.from(
     new Set(
       availableSlots
         .filter((s) => s.status === "OPEN")
-        .map((s) => format(parseISO(s.startTime), "yyyy-MM-dd"))
+        .map((s) => s.localDate)
     )
   ).map((dStr) => new Date(dStr + "T00:00:00"));
 
   // Slots for the selected date
   const slotsForSelectedDay = availableSlots.filter((slot) => {
     if (!selectedDate) return false;
-    return isSameDay(parseISO(slot.startTime), selectedDate) && slot.status === "OPEN";
+    const selectedDateStr = format(selectedDate, "yyyy-MM-dd");
+    return slot.localDate === selectedDateStr && slot.status === "OPEN";
   });
 
   const selectedSlotObj = availableSlots.find((s) => s.id === selectedSlotId);

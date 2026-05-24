@@ -72,7 +72,7 @@ export function AdminLoginDrawer({ children }: AdminLoginDrawerProps) {
                       <input
                         {...register("email")}
                         type="email"
-                        placeholder="stablepartnersgrp@gmail.com"
+                        placeholder="your@email.com"
                         className="w-full bg-slate-50 border border-slate-200 px-6 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all"
                       />
                     </div>
@@ -125,7 +125,7 @@ export function AdminLoginDrawer({ children }: AdminLoginDrawerProps) {
                       <input
                         {...register("email")}
                         type="email"
-                        placeholder="stablepartnersgrp@gmail.com"
+                        placeholder="your@email.com"
                         className={`w-full bg-slate-50 border ${errors.email ? "border-red-500" : "border-slate-200"} px-6 py-4 rounded-[5px] text-sm font-medium outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-[#1800AC] transition-all placeholder:text-slate-400`}
                       />
                     </div>

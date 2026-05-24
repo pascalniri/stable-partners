@@ -17,6 +17,9 @@ interface Slot {
   id: string;
   startTime: string;
   endTime: string;
+  localDate: string;
+  localTime: string;
+  localEndTime: string;
 }
 
 interface BookingCalendarProps {
@@ -48,8 +51,9 @@ export default function BookingCalendar({
 
   useEffect(() => {
     async function fetchSlots() {
+      setLoading(true);
       try {
-        const res = await fetch("/api/availability");
+        const res = await fetch(`/api/availability?timezone=${encodeURIComponent(timezone)}`);
         const data = await res.json();
         setAvailableSlots(data);
       } catch (err) {
@@ -59,14 +63,17 @@ export default function BookingCalendar({
       }
     }
     fetchSlots();
-  }, []);
+  }, [timezone]);
 
-  const availableDays = availableSlots.map((s) =>
-    startOfDay(parseISO(s.startTime)),
+  const availableDaysStrings = Array.from(
+    new Set(availableSlots.map((s) => s.localDate))
   );
-  const slotsForSelectedDay = availableSlots.filter((slot) =>
-    selectedDay ? isSameDay(parseISO(slot.startTime), selectedDay) : false,
-  );
+
+  const slotsForSelectedDay = availableSlots.filter((slot) => {
+    if (!selectedDay) return false;
+    const selectedDateStr = format(selectedDay, "yyyy-MM-dd");
+    return slot.localDate === selectedDateStr;
+  });
 
   return (
     <div className="flex flex-col lg:flex-row gap-8 bg-white rounded-[5px] overflow-hidden border border-slate-100 shadow-sm">
@@ -91,7 +98,8 @@ export default function BookingCalendar({
             const today = startOfDay(new Date());
             // Disable if strictly before today OR if not in availableDays
             if (isBefore(startOfDay(date), today)) return true;
-            return !availableDays.some((d) => isSameDay(d, date));
+            const dateStr = format(date, "yyyy-MM-dd");
+            return !availableDaysStrings.includes(dateStr);
           }}
           className="mx-auto"
         />
@@ -157,7 +165,7 @@ export default function BookingCalendar({
                 }`}
               >
                 <span className="font-bold text-sm">
-                  {format(parseISO(slot.startTime), "HH:mm")}
+                  {slot.localTime} - {slot.localEndTime}
                 </span>
                 <ChevronRight
                   size={14}
