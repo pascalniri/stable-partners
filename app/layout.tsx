@@ -73,7 +73,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={outfit.variable}>
       <head>
-        <script
+        <Script
+          id="schema-org"
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />

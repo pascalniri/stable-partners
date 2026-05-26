@@ -57,6 +57,12 @@ export default function Navbar() {
           >
             Talk to An Expert
           </Link>
+          <Link
+            href="/contact"
+            className="text-[11px] font-bold text-slate-600 uppercase tracking-[0.2em] hover:text-[#1800AC] transition-colors"
+          >
+            Contact
+          </Link>
         </div>
 
         <div className="hidden md:flex items-center gap-4">
@@ -113,6 +119,13 @@ export default function Navbar() {
             className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
           >
             Talk to An Expert
+          </Link>
+          <Link 
+            href="/contact" 
+            onClick={() => setIsMobileMenuOpen(false)}
+            className="text-[11px] font-bold text-slate-900 uppercase tracking-[0.2em]"
+          >
+            Contact
           </Link>
           
           <div className="flex flex-col gap-4 mt-4">
