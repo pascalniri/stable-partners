@@ -97,8 +97,8 @@ export default function BookingCalendar({
           onSelect={setSelectedDay}
           disabled={(date) => {
             const today = startOfDay(new Date());
-            // Disable if strictly before today OR if not in availableDays
-            if (isBefore(startOfDay(date), today)) return true;
+            // Disable if it's before today, if it is today, OR if not in availableDays
+            if (isBefore(startOfDay(date), today) || isSameDay(date, today)) return true;
             const dateStr = format(date, "yyyy-MM-dd");
             return !availableDaysStrings.includes(dateStr);
           }}
