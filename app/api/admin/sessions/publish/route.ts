@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/prisma";
 import { verifyAdmin } from "@/lib/auth";
 import { startOfDay, endOfDay, parseISO, isSameDay, format, addDays } from "date-fns";
+import { generateSlotsForDay } from "@/lib/scheduler";
 
 export async function POST(request: Request) {
   try {
@@ -68,29 +69,36 @@ export async function POST(request: Request) {
 
       if (override) {
         if (!override.isUnavailable && override.startTime && override.endTime) {
-          generateDaySessions(
+          const fallbackTemplate = templates.find((t) => t.dayOfWeek === dayOfWeek) || templates[0];
+          const dailySlots = generateSlotsForDay(
             currentDateStr,
             override.startTime,
             override.endTime,
-            templates[0].duration,
-            templates[0].buffer,
-            existingSessions,
-            sessionsToCreate
+            fallbackTemplate.timezone,
+            fallbackTemplate.duration,
+            fallbackTemplate.buffer
           );
+
+          for (const slot of dailySlots) {
+            checkAndAddSlot(slot, currentDateStr, existingSessions, sessionsToCreate);
+          }
         }
         // if isUnavailable is true, we block this day and create no sessions
       } else {
         const dayTemplate = templates.find((t) => t.dayOfWeek === dayOfWeek);
         if (dayTemplate) {
-          generateDaySessions(
+          const dailySlots = generateSlotsForDay(
             currentDateStr,
             dayTemplate.startTime,
             dayTemplate.endTime,
+            dayTemplate.timezone,
             dayTemplate.duration,
-            dayTemplate.buffer,
-            existingSessions,
-            sessionsToCreate
+            dayTemplate.buffer
           );
+
+          for (const slot of dailySlots) {
+            checkAndAddSlot(slot, currentDateStr, existingSessions, sessionsToCreate);
+          }
         }
       }
 
@@ -119,47 +127,27 @@ export async function POST(request: Request) {
   }
 }
 
-function generateDaySessions(
+function checkAndAddSlot(
+  slot: { startTime: Date; endTime: Date },
   dateStr: string,
-  startTimeStr: string,
-  endTimeStr: string,
-  durationMin: number,
-  bufferMin: number,
   existingSessions: any[],
   targetArray: any[]
 ) {
-  const [startH, startM] = startTimeStr.split(":").map(Number);
-  const [endH, endM] = endTimeStr.split(":").map(Number);
+  const hasOverlap = existingSessions.some((s) => {
+    if (s.status === "OPEN") return false; // Already deleted
+    const sStart = new Date(s.startTime).getTime();
+    const sEnd = new Date(s.endTime).getTime();
+    const pStart = slot.startTime.getTime();
+    const pEnd = slot.endTime.getTime();
+    return pStart < sEnd && pEnd > sStart;
+  });
 
-  const baseDate = new Date(dateStr + "T00:00:00");
-  let pointer = new Date(baseDate);
-  pointer.setHours(startH, startM, 0, 0);
-
-  const threshold = new Date(baseDate);
-  threshold.setHours(endH, endM, 0, 0);
-
-  while (pointer < threshold) {
-    const slotEnd = new Date(pointer.getTime() + durationMin * 60000);
-    if (slotEnd <= threshold) {
-      // Check for overlap with any booked/cancelled session
-      const hasOverlap = existingSessions.some((s) => {
-        if (s.status === "OPEN") return false; // Already deleted
-        const sStart = new Date(s.startTime).getTime();
-        const sEnd = new Date(s.endTime).getTime();
-        const pStart = pointer.getTime();
-        const pEnd = slotEnd.getTime();
-        return pStart < sEnd && pEnd > sStart;
-      });
-
-      if (!hasOverlap) {
-        targetArray.push({
-          date: new Date(dateStr),
-          startTime: new Date(pointer),
-          endTime: new Date(slotEnd),
-          status: "OPEN",
-        });
-      }
-    }
-    pointer = new Date(slotEnd.getTime() + bufferMin * 60000);
+  if (!hasOverlap) {
+    targetArray.push({
+      date: new Date(dateStr),
+      startTime: slot.startTime,
+      endTime: slot.endTime,
+      status: "OPEN",
+    });
   }
 }
