@@ -14,6 +14,7 @@ interface BookingCalendarProps {
 
 const TIMEZONES = [
   "UTC",
+  "Africa/Kigali",
   "America/New_York",
   "America/Los_Angeles",
   "America/Chicago",

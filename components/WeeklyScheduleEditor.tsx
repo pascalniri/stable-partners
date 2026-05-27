@@ -26,6 +26,7 @@ const DAYS_OF_WEEK = [
 
 const TIMEZONES = [
   "UTC",
+  "Africa/Kigali",
   "America/New_York",
   "America/Los_Angeles",
   "America/Chicago",

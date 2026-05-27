@@ -211,6 +211,7 @@ export default function DashboardPage() {
                                 weekday: "short",
                                 month: "short",
                                 day: "numeric",
+                                timeZone: booking.timezone,
                               })}
                             </div>
                             <div className="text-[10px] font-black text-slate-900 mt-1 uppercase tracking-tighter">
@@ -219,6 +220,13 @@ export default function DashboardPage() {
                               ).toLocaleTimeString(undefined, {
                                 hour: "2-digit",
                                 minute: "2-digit",
+                                timeZone: booking.timezone,
+                              })} - {new Date(
+                                booking.session.endTime,
+                              ).toLocaleTimeString(undefined, {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZone: booking.timezone,
                               })}{" "}
                               ({booking.timezone})
                             </div>
@@ -232,6 +240,7 @@ export default function DashboardPage() {
                                 weekday: "short",
                                 month: "short",
                                 day: "numeric",
+                                timeZone: booking.timezone,
                               })}
                             </div>
                             <div className="text-[10px] font-black text-slate-900 mt-1 uppercase tracking-tighter">
@@ -240,6 +249,13 @@ export default function DashboardPage() {
                               ).toLocaleTimeString(undefined, {
                                 hour: "2-digit",
                                 minute: "2-digit",
+                                timeZone: booking.timezone,
+                              })} - {new Date(
+                                booking.slot.endTime,
+                              ).toLocaleTimeString(undefined, {
+                                hour: "2-digit",
+                                minute: "2-digit",
+                                timeZone: booking.timezone,
                               })}{" "}
                               ({booking.timezone})
                             </div>

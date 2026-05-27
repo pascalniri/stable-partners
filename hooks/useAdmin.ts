@@ -16,6 +16,7 @@ export interface Booking {
   unitsRooms?: string;
   occupancyStatus?: string;
   estimatedIncome?: string;
+  currency?: string;
   mainChallenge?: string;
   mainGoal?: string;
   additionalInfo?: string;

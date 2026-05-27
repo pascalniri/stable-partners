@@ -29,6 +29,7 @@ interface BookingCalendarProps {
 
 const timezones = [
   "UTC",
+  "Africa/Kigali",
   "Europe/London",
   "Europe/Zurich",
   "Europe/Paris",
