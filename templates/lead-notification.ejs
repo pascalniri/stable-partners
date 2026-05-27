@@ -156,7 +156,13 @@
                         </tr>
                         <tr>
                             <td class="label">Est. Monthly Income</td>
-                            <td class="value"><%= locals.estimatedIncome || 'Not specified' %></td>
+                            <td class="value">
+                                <% if (locals.estimatedIncome && locals.estimatedIncome !== 'Not specified' && locals.estimatedIncome !== 'N/A') { %>
+                                    <%= locals.currency || '' %> <%= locals.estimatedIncome %>
+                                <% } else { %>
+                                    Not specified
+                                <% } %>
+                            </td>
                         </tr>
                     </table>
                 </div>

@@ -14,11 +14,13 @@ import {
   User,
   CheckCircle2,
 } from "lucide-react";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import toast from "react-hot-toast";
 import BookingCalendar from "../../BookingCalendar";
+import cc from "currency-codes";
+import CurrencyInput from "react-currency-input-field";
 
 // Validation Schema
 interface FormData {
@@ -39,6 +41,7 @@ interface FormData {
   additionalInfo?: string | null;
   slotId: string;
   timezone: string;
+  currency: string;
 }
 
 const schema: yup.ObjectSchema<FormData> = yup.object({
@@ -83,6 +86,7 @@ const schema: yup.ObjectSchema<FormData> = yup.object({
   additionalInfo: yup.string().notRequired(),
   slotId: yup.string().required("Please select a time slot"),
   timezone: yup.string().required("Timezone is required"),
+  currency: yup.string().required("Currency is required"),
 });
 
 const STEPS = [
@@ -104,11 +108,13 @@ export default function RegistrationForm() {
     watch,
     trigger,
     reset,
+    control,
     formState: { errors },
   } = useForm<FormData>({
     resolver: yupResolver(schema),
     defaultValues: {
       timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      currency: "RWF",
     },
   });
 
@@ -579,15 +585,37 @@ export default function RegistrationForm() {
                         <label className="text-[10px] font-black text-slate-500 uppercase tracking-widest ml-1">
                           Estimated Monthly Revenue
                         </label>
-                        <input
-                          {...register("estimatedIncome")}
-                          placeholder="e.g. $5,000/mo"
-                          className={`w-full px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
-                            errors.estimatedIncome
-                              ? "border-red-500"
-                              : "border-slate-200"
-                          }`}
-                        />
+                        <div className="flex gap-2">
+                          <select
+                            {...register("currency")}
+                            className="w-1/3 px-4 py-3 bg-slate-50 border border-slate-200 rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold text-sm"
+                          >
+                            {cc.codes().map((code) => (
+                              <option key={code} value={code}>
+                                {code} - {cc.code(code)?.currency}
+                              </option>
+                            ))}
+                          </select>
+                          <Controller
+                            name="estimatedIncome"
+                            control={control}
+                            render={({ field }) => (
+                              <CurrencyInput
+                                id="estimatedIncome"
+                                name={field.name}
+                                placeholder="e.g. 5000"
+                                decimalsLimit={2}
+                                value={field.value || ""}
+                                onValueChange={(val) => field.onChange(val)}
+                                className={`w-2/3 px-6 py-3 bg-slate-50 border rounded-[5px] focus:ring-4 focus:ring-blue-500/10 focus:border-[#1800AC] transition-all outline-none font-bold ${
+                                  errors.estimatedIncome
+                                    ? "border-red-500"
+                                    : "border-slate-200"
+                                }`}
+                              />
+                            )}
+                          />
+                        </div>
                         <p className="text-[10px] text-slate-400 ml-1">
                           Your current average monthly income from this asset.
                         </p>

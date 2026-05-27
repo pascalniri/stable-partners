@@ -221,7 +221,12 @@ export default function BookingDetailPage() {
                         Monthly Income
                       </span>
                       <p className="text-sm font-bold text-[#1800AC]">
-                        {booking.estimatedIncome || "N/A"}
+                        {booking.estimatedIncome && !isNaN(Number(booking.estimatedIncome)) 
+                          ? new Intl.NumberFormat("en-US", {
+                              style: "currency",
+                              currency: booking.currency || "USD",
+                            }).format(Number(booking.estimatedIncome))
+                          : (booking.estimatedIncome ? `${booking.currency || "USD"} ${booking.estimatedIncome}` : "N/A")}
                       </p>
                     </div>
                     <div>

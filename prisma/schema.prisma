@@ -106,6 +106,7 @@ model Booking {
   propertyLocation String?
   unitsRooms       String?
   occupancyStatus  String?
+  currency         String        @default("RWF")
   estimatedIncome  String?
   mainChallenge    String?
   mainGoal         String?
